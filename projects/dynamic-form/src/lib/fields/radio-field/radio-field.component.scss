@@ -1,0 +1,30 @@
+.radio-form{
+    border: 1px solid #74777f;
+    padding: 15px 20px;
+    position: relative;
+    border-radius: 4px;
+    .radio-form-label{
+      position: absolute;
+      top: -12px;
+      padding: 0 5px;
+      margin: 0 -8px;
+      background: #ffffff;
+    }
+  }
+
+.field-label{
+    color: var(--TEXT-GREY-COLOR);
+    font-weight: var(--FONT-WEIGHT-LOW);
+    font-size: 12px;
+    display: block;
+}
+.radio-section{
+    display: block;
+    margin-top: 5px;
+}
+
+.form-check{
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}

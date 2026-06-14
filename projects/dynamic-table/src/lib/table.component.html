@@ -1,0 +1,285 @@
+<div class="main-table-container">
+    <!-- Filter section begins -->
+     @if(search){
+      <div class="filter-section">
+        <!-- filter icon begins-->
+         <div class="filter-icon-section">
+            <div class="toggle-filter" (click)="toggleFilter()">
+              <mat-icon>filter_list</mat-icon>
+            </div>
+         </div>
+         <!-- filter icon ends -->
+        <!-- filter field begins -->
+         @if(filterVisibility){
+          <div class="filter">
+              <lib-dynamic-form
+                class="toolbar-form"
+                [fields]="search.formElements"
+              ></lib-dynamic-form>
+         </div>
+         }
+         <!-- filter field ends -->
+        <!-- Action button section begins -->
+        <div class="main-action-button">
+          <button
+            mat-stroked-button
+            color="primary"
+            [matMenuTriggerFor]="fieldVisibilitySettings"
+          >
+              <mat-icon class="unset-margin">settings</mat-icon>
+          </button>
+           <mat-menu #fieldVisibilitySettings="matMenu">
+              @for(col of masterDisplayedColumns;track col){
+                <div>
+                  <mat-checkbox [checked]="displayedColumns.includes(col)" (change)="columnVisibility(col)">
+                    {{col}}
+                  </mat-checkbox>
+                </div>
+              }
+          </mat-menu>
+          @if(actionRequired('export')){
+            <button
+              mat-stroked-button
+              color="primary"
+              [matMenuTriggerFor]="exportOptionMenu"
+            >
+                <mat-icon class="unset-margin">cloud_download</mat-icon>
+            </button>
+           <mat-menu #exportOptionMenu="matMenu">
+            <button mat-menu-item (click)="exportData('csv')">CSV</button>
+            <button mat-menu-item (click)="exportData('xlsx')">XLSX</button>
+            <button mat-menu-item (click)="exportData('pdf')">PDF</button>
+          </mat-menu>
+          }
+          @if(actionRequired('add')){
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="onTableAction('create')"
+            >
+              <mat-icon>add_circle</mat-icon>Add
+            </button>
+          }
+        </div>
+        <!-- Action button section ends -->
+      </div>
+     }
+    <!-- Filter section ends -->
+
+    <!-- Table section begins -->
+    <div class="table-container hide-scrollbar">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+        matSort
+        multiTemplateDataRows
+        (matSortChange)="onSortChanges($event)"
+        aria-label="table"
+      >
+        @if(tableDetails.selectRequired){
+          <ng-container matColumnDef="select" [sticky]="true">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox
+                color="primary"
+                (change)="$event ? toggleAllRows() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                [aria-label]="checkboxLabel()"
+              ></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox
+                color="primary"
+                (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)"
+                [aria-label]="checkboxLabel(row)"
+              ></mat-checkbox>
+            </td>
+          </ng-container>
+        }
+        @for(column of tableDetails.columns;track column){
+          @if(column.isComplex){
+             <ng-container matColumnDef="{{ column.columnDef }}">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">{{ column.header }}</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element[column.columnDef].length }}
+                  <button
+                    mat-icon-button
+                    aria-label="expand row"
+                    class="valign-middle"
+                    (click)="expandedElement = expandedElement === element ? null : element; $event.stopPropagation()"
+                  >
+                  @if(expandedElement === element){
+                    <mat-icon>keyboard_arrow_up</mat-icon>
+                  }@else{
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                  }
+                  </button>
+                </td>
+             </ng-container>
+          }@else{
+            <ng-container matColumnDef="{{ column.columnDef }}">
+              @if(column.sortRequired){
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ column.header }}
+                </th>
+              }@else{
+                <th mat-header-cell *matHeaderCellDef>{{ column.header }}</th>
+              }
+              @if(column.cell){
+                <td mat-cell *matCellDef="let row; let i = dataIndex">
+                  @if(isArray(column.cell(row))){
+                    @for(cell of column.cell(row);track cell;let first = $first){
+                      @if(first){
+                        {{ cell }}
+                      }
+                    }
+                    @if(column.cell(row).length > 1){
+                      @if(isExpandedGroupRow === i){
+                        <mat-icon class="hoverCursorIcon" (click)="expandList(i)">keyboard_arrow_up</mat-icon>
+                      }@else{
+                        <mat-icon class="hoverCursorIcon" (click)="expandList(i)">keyboard_arrow_down</mat-icon>
+                      }
+                    }
+                    @if(isExpandedGroupRow === i){
+                      @for(cell of column.cell(row);track cell;let first = $first){
+                        @if(!first){
+                          <div class="hoverContent">
+                            {{ cell }}
+                          </div>
+                        }
+                      }
+                    }
+                  }@else{
+                    {{ column.cell(row) }}
+                  }
+                </td>
+              }@else{
+                <td mat-cell *matCellDef="let row">{{ row[column.columnDef] }}</td>
+              }
+            </ng-container>
+          }
+        }
+        <!-- table expanded columns -->
+         @for(expandedCol of expandColumnDefination;track expandedCol){
+          <ng-container matColumnDef="{{ expandedPrefix + expandedCol.columnDef }}">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length + 1">
+              @if(element[expandedCol.columnDef]?.length > 0){
+                <div
+                class="example-element-detail"
+                [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'"
+              >
+                @if(expandedElement){
+                  <div class="inner-table mat-elevation-z8">
+                    <!-- IF THE OBJECT ARRAY NEEDS TO BE DISPLAYED -->
+                    <table
+                      mat-table
+                      #innerTables
+                      mat-table
+                      aria-label="table"
+                      [dataSource]="element[expandedCol.columnDef]"
+                      class="w-100"
+                    >
+                    @for(innerColumn of expandedCol?.innerColumns;track innerColumn){
+                      <ng-container matColumnDef="{{ innerColumn.columnDef }}">
+                        <th mat-header-cell *matHeaderCellDef>{{ innerColumn.header }}</th>
+                        <td mat-cell *matCellDef="let innerRow">
+                          {{ innerColumn.cell ? innerColumn.cell(innerRow) : innerRow[innerColumn.columnDef] }}
+                        </td>
+                      </ng-container>
+                    }
+                      <tr
+                        mat-header-row
+                        *matHeaderRowDef="getInnerColumnDef(expandedCol.innerColumns)"
+                        style="background-color: lightgray"
+                      ></tr>
+                      <tr
+                        mat-row
+                        *matRowDef="let row; columns: getInnerColumnDef(expandedCol.innerColumns)"
+                        [class.expanded-row]
+                      ></tr>
+                    </table>
+                  </div>
+                }
+              </div>
+              }
+            </td>
+          </ng-container>
+         }
+        <!-- Action Column -->
+         @if(actionRequired()){
+          <ng-container matColumnDef="action" [stickyEnd]="true">
+            <th mat-header-cell *matHeaderCellDef class="header-align-right">Action</th>
+            <td mat-cell *matCellDef="let element" class="header-align-right">
+              @if(tableDetails.tableButtons.view){
+                <button
+                class="action-icon action-view"
+                mat-menu-item
+                (click)="onTableAction('view', element)"
+                 >
+                   <mat-icon>remove_red_eye</mat-icon>
+                 </button>
+              }
+              @if(tableDetails.tableButtons.edit){
+                <button
+                class="action-icon action-edit"
+                mat-menu-item
+                (click)="onTableAction('edit', element)"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              }
+              @if(tableDetails.tableButtons.delete){
+                <button
+                class="action-icon action-delete"
+                mat-menu-item
+                (click)="onTableAction('delete', element)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              }
+            </td>
+          </ng-container>
+         }
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          [class.example-expanded-row]="expandedElement === row"
+          (click)="toggleRowSelect(row,$event)"
+         >
+        </tr>
+        <!-- table Rows which are expanded -->
+        <tr
+          mat-row
+          *matRowDef="let row; columns: getExpandedColumnHeaderDef(expandColumnDefination)"
+          class="example-detail-row"
+          style="height: 0 !important"
+          ></tr>
+      </table>
+    </div>
+    @if(dataset.data === undefined){
+      <mat-spinner class="loader-for-table"></mat-spinner>
+    }
+    @if(dataset.totalRecords === 0){
+      <section class="no-data-text">
+        <p>No Records Found</p>
+      </section>
+    }
+    @if(tableDetails.paging.enabled){
+      <mat-paginator
+        #paginator
+        class="mat-elevation-z8 table-paginator"
+        showFirstLastButtons
+        aria-label="Select page"
+        (page)="pageChanged($event)"
+      >
+      </mat-paginator>
+    }
+    <!-- Table section ends -->
+  </div>
+
+  

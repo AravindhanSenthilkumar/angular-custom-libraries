@@ -1,0 +1,25 @@
+<!-- file input section begins -->
+<div [formGroup]="form">
+  @if(field?.displayLabel){  <label class="field-label">{{ field?.label }}</label>}
+  <input 
+    type="file"
+    multiple=""
+    class="form-control file-input"
+    [class.is-invalid]="isDirty && !isValid"
+    [formControlName]="field.name"
+    [formGroup]="form"
+    [placeholder]="field.placeholder ? field.placeholder : ''"
+    title="{{ field.label }}"
+    [readonly]="field.readonly"
+    (change)="field.onUpload($any($event).target.files)" 
+  /> 
+  @if(field.value){
+    <div>
+      <button type="button" class="btn btn-primary">Change</button>
+      <div class="card">
+        <img class="card-img-top" [src]="field.value" alt="file-upload" />
+      </div>
+    </div>
+  }
+  </div>
+  <!-- file input section ends -->

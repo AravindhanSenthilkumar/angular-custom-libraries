@@ -1,0 +1,56 @@
+<!-- date picker section begins -->
+<section [formGroup]="form" [matTooltipPosition]="'above'" matTooltip="{{ field?.tooltip }}">
+    @switch (field.type) {
+      @case ('date') {
+        <mat-form-field class="input-form-field" [appearance]="field?.outline ? 'outline' : 'fill'" [floatLabel]="field?.floatLabel" [hideRequiredMarker]="field?.markerInLabel ? true : false">
+            @if(field?.displayLabel){
+              <mat-label class="field-label"> {{ field?.label }}</mat-label>
+            }
+            @if(field?.prefixIcon){<mat-icon matPrefix>{{field?.prefixIcon}}</mat-icon>}
+            @if(field?.prefixText){ <span matTextPrefix>{{field?.prefixText}}</span>}
+            <input 
+                matInput 
+                [matDatepicker]="picker"
+                class="form-control"
+                [class.is-invalid]="isDirty && !isValid"
+                [formControlName]="field.name"
+                [formGroup]="form"
+                [placeholder]="field.placeholder ? field.placeholder : ''"
+                title="{{ field.label }}"
+                [disabled]="false"
+                (ngModelChange)="field?.OnChange ? field?.OnChange($event, field.name) : null"
+            >
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if(field?.suffixText){<span matTextSuffix>{{field?.suffixText}}</span>}
+            @if(field?.suffixIcon){<mat-icon matSuffix>{{field?.suffixIcon}}</mat-icon>}
+            @if(field?.hint){<mat-hint>{{field?.hint}}</mat-hint>}
+        </mat-form-field>
+      }
+      @case ('time') {
+        <mat-form-field class="input-form-field" [appearance]="field?.outline ? 'outline' : 'fill'" [floatLabel]="field?.floatLabel" [hideRequiredMarker]="field?.markerInLabel ? true : false">
+            @if(field?.displayLabel){
+              <mat-label class="field-label"> {{ field?.label }}</mat-label>
+            }
+            @if(field?.prefixIcon){<mat-icon matPrefix>{{field?.prefixIcon}}</mat-icon>}
+            @if(field?.prefixText){<span matTextPrefix>{{field?.prefixText}}</span>}
+            <input 
+              matInput 
+              [attr.type]="field.type"
+              [class.is-invalid]="isDirty && !isValid"
+              [formControlName]="field.name"
+              [formGroup]="form"
+              [placeholder]="field.placeholder ? field.placeholder : ''"
+              title="{{ field.label }}"
+              [disabled]="false"
+              (ngModelChange)="field?.OnChange ? field?.OnChange($event, field.name) : null"
+            >
+            @if(field?.suffixText){ <span matTextSuffix>{{field?.suffixText}}</span>}
+            @if(field?.suffixIcon){<mat-icon matSuffix>{{field?.suffixIcon}}</mat-icon>}
+            @if(field?.hint){ <mat-hint>{{field?.hint}}</mat-hint>}
+        </mat-form-field>
+      }
+      @default {}
+    }
+  </section>
+  <!-- date picker section ends -->

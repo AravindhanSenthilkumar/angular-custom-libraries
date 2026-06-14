@@ -1,0 +1,39 @@
+/********************************************************************** 
+  Page : field index component styles
+  Desc : contains scss styles of field index component
+**********************************************************************/
+
+.field-label {
+  color: var(--TEXT-GREY-COLOR);
+  font-weight: var(--FONT-WEIGHT-LOW);
+  font-size: var(--FONT-SIZE-FOR-SMALL-TEXT);
+}
+.input-form-field {
+  width: 100%;
+  font-size: var(--FONT-SIZE-FOR-NORMAL-TEXT);
+  font-weight: var(--FONT-WEIGHT-NORMAL);
+  color: var(--TEXT-DARK-COLOR);
+  .prefix-icon {
+    margin: 2px 5px;
+  }
+}
+.form-control:focus {
+  background: unset !important;
+  box-shadow: unset !important;
+  outline: unset !important;
+}
+.date-picker-toggle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.required {
+  color: var(--ALERT-DANGER-COLOR);
+}

@@ -1,0 +1,24 @@
+<!-- radio input section begins -->
+<section [formGroup]="form" [ngClass]="{ 'radio-form': field?.outline }">
+  @if(field.displayLabel){
+    <label class="field-label"  [ngClass]="{ 'radio-form-label': field?.outline }">
+      {{ field.label }} @if(field?.markerInLabel){*}
+    </label> 
+  }
+  <div class="radio-section">
+    @for(opt of field?.options;track opt){
+      <div class="form-check">
+        <label class="form-check-label">
+          <input 
+            [formControlName]="field.name" 
+            class="form-check-input" 
+            type="radio" 
+            [value]="opt.key" 
+          />
+          {{ opt.label }}
+        </label>
+      </div>
+    }
+  </div> 
+</section>
+  <!-- radio input section ends -->

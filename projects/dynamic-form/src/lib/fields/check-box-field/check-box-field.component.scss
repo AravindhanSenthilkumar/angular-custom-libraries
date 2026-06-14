@@ -1,0 +1,40 @@
+/********************************************************************** 
+  Page : check box component styles
+  Desc : contains scss styles of check box component
+**********************************************************************/
+
+
+.check-box-form{
+  border: 1px solid #74777f;
+  padding: 10px;
+  position: relative;
+  border-radius: 4px;
+  .check-box-form-label{
+    position: absolute;
+    top: -12px;
+    padding: 0 5px;
+    margin: 0 4px;
+    background: #ffffff;
+  }
+}
+
+.field-label {
+  color: var(--TEXT-GREY-COLOR);
+  font-weight: var(--FONT-WEIGHT-LOW);
+  font-size: 12px;
+  display: block;
+}
+.check-box-section {
+  height: 100%;
+  .check-box-input {
+    padding: 2px 0px;
+  }
+}
+.input-checkbox-label {
+  font-size: var(--FONT-SIZE-FOR-NORMAL-TEXT);
+  font-weight: var(--FONT-WEIGHT-NORMAL);
+  margin-right: 20px;
+  color: var(--TEXT-DARK-COLOR);
+}
+
+

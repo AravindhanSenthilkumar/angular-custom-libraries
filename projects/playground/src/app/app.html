@@ -1,0 +1,23 @@
+<json-editor 
+  style="height:250px;" 
+  [options]="editorOptions"
+  [data]="showForm ? formElements : tableDetail" 
+  (change)="changeLog($event)" 
+  #editor
+></json-editor>
+<div class="playground-container">
+  @if(showForm){
+  <lib-dynamic-form
+    [fields]="formElements"
+    (onSubmitForm)="submitForm($event)"
+    (onCancelForm)="cancelForm()">
+  </lib-dynamic-form>
+} @else if(showTable){
+  <lib-dynamic-table
+    [dataset]="data"
+    [tableDetails]="tableDetail"
+    [search]="search"
+    (action)="onTableAction($event)"
+  ></lib-dynamic-table>
+}
+</div>

@@ -1,0 +1,21 @@
+/********************************************************************** 
+  Page : drop down component styles
+  Desc : contains scss styles of drop down component
+**********************************************************************/
+
+.field-label {
+  color: var(--TEXT-GREY-COLOR);
+  font-weight: var(--FONT-WEIGHT-LOW);
+  font-size: var(--FONT-SIZE-FOR-SMALL-TEXT);
+}
+.input-form-field {
+  width: 100%;
+  .select-drop-down {
+    color: var(--TEXT-GREY-COLOR);
+    font-weight: var(--FONT-WEIGHT-LOW);
+    font-size: var(--FONT-SIZE-FOR-VERY-SMALL-TEXT);
+  }
+}
+.required {
+  color: var(--ALERT-DANGER-COLOR);
+}

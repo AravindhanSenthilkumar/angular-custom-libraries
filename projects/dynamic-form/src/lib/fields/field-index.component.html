@@ -1,0 +1,33 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
+<!-- field index section begins -->
+<ng-container [formGroup]="form">
+  <section class="{{ field?.readonly ? 'field-in-active' : 'field-active' }}">
+     <!-- individual field section begins -->
+    @switch (field.type) {
+      @case ('text') {<app-text-field [field]="field" [form]="form"></app-text-field>}
+      @case ('number') {<app-text-field [field]="field" [form]="form"></app-text-field> }
+      @case ('email') {<app-text-field [field]="field" [form]="form"></app-text-field> }
+      @case ('tel') {<app-text-field [field]="field" [form]="form"></app-text-field> }
+      @case ('url') {<app-text-field [field]="field" [form]="form"></app-text-field> }
+      @case ('color') { <app-text-field [field]="field" [form]="form"></app-text-field>}
+      @case ('password') {<app-password-field [field]="field" [form]="form"></app-password-field> }
+      @case ('text-area') { <app-text-area-field [field]="field" [form]="form"></app-text-area-field> }
+      @case ('date') {<app-date-time-field [field]="field" [form]="form"></app-date-time-field>}
+      @case ('time') {<app-date-time-field [field]="field" [form]="form"></app-date-time-field>}
+      @case ('drop-down') {<app-dropdown-field [field]="field" [form]="form"></app-dropdown-field> }
+      @case ('checkbox') {<app-check-box-field [field]="field" [form]="form"></app-check-box-field> }
+      @case ('radio') {<app-radio-field [field]="field" [form]="form"></app-radio-field> }
+      @case ('slide-toggle') {<app-slide-toggle [field]="field" [form]="form"></app-slide-toggle> }
+      @case ('range') {<app-range-input-field [field]="field" [form]="form"></app-range-input-field> }
+      @case ('file') { <app-file-input-field [field]="field" [form]="form"></app-file-input-field>}
+      @default { }
+    }
+   <!-- individual field section ends -->
+    <!-- form validation error message begins -->
+     @if(!isValid && isDirty){
+      <section class="invalid-feedback d-block">{{ errorMessage }}</section>
+     }
+    <!-- form validation error message ends -->
+  </section>
+</ng-container>
+<!-- field index section ends -->

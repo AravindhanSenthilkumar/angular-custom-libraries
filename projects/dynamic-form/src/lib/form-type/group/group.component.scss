@@ -1,0 +1,30 @@
+.group-form-container{
+    .group-form-panel-section{
+      .group-form-heading{
+        padding: 20px 0px;
+        .group-form-header-text{
+          font-weight: var(--FONT-WEIGHT-BOLD);
+          color: var(--PRIMARY-COLOR);
+        }
+      }
+    }
+  }
+  
+  .group-form-container-outline{
+    margin-top: 30px;
+    .group-form-panel-section-outline{
+        border: 1px solid #74777f;
+        border-radius: 4px;
+        .group-form-heading{
+          padding: 15px 25px!important;
+          border-bottom: 1px solid #74777f;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .group-form-content{
+          padding: 25px 20px 5px 20px;
+          margin: unset;
+        }
+      }
+  }

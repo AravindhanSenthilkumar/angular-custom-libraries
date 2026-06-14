@@ -1,0 +1,23 @@
+<section [formGroup]="form" [matTooltipPosition]="'above'" matTooltip="{{ field?.tooltip }}">
+    <mat-form-field class="input-form-field" [appearance]="field?.outline ? 'outline' : 'fill'" [floatLabel]="field?.floatLabel" [hideRequiredMarker]="field?.markerInLabel ? true : false">
+        @if(field?.displayLabel){<mat-label class="field-label"> {{ field?.label }}</mat-label>}
+        @if(field?.prefixIcon){<mat-icon matPrefix>{{field?.prefixIcon}}</mat-icon>}
+        @if(field?.prefixText){ <span matTextPrefix>{{field?.prefixText}}</span>}
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            [class.is-invalid]="isDirty && !isValid"
+            [formControlName]="field.name"
+            class="form-control"
+            [placeholder]="field.placeholder ? field.placeholder : ''"
+            [readonly]="field.readonly"
+            [formGroup]="form"
+            title="{{ field.label }}"
+            (ngModelChange)="field?.OnChange ? field?.OnChange($event, field.name) : null"
+        >
+        </textarea>
+        @if(field?.suffixText){ <span matTextSuffix>{{field?.suffixText}}</span>}
+        @if(field?.suffixIcon){<mat-icon matSuffix>{{field?.suffixIcon}}</mat-icon>}
+        @if(field?.hint){<mat-hint>{{field?.hint}}</mat-hint>}
+    </mat-form-field>
+</section>

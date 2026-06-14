@@ -1,0 +1,104 @@
+<ng-container [formGroup]="form">
+    <!-- form array section begins -->
+    <section class="array-form-container">
+        @if(field?.outline){
+            <div [formArrayName]="field.name">
+                @for(group of getFormArray(field.name).controls; track group; let i = $index,first = $first,l = $last){
+                    <div class="array-form-panel-section" [ngClass]="{ 'gap-between-each-panel': !first }"[formGroupName]="i">
+                        <div class="array-form-header">
+                            @if(field?.displayLabel){
+                                <div class="array-form-heading-text">
+                                    {{ field.label }} {{ i + 1 }}
+                                </div>
+                            }
+                            <div class="array-form-header-button">
+                                @if(l){
+                                    <button 
+                                        mat-button color="primary" 
+                                        class="form-array-btn btn-add" 
+                                        (click)="getFormArray(field.name).push(this.addGroupArray(field.children))"
+                                    >
+                                        <mat-icon aria-hidden="false" aria-label="filter icon" fontIcon="add_circle"></mat-icon>
+                                        Add
+                                    </button>
+                                }
+                                @if(getFormArray(field.name).controls.length > 1){
+                                    <button 
+                                        mat-button color="primary"
+                                        class="form-array-btn btn-remove" 
+                                        (click)="getFormArray(field.name).removeAt(i)"
+                                    >
+                                        <mat-icon aria-hidden="false" aria-label="filter icon" fontIcon="remove_circle"></mat-icon>
+                                        Delete
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                        <div class="custom-row array-content">
+                            @for(item of field.children;track item){
+                                @if(item?.visible){
+                                    <app-field-index 
+                                        noLabel="true" 
+                                        [form]="getFormArray(field.name).at(i)" 
+                                        [field]="item"
+                                        class="custom-col-{{ item?.numberOfColumns }} "
+                                    ></app-field-index>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        @else{
+            @if(field?.displayLabel){
+                <div class="array-form-heading">{{ field.label }}</div>
+            }
+            <div [formArrayName]="field.name">
+                @for(group of getFormArray(field.name).controls;track group;let i = $index, l = $last){
+                    <div class="custom-row array-form-input-section" [formGroupName]="i">
+                        @for(item of field.children; track item){
+                            @if(item?.visible){
+                                <app-field-index 
+                                    noLabel="true" 
+                                    [form]="getFormArray(field.name).at(i)" 
+                                    [field]="item"
+                                    class="custom-col-{{ item?.numberOfColumns }}"
+                                ></app-field-index>
+                            }
+                        }
+                        <div class="custom-col-3 array-btn-section">
+                            @if(l){
+                            <button 
+                                mat-button 
+                                color="primary" 
+                                class="form-array-btn btn-add" 
+                                (click)="getFormArray(field.name).push(this.addGroupArray(field.children))"
+                            >
+                                <mat-icon aria-hidden="false" aria-label="filter icon" fontIcon="add_circle"></mat-icon>
+                                Add
+                            </button>
+                            }
+                            @if(getFormArray(field.name).controls.length > 1){ 
+                            <button
+                                mat-button color="primary"
+                                class="form-array-btn btn-remove" 
+                                (click)="getFormArray(field.name).removeAt(i)"
+                            >
+                                <mat-icon aria-hidden="false" aria-label="filter icon" fontIcon="remove_circle"></mat-icon>
+                                Delete
+                            </button>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </section>
+    <!-- form array section ends -->
+    <!-- form validation error message begins -->
+     @if(getFormArray(field.name).errors?.['duplicateValidator']){
+        <section class="invalid-feedback d-block">{{ errorMessage }}</section>
+     }
+     <!-- form validation error message ends -->
+</ng-container>

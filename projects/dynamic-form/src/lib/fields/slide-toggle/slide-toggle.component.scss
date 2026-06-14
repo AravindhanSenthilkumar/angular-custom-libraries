@@ -1,0 +1,17 @@
+.input-slide-label{
+    display: block;
+    margin-bottom: 8px;
+    color: var(--TEXT-GREY-COLOR);
+    font-weight: var(--FONT-WEIGHT-LOW);
+    font-size: 12px;
+}
+
+::ng-deep .mdc-switch__track{
+    height: 22px!important;
+    width: 90% !important;
+}
+
+::ng-deep .mdc-switch__handle{
+    width: 20px!important;
+    height: 20px!important;
+}

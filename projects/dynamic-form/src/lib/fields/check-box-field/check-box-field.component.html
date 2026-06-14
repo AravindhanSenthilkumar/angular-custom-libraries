@@ -1,0 +1,24 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
+<!-- check box section begins -->
+<section [formGroup]="form" [ngClass]="{ 'check-box-form': field?.outline }">
+  @if(field.displayLabel){
+    <label class="field-label"  [ngClass]="{ 'check-box-form-label': field?.outline }">
+      {{ field.label }}   @if(field?.markerInLabel){*}
+    </label>
+  }
+  <div class="check-box-section">
+    <div class="check-box-input">
+        @for(opt of field.options;track opt){
+          <mat-checkbox
+            [checked]="field.value"
+            (change)="field?.OnChange($event, field.name);toggle($event, opt.key)"
+            [name]="field.name"
+            [color]="'primary'"
+          >
+            {{ opt.label }}
+          </mat-checkbox>
+        }
+    </div>
+  </div>
+</section>
+<!-- check box section ends -->

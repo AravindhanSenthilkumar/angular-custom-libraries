@@ -1,0 +1,27 @@
+<!-- slider section begins -->
+<section [formGroup]="form" [ngClass]="{ 'check-box-form': field?.outline }" [matTooltipPosition]="'above'" matTooltip="{{ field?.tooltip }}">
+    @if(field.displayLabel){
+        <label class="field-label"  [ngClass]="{ 'range-form-label': field?.outline }">
+            {{ field.label }} @if(field?.markerInLabel){*}
+        </label>
+    }
+    <mat-slider 
+        min="{{field?.rangeMinimum}}" 
+        max="{{field?.rangeMaximum}}"
+        step = {{field?.rangeStepper}}
+        discrete 
+        [displayWith]="formatLabel"
+        class="slider"
+    >
+        <input 
+            matSliderThumb
+            [class.is-invalid]="isDirty && !isValid"
+            [formControlName]="field.name"
+            [formGroup]="form"
+            title="{{ field.label }}"
+            [readonly]="field.readonly"
+            (ngModelChange)="field?.OnChange ? field?.OnChange($event, field.name) : null"
+        >
+      </mat-slider>
+  </section>
+  <!-- slider section ends -->

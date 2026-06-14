@@ -1,0 +1,9 @@
+<section [formGroup]="form">
+  @if(field?.displayLabel){ <mat-label class="input-slide-label">{{ field?.label }} </mat-label>}
+    <mat-slide-toggle
+      [color]="color"
+      [checked]="field.value"
+      (change)="toggle($event, field.name); field?.OnChange ? field?.OnChange($event, field.name) : null"
+      >
+    </mat-slide-toggle>
+  </section>

@@ -1,0 +1,29 @@
+<!-- form group section begins -->
+<ng-container [formGroup]="form">
+  <section class="group-form-container" [ngClass]="{ 'group-form-container-outline': field?.outline }">
+    <div class="group-form-panel-section" [ngClass]="{ 'group-form-panel-section-outline': field?.outline }">
+      <div class="group-form-heading">
+        @if(field?.displayLabel){
+          <label class="group-form-header-text">
+            {{field?.label}}
+          </label>
+        }
+      </div>
+      <div class="group-form-content">
+        <div class="custom-row" [formGroup]="getFormGroup(field?.name)">
+          @for(item of field?.children; track item){
+            @if(item?.visible){
+              <app-field-index 
+              noLabel="true" 
+              [form]="getFormGroup(field?.name)" 
+              [field]="item"
+              class="custom-col-{{ item?.numberOfColumns }}"
+            ></app-field-index>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>
+<!-- form group section ends -->

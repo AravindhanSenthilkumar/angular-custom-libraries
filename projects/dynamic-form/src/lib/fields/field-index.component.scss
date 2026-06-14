@@ -1,0 +1,19 @@
+/********************************************************************** 
+  Page : field index component styles
+  Desc : contains scss styles of field index component
+**********************************************************************/
+
+.field-in-active {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.field-active {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.invalid-feedback {
+  font-size: var(--FONT-SIZE-FOR-SMALL-TEXT);
+  font-weight: var(--FONT-WEIGHT-NORMAL);
+  margin-bottom: 5px;
+}
