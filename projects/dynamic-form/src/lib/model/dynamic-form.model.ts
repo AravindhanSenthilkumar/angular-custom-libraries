@@ -78,3 +78,8 @@ export interface Wizards {
   wizards?: Array<WizardForm>;
   outline?: boolean;
 }
+
+export interface DynamicFormDetails {
+  formComponent?: Form;
+  wizardComponent?: Wizards;
+}

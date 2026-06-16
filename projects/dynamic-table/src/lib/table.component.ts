@@ -23,7 +23,7 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { DynamicForm } from 'dynamic-form';
+import { DynamicForm, DynamicFormDetails } from 'dynamic-form';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { OrderBy, SearchRequest } from './model/table.model';
 
@@ -161,6 +161,12 @@ export class DynamicTable implements OnChanges, OnInit, OnDestroy, AfterViewInit
     value: {},
     searchAt: SearchAt.ClientSide
   };
+  /**
+   * Desc : send search element to form component
+   */
+  public dynamicFormDetails: DynamicFormDetails = {
+    formComponent: this.search.formElements
+  }  
   /**
    * Desc : emitting the action output to parent component
    */

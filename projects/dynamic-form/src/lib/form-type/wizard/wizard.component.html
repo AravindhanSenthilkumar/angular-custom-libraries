@@ -1,0 +1,46 @@
+<mat-stepper class="stepper-wizard" [linear]="true" #stepper [ngClass] ="{'stepper-with-outline': wizardForm.outline}">
+   @for(wizard of wizardForm.wizards; track wizard; let i = $index, first = $first, last = $last){
+    <mat-step>
+      <ng-template matStepLabel>{{ wizard.wizardName }}</ng-template>
+      @if(wizard.form.controls.length > 0){
+        <form-type-index [fields]="wizard.form" (onFormValueChange)="formGroupValues(i, $event)"></form-type-index>
+      }
+      <div class="btn-section">
+          <button 
+            mat-button
+            class="form-btn-cancel" 
+            (click)="onCancel()"
+          >
+            Cancel
+          </button>
+          @if(!first){
+            <button 
+              mat-stroked-button 
+              matStepperPrevious 
+              class="form-btn-previous"
+            >
+              Previous
+            </button>
+          }
+          @if(!last){
+            <button 
+              mat-stroked-button 
+              matStepperNext
+              [disabled]="!formValues[i].valid"
+            >
+              Next
+            </button>
+          }
+          @if(last && wizard.form.controls.length > 0){
+              <button
+                 mat-flat-button
+                [disabled]="!isValidWizard"
+                (click)="submitWizardForm()"
+              >
+                Submit
+              </button>
+          }
+      </div>
+    </mat-step>
+   }
+  </mat-stepper>

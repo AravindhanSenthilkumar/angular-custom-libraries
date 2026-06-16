@@ -1,0 +1,32 @@
+/********************************************************************** 
+  Page : wizard Form  component styles
+  Desc : contains scss styles of wizard form component
+**********************************************************************/
+
+.stepper-wizard {
+    background: unset;
+    .btn-section {
+      text-align: right;
+      .form-btn-previous {
+        margin-right: 15px;
+      }
+      .form-btn-cancel {
+        margin-right: 15px;
+      }
+    }
+  }
+
+.stepper-with-outline{
+  ::ng-deep .mat-horizontal-stepper-wrapper{
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+  }
+  
+  ::ng-deep .mat-horizontal-stepper-header-container{
+    border-bottom: 1px solid #cccccc;
+  }
+  
+  ::ng-deep .mat-horizontal-content-container{
+    padding: 15px 20px 25px 5px!important;
+  }
+}

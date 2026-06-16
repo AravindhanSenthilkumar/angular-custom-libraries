@@ -1,66 +1,15 @@
-<!-- Form builder begins -->
-<form [formGroup]="form" [name]="form" class="main-form custom-container-fluid" [ngClass] ="{'form-with-outline': fields.outline}">
-  <!-- form field section begins -->
-  <div class="custom-row">
-    @for(field of fields.controls;track field){
-      @if(field?.visible){
-        @if(field.type != 'array' &&  field.type != 'group'){
-          <app-field-index
-            [field]="field"
-            [form]="form"
-            class="custom-col-{{ field?.numberOfColumns }}"
-          ></app-field-index>
-        } @else if(field.type == 'array'){
-          <app-array
-              [field]="field"
-              [form]="form"
-              class="custom-col-12"
-          ></app-array>
-        } @else if(field.type == 'group'){
-          <app-group
-            [field]="field"
-            [form]="form"
-            class="custom-col-12"
-          ></app-group>
-        }
-      }
-    }
-  </div>
-  <!-- form field section ends -->
-  <!-- button section begins -->
-   @if(fields.buttons){
-    <div class="custom-row form-btn-section">
-      <div class="custom-col-12">
-        @if(fields.buttons.reset?.visible){
-          <button 
-            mat-button
-            (click)="formReset()" 
-            >
-            {{fields.buttons.reset?.name}}
-          </button>
-        }
-        @if(fields.buttons.cancel?.visible){
-          <button
-            mat-stroked-button
-            (click)="cancelForm()"
-          >
-          {{fields.buttons.cancel?.name}}
-          </button>
-        }
-        @if(fields.buttons.submit?.visible){
-          <button
-            mat-flat-button
-            color="primary"
-            type="submit"
-            [disabled]="!form.valid"
-            (click)="submitForm(form.getRawValue())"
-          >
-          {{fields.buttons.submit?.name}}
-          </button>
-        }
-      </div>
-    </div>
-   }
-  <!-- button section ends -->
-</form>
-<!-- Form builder ends -->
+@if(this.dynamicFormDetails.formComponent){
+  <form-type-index 
+    [fields]="dynamicFormDetails.formComponent"
+    (onSubmitForm)="submitForm($event)"
+    (onCancelForm)="cancelForm()"
+    (onFormValueChange)="valueChanges($event)"
+    ></form-type-index>
+} @else if(this.dynamicFormDetails.wizardComponent){
+  <app-wizard 
+    [wizardForm]="dynamicFormDetails.wizardComponent"
+    (onSubmitWizardForm)="submitForm($event)"
+    (onCancelWizardForm)="cancelForm()"
+    (wizardFormValueChange)="valueChanges($event)"
+  ></app-wizard>
+}

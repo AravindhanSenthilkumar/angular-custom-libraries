@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { AppLiteralConsts } from './constant/consts';
 import { FieldIndexComponent } from './fields/field-index.component';
 import { ArrayComponent } from './form-type/array/array.component';
 import { GroupComponent } from './form-type/group/group.component';
-import { Form, Field } from './model/dynamic-form.model';
-import { MainValidator } from './validators/validators-index.component';
+import { DynamicFormDetails } from './model/dynamic-form.model';
+import { WizardComponent } from './form-type/wizard/wizard.component';
+import { FormTypeIndex } from './form-type/form-type-index';
 
 @Component({
   selector: 'lib-dynamic-form',
@@ -19,12 +19,18 @@ import { MainValidator } from './validators/validators-index.component';
     FormsModule,
     MatButtonModule,
     ArrayComponent,
-    GroupComponent
+    GroupComponent,
+    WizardComponent,
+    FormTypeIndex
   ],
   templateUrl: './dynamic-form.html',
   styleUrl: './dynamic-form.scss',
 })
 export class DynamicForm {
+  /**
+   * Desc : input form data from consumer component
+   */
+  @Input() public dynamicFormDetails: DynamicFormDetails = {};
   /**
    * Desc : declaring output to emitting values to parent component
    */
@@ -38,30 +44,10 @@ export class DynamicForm {
    */
   @Output() public onFormValueChange: EventEmitter<any> = new EventEmitter();
   /**
-   * Desc : declaring input to receive values from parent component
+   * Desc : emit values to parent component when form value changes
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Input() public fields: Form = {
-    controls: [],
-    outline: false
-  };
-  /**
-   * Desc : declaring form to initalize the formGroup
-   */
-  public form: FormGroup = new FormGroup({});
-  /**
-   * Desc : executes when the component is initiated
-   */
-  public ngOnInit(): void {
-    this.getForm(this.form, this.fields?.controls);
-  }
-  /**
-   * Desc : executes when input changes from child component
-   */
-  public ngOnChanges(): void {
-    this.form.valueChanges.subscribe(() => {
-      this.onFormValueChange.emit(this.form);
-    });
+  public valueChanges(event: any){
+    this.onFormValueChange.emit(event);
   }
   /**
    * Desc : emitting the form values to parent component
@@ -77,85 +63,5 @@ export class DynamicForm {
    */
   public cancelForm() {
     this.onCancelForm.emit();
-  }
-  /**
-   * Desc : Reset full form
-   */
-  public formReset(): void {
-    this.form.reset();
-  }
-  /**
-   * Desc : preparing the form fields
-   * @param group : form group details
-   * @param fields : field details
-   */
-  public getForm(group: FormGroup, fields: Array<Field>) {
-    if (Array.isArray(fields)) {
-      for (const field of fields) {
-        switch (field.type) {
-          case AppLiteralConsts.dataTypes.group:
-            group.addControl(field.name, new FormGroup({}));
-            this.getForm(
-              group.get(field.name) as FormGroup,
-              field.children ?? []
-            );
-            break;
-          case AppLiteralConsts.dataTypes.array:
-            group.addControl(
-              field.name,
-              new FormArray([], MainValidator.getValidators(field))
-            );
-            // eslint-disable-next-line no-case-declarations
-            const array = group.get(field.name) as FormArray;
-            if (field.value) {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              field.value.forEach((x: any) =>
-                array.push(
-                  this.addGroupArray(field.children ?? [], x) as FormGroup
-                )
-              );
-            }
-            break;
-          default:
-            // eslint-disable-next-line no-case-declarations
-            const val =
-              field.value != null && field.value != undefined
-                ? field.value
-                : '';
-            group.addControl(
-              field.name,
-              new FormControl(val, MainValidator.getValidators(field))
-            );
-            break;
-        }
-      }
-    }
-  }
-  /**
-   * Desc : creating form array
-   * @param fields : field details
-   * @param value : form values
-   * @returns : form Array
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public addGroupArray(fields: Field[], value: any): FormGroup {
-    const group: FormGroup = new FormGroup({});
-    fields.forEach((field) => {
-      let val = null;
-      if (value != null) {
-        val = value[field.name] ?? null;
-      }
-      group.addControl(
-        field.name,
-        new FormControl(val, MainValidator.getValidators(field))
-      );
-    });
-    return group;
-  }
-  /**
-   * Desc : analysing the input columns and round the values
-   */
-  public roundValues(noOfcolumns: number): number {
-    return Math.round(12 / noOfcolumns);
   }
 }
