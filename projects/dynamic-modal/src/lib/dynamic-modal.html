@@ -1,0 +1,18 @@
+<section class="alert-modal-container">
+    <div class="model-header">
+      <div class="model-title text-{{ justification }}">{{ title }}</div>
+      <button mat-button class="close-icon" [mat-dialog-close]="true">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="mat-dialog-content" mat-dialog-content>
+      <ndc-dynamic
+        [ndcDynamicComponent]="inputData.component"
+        [ndcDynamicInputs]="inputs"
+        [ndcDynamicOutputs]="{
+          onPopupSubmit: { handler: onSubmit, args: ['$event'] },
+          onPopupClose: { handler: onClose, args: ['$event'] }
+        }"
+      ></ndc-dynamic>
+    </div>
+  </section>

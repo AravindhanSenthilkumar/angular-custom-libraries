@@ -1,0 +1,43 @@
+.model-header {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  .model-title {
+    padding: 20px 25px;
+    color: var(--TEXT-DARK-COLOR);
+    font-weight: 500;
+    font-size: 20px;
+    width: 100%;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .close-icon {
+    justify-content: center;
+    color: var(--TEXT-DARK-COLOR);
+    font-weight: 500;
+    mat-icon {
+      font-size: 22px;
+    }
+    &:hover{
+      background: unset;
+      border-radius: unset;
+    }
+  }
+}
+.mat-dialog-content {
+  clear: both;
+}
+::ng-deep .mat-dialog-content .manage-card-container {
+  margin-top: unset !important;
+  margin-bottom: unset !important;
+  .form-input-form-container {
+    margin-top: unset !important;
+  }
+}

@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { AlertService } from 'dynamic-alert';
+import { PopupBaseComponent } from 'dynamic-modal';
 
 @Component({
   selector: 'app-alert-test',
@@ -9,7 +11,7 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
   templateUrl: './alert-test.html',
   styleUrl: './alert-test.scss',
 })
-export class AlertTest {
+export class AlertTest extends PopupBaseComponent{
 
   public jsonData: any;
 
@@ -20,7 +22,11 @@ export class AlertTest {
 
   public editorOptions: JsonEditorOptions;
 
-  constructor(private _cd: ChangeDetectorRef) {
+  constructor(
+    private _cd: ChangeDetectorRef, 
+    private alertService: AlertService
+  ) {
+    super()
     this.editorOptions = new JsonEditorOptions()
     this.editorOptions.mode = 'code';
     this.editorOptions.modes = ['code'];
@@ -56,5 +62,9 @@ export class AlertTest {
     //   formComponent: structuredClone(this.updatedJsonValue)
     // };
     this.jsonData = structuredClone(this.updatedJsonValue);
+  }
+
+  public openAlert(){
+    this.alertService.confirmationModel('Are you sure');
   }
 }

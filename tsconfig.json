@@ -4,8 +4,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "dynamic-alert": ["./dist/dynamic-alert"],
       "dynamic-form": ["./dist/dynamic-form"],
-      "dynamic-table": ["./dist/dynamic-table"]
+      "dynamic-modal": ["./dist/dynamic-modal"],
+      "dynamic-popup": ["./dist/dynamic-popup"],
+      "dynamic-table": ["./dist/dynamic-table"],
+      "dynamic-toast": ["./dist/dynamic-toast"]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -44,6 +48,30 @@
     },
     {
       "path": "./projects/dynamic-table/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/dynamic-popup/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/dynamic-popup/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/dynamic-modal/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/dynamic-modal/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/dynamic-alert/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/dynamic-alert/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/dynamic-toast/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/dynamic-toast/tsconfig.spec.json"
     }
   ]
 }

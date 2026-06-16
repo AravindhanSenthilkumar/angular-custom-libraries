@@ -1,0 +1,87 @@
+.custom-snack-bar {
+  display: flex;
+  gap: 5%;
+  align-items: center;
+  .message-content {
+    font-weight: 500;
+  }
+  .btn-section {
+    margin-left: auto;
+    .close-button {
+      cursor: pointer;
+      .btn-theme-less {
+        background: unset;
+        border: none;
+        font-size: unset;
+        font-family: unset;
+        line-height: unset;
+      }
+      mat-icon {
+        color: var(--TOAST-TEXT-COLOR);
+      }
+    }
+  }
+}
+
+
+
+::ng-deep .success-snackbar {
+  --mdc-snackbar-container-color: #e9f7ee;
+  --mdc-snackbar-supporting-text-color: #757070;
+}
+
+
+::ng-deep .error-snackbar {
+  --mdc-snackbar-container-color: #fddddd;
+  --mdc-snackbar-supporting-text-color: #757070;
+}
+
+
+::ng-deep .accent-snackbar {
+  --mdc-snackbar-container-color: #ffffcc;
+  --mdc-snackbar-supporting-text-color: #949483;
+}
+
+
+ .success-snackbar-toast{
+    background-color: #393131 !important;
+    font-size: 14px;
+    background-size: 22px!important;
+    background-image: url('./assets/icon/tick.svg')!important;
+    button{
+        top: 0;
+        right: 0;
+        &:hover{
+            color: unset;
+        }
+    }
+  }
+
+  .warning-snackbar-toast{
+    background-color: #393131 !important;
+    font-size: 14px;
+    background-size: 22px!important;
+    background-image: url('./assets/icon/warning.svg')!important;
+    button{
+        top: 0;
+        right: 0;
+        &:hover{
+            color: unset;
+        }
+    }
+  }
+
+  .error-snackbar-toast{
+    background-color: #393131 !important;
+    font-size: 14px;
+    background-size: 22px!important;
+    background-image: url('./assets/icon/cross-icon.svg')!important;
+    button{
+        top: 0;
+        right: 0;
+        &:hover{
+            color: unset;
+        }
+    }
+  }
+

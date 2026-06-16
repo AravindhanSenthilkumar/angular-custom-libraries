@@ -1,0 +1,29 @@
+<!-- Alert model section begins -->
+<section class="alert-modal-container">
+    <div class="mat-title" mat-dialog-title>
+      <mat-icon
+        class="{{ data.type }}"
+        aria-hidden="false"
+        aria-label="filter icon"
+        fontIcon="{{ data.type }}"
+      ></mat-icon>
+    </div>
+    <div mat-dialog-content>
+      <span class="alert-content-text" [innerHTML]="data.message"></span>
+    </div>
+    @if(data.alertType === 'confirmation'){
+      <div mat-dialog-actions>
+        <div class="alert-btn-section">
+          <button mat-stroked-button class="btn-ok" (click)="onNoClick()">No</button>
+          <button mat-flat-button color="primary" class="btn-yes" (click)="onYesClick()">Yes</button>
+        </div>
+      </div>
+    }@else{
+      <div mat-dialog-actions>
+        <div class="alert-btn-section">
+          <button class="btn-ok" mat-stroked-button color="primary" (click)="onYesClick()">Ok</button>
+        </div>
+      </div>
+    }
+  </section>
+  <!-- Alert model section ends -->

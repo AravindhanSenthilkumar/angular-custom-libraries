@@ -127,6 +127,110 @@
           }
         }
       }
+    },
+    "dynamic-popup": {
+      "projectType": "library",
+      "root": "projects/dynamic-popup",
+      "sourceRoot": "projects/dynamic-popup/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dynamic-popup/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/dynamic-popup/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/dynamic-popup/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "dynamic-modal": {
+      "projectType": "library",
+      "root": "projects/dynamic-modal",
+      "sourceRoot": "projects/dynamic-modal/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dynamic-modal/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/dynamic-modal/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/dynamic-modal/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "dynamic-alert": {
+      "projectType": "library",
+      "root": "projects/dynamic-alert",
+      "sourceRoot": "projects/dynamic-alert/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dynamic-alert/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/dynamic-alert/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/dynamic-alert/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "dynamic-toast": {
+      "projectType": "library",
+      "root": "projects/dynamic-toast",
+      "sourceRoot": "projects/dynamic-toast/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dynamic-toast/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/dynamic-toast/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/dynamic-toast/tsconfig.spec.json"
+          }
+        }
+      }
     }
   }
 }

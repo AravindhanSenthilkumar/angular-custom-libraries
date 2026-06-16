@@ -2,6 +2,14 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { ModalService, IPopupDetails, PopupBaseComponent } from 'dynamic-modal';
+import { AlertTest } from '../alert-test/alert-test';
+
+export  enum Justify {
+    left = "left",
+    right = "right",
+    center = "center"
+}
 
 @Component({
   selector: 'app-modal-test',
@@ -9,7 +17,7 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
   templateUrl: './modal-test.html',
   styleUrl: './modal-test.scss',
 })
-export class ModalTest {
+export class ModalTest{
 
   public jsonData: any;
 
@@ -20,7 +28,10 @@ export class ModalTest {
 
   public editorOptions: JsonEditorOptions;
 
-  constructor(private _cd: ChangeDetectorRef) {
+  constructor(
+    private _cd: ChangeDetectorRef, 
+    private modelService: ModalService
+  ) {
     this.editorOptions = new JsonEditorOptions()
     this.editorOptions.mode = 'code';
     this.editorOptions.modes = ['code'];
@@ -56,6 +67,22 @@ export class ModalTest {
     //   formComponent: structuredClone(this.updatedJsonValue)
     // };
     this.jsonData = structuredClone(this.updatedJsonValue);
+  }
+
+  public openModal(){
+    const model : IPopupDetails = {
+      width: 800,
+      component: AlertTest ,
+      header:{
+        title:'Form test page',
+        justification: Justify.left
+      },
+      ContextData:{},
+      autoClose: true,
+      onClose:()=>{},
+      onSubmit:()=>{}
+    }
+    this.modelService.openComponentAsPopup(model);
   }
 
 }

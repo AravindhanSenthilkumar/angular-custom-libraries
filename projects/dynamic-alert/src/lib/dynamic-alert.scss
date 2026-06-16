@@ -1,0 +1,58 @@
+/********************************************************************** 
+  Page : alert model component styles
+  Desc : contains scss styles of alert model component
+**********************************************************************/
+
+.alert-modal-container {
+  padding: 5%;
+  text-align: center;
+  .mat-title {
+    padding: unset;
+    .info {
+      font-size: 60px;
+      height: 60px;
+      width: 60px;
+      color: #ffdd2d;
+    }
+    .cancel {
+      font-size: 60px;
+      height: 60px;
+      width: 60px;
+      color: red;
+    }
+    .check_circle {
+      font-size: 60px;
+      height: 60px;
+      width: 60px;
+      color: green;
+    }
+  }
+  .alert-content-text {
+    font-size: var(--FONT-SIZE-FOR-NORMAL-TEXT);
+    font-weight: var(--FONT-WEIGHT-BOLD);
+    color: var(--TEXT-DARK-COLOR);
+    word-wrap: break-word;
+  }
+  .alert-heading-text {
+    font-size: var(--FONT-SIZE-FOR-NORMAL-TEXT);
+    font-weight: var(--FONT-WEIGHT-BOLD);
+  }
+  .alert-btn-section {
+    text-align: center;
+    width: 100%;
+    .btn-ok {
+      width: 100px;
+      height: 40px;
+      font-size: var(--FONT-SIZE-FOR-SMALL-TEXT);
+      color: var(--PRIMARY-COLOR);
+      font-weight: var(--FONT-WEIGHT-SEMI-BOLD);
+    }
+    .btn-yes {
+      width: 100px;
+      height: 40px;
+      font-size: var(--FONT-SIZE-FOR-SMALL-TEXT);
+      color: var(--TEXT-LIGHT-COLOR);
+      font-weight: var(--FONT-WEIGHT-SEMI-BOLD);
+    }
+  }
+}
