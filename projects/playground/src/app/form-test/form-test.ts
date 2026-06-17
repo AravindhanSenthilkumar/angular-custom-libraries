@@ -248,6 +248,50 @@ export class FormTest extends PopupBaseComponent{
     "outline": false
   };
 
+  public masterData: any =      {
+      name: 'name',
+      type: FieldType.text,
+      outline: false,
+      label: "name",
+      displayLabel: true,
+      markerInLabel: true,
+      floatLabel: FloatLabel.always,
+      value: "",
+      placeholder: "Enter name",
+      readonly: false,
+      tooltip: "",
+      hint: "",
+      prefixIcon: "",
+      prefixText: "",
+      suffixText: "",
+      suffixIcon: "",
+      numberOfColumns: 3,
+      visible: true,
+      OnChange: ()=> this.fieldOnChange.bind(this),
+      options: [],
+      multipleSelect: false,
+      autoComplete: false,
+      onUpload: ()=> this.onUpload.bind(this),
+      rangeMinimum: 0,
+      rangeMaximum: 0,
+      rangeStepper: 0,
+      linkOnly: false,
+      validators: {
+          min: 0,
+          max: 0,
+          required: false,
+          requiredTrue: false,
+          email: false,
+          minLength: 0,
+          maxLength: 0,
+          pattern: '',
+          nullValidator: false,
+          jsonValidator: false,
+          duplicateValidator: false,
+      },
+      children: []
+  }
+
   public dynamicFormDetails: DynamicFormDetails = {
     formComponent: this.formData
   }
@@ -304,5 +348,13 @@ export class FormTest extends PopupBaseComponent{
       formComponent: structuredClone(this.updatedJsonValue)
     };
     this.jsonData = structuredClone(this.updatedJsonValue);
+  }
+
+  public fieldOnChange(event:any){
+    console.log(event);
+  }
+
+  public onUpload(event:any){
+    console.log(event);
   }
 }
