@@ -22,7 +22,7 @@
         <!-- Action button section begins -->
         <div class="main-action-button">
           <button
-            mat-stroked-button
+            matIconButton
             color="primary"
             [matMenuTriggerFor]="fieldVisibilitySettings"
           >
@@ -39,7 +39,7 @@
           </mat-menu>
           @if(actionRequired('export')){
             <button
-              mat-stroked-button
+              matIconButton
               color="primary"
               [matMenuTriggerFor]="exportOptionMenu"
             >
@@ -57,7 +57,7 @@
               color="primary"
               (click)="onTableAction('create')"
             >
-              <mat-icon class="unset-margin">add_circle</mat-icon>
+              <mat-icon class="unset-margin">add_circle</mat-icon>Add
             </button>
           }
         </div>

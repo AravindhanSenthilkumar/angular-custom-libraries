@@ -4,7 +4,8 @@ import { TableTest } from './table-test/table-test';
 import { WizardTest } from './wizard-test/wizard-test';
 import { ModalTest } from './modal-test/modal-test';
 import { AlertTest } from './alert-test/alert-test';
-import { ToastTest } from './toast-test/toast-test';
+import { SnackbarTest } from './snackbar-test/snackbar-test';
+import { ConfigTest } from './config-test/config-test';
 
 export const routes: Routes = [
      {
@@ -28,8 +29,12 @@ export const routes: Routes = [
         component:AlertTest
     },
     {
-        path:'toast',
-        component:ToastTest
+        path:'snackbar',
+        component:SnackbarTest
+    },
+    {
+        path:'config',
+        component:ConfigTest
     },
     {
         path:'',

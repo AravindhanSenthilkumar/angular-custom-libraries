@@ -1,0 +1,46 @@
+
+.ngx-snackbar-panel {
+
+  .mat-mdc-snackbar-surface {
+
+    min-width: 400px !important;
+    max-width: 500px !important;
+
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    box-shadow: none !important;
+  }
+}
+
+.snackbar-wrapper {
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  min-width: 350px;
+}
+
+.icon {
+  margin-top: 2px;
+}
+
+.content {
+  flex: 1;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.close-btn {
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  font-size: 18px;
+}

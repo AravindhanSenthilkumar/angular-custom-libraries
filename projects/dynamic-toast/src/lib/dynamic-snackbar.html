@@ -1,0 +1,41 @@
+<div class="snackbar-wrapper">
+
+  <mat-icon class="icon">
+    {{ icon }}
+  </mat-icon>
+
+  <div class="content">
+
+    @if(data.title){
+
+      <div class="title">
+        {{ data.title }}
+      </div>
+
+    }
+
+    @if(data.enableHtml){
+
+      <div
+        [innerHTML]="data.message">
+      </div>
+
+    } @else {
+
+      <div>
+        {{ data.message }}
+      </div>
+
+    }
+
+  </div>
+
+  <button
+    class="close-btn"
+    (click)="close()">
+
+    ✕
+
+  </button>
+
+</div>

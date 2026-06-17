@@ -1,12 +1,10 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, ComponentRef, Inject, ViewChild, ViewContainerRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { IoEventContextToken } from 'ng-dynamic-component';
-import { IPopupDetails, Justify } from './interfaces/idialog';
+import { Justify } from './interfaces/idialog';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DynamicModule } from 'ng-dynamic-component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { PopupBaseComponent } from './class/popup-base.component';
+import { NgComponentOutlet } from '@angular/common';
 
 @Component({
   selector: 'lib-dynamic-modal',
@@ -15,18 +13,12 @@ import { PopupBaseComponent } from './class/popup-base.component';
   standalone: true,
   imports: [
     MatDialogModule,
-    DynamicModule,
     MatIconModule,
-    MatButtonModule
-  ],
-  providers: [
-    {
-      provide: IoEventContextToken,
-      useExisting: DynamicModal,
-    },
-  ],
+    MatButtonModule,
+    NgComponentOutlet
+  ]
 })
-export class DynamicModal {
+export class DynamicModal implements AfterViewInit {
   /**
    * Desc : title
    */
@@ -40,36 +32,55 @@ export class DynamicModal {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public inputs: any = { };
-  /**
-   * Desc : constructor initialization
-   * @param inputData : input to the alert component
-   */
+  
+  @ViewChild('dynamicContainer', {
+    read: ViewContainerRef
+  })
+  container!: ViewContainerRef;
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public inputData: IPopupDetails,
-    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public inputData: any,
+    private dialog: MatDialog
   ) {
     this.inputs = { popupContext: this.inputData.ContextData };
     this.title = this.inputData.header?.title;
     this.justification = this.inputData.header?.justification;
   }
-  /**
-   * Desc : recevie outputs
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public onSubmit(eventValue: any): void {
+
+  ngAfterViewInit(): void {
+    const componentRef: ComponentRef<any> =
+      this.container.createComponent(
+        this.inputData.component
+      );
+
+    // Pass Inputs
+    componentRef.setInput(
+      'popupContext',
+      this.inputData.ContextData
+    );
+
+    // Subscribe Outputs
+    componentRef.instance.onPopupSubmit?.subscribe(
+      (value: any) => this.onSubmit(value)
+    );
+
+    componentRef.instance.onPopupClose?.subscribe(
+      (value: any) => this.onClose(value)
+    );
+  }
+
+  onSubmit(eventValue: any): void {
     if (eventValue && this.inputData.autoClose) {
       this.dialog.closeAll();
       this.inputData.onSubmit();
     }
   }
-  /**
-   * Desc : recevie outputs
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public onClose(eventValue: any): void {
+
+  onClose(eventValue: any): void {
     if (eventValue && this.inputData.autoClose) {
       this.dialog.closeAll();
       this.inputData.onClose();
     }
   }
 }
+

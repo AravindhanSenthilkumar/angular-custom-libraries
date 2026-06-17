@@ -374,6 +374,10 @@ export class DynamicTable implements OnChanges, OnInit, OnDestroy, AfterViewInit
     this.search?.formElements?.controls?.map((control:any) => {
       control.OnChange = this.filterFieldChanges.bind(this);
     });
+    this.dynamicFormDetails = {
+      ...this.dynamicFormDetails,
+      formComponent: this.search.formElements
+    };
   }
   /**
    * Desc : detect changes in filter field on keyup

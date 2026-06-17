@@ -4,6 +4,7 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { FieldType, FloatLabel } from 'dynamic-form';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { MatButtonModule } from '@angular/material/button';
+import { PopupBaseComponent } from 'dynamic-modal';
 
 @Component({
   selector: 'app-form-test',
@@ -12,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './form-test.html',
   styleUrl: './form-test.scss',
 })
-export class FormTest {
+export class FormTest extends PopupBaseComponent{
 
   public jsonData: any;
 
@@ -252,6 +253,7 @@ export class FormTest {
   }
 
   constructor(private _cd: ChangeDetectorRef) {
+    super()
     this.editorOptions = new JsonEditorOptions()
     this.editorOptions.mode = 'code';
     this.editorOptions.modes = ['code'];

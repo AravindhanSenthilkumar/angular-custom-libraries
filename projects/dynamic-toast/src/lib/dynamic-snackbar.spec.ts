@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DynamicSnackbar } from './dynamic-snackbar';
 
-import { ToastTest } from './toast-test';
-
-describe('ToastTest', () => {
-  let component: ToastTest;
-  let fixture: ComponentFixture<ToastTest>;
+describe('DynamicToast', () => {
+  let component: DynamicSnackbar;
+  let fixture: ComponentFixture<DynamicSnackbar>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ToastTest],
+      imports: [DynamicSnackbar],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ToastTest);
+    fixture = TestBed.createComponent(DynamicSnackbar);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

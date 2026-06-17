@@ -9,7 +9,7 @@
       "dynamic-modal": ["./dist/dynamic-modal"],
       "dynamic-popup": ["./dist/dynamic-popup"],
       "dynamic-table": ["./dist/dynamic-table"],
-      "dynamic-toast": ["./dist/dynamic-toast"]
+      "dynamic-toast": ["./dist/dynamic-toast", "./dist/dynamic-toast"]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -66,6 +66,12 @@
     },
     {
       "path": "./projects/dynamic-alert/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/dynamic-toast/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/dynamic-toast/tsconfig.spec.json"
     },
     {
       "path": "./projects/dynamic-toast/tsconfig.lib.json"

@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { ModalService, IPopupDetails, PopupBaseComponent } from 'dynamic-modal';
-import { AlertTest } from '../alert-test/alert-test';
+import { FormTest } from '../form-test/form-test';
 
 export  enum Justify {
     left = "left",
@@ -72,7 +72,7 @@ export class ModalTest{
   public openModal(){
     const model : IPopupDetails = {
       width: 800,
-      component: AlertTest ,
+      component: FormTest ,
       header:{
         title:'Form test page',
         justification: Justify.left

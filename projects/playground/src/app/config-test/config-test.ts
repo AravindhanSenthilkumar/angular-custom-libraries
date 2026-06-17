@@ -1,27 +1,15 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
+import { Component } from '@angular/core';
 import { FieldType, FloatLabel, Form } from 'dynamic-form';
 import { defaultPageSize, DynamicTable, OrderBy, SearchAt, SearchModel, SearchOn, SearchRequest, TableDetails } from 'dynamic-table';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 @Component({
-  selector: 'app-table-test',
-  imports: [DynamicTable,MatButtonModule, NgxJsonViewerModule, JsonEditorComponent],
-  templateUrl: './table-test.html',
-  styleUrl: './table-test.scss',
+  selector: 'app-config-test',
+  imports: [DynamicTable],
+  templateUrl: './config-test.html',
+  styleUrl: './config-test.scss',
 })
-export class TableTest {
-  public jsonData: any;
-
-  public updatedJsonValue: any;
-
-  @ViewChild(JsonEditorComponent, { static: false })
-  editor!: JsonEditorComponent;
-
-  public editorOptions: JsonEditorOptions;
-
-  /**
+export class ConfigTest {
+    /**
    * desc : search form  
    */
   public searhForm: Form = {
@@ -36,7 +24,7 @@ export class TableTest {
         visible: true,
         outline: true,
         floatLabel: FloatLabel.always,
-        numberOfColumns: 1
+        numberOfColumns: 3
       },
       {
         type: FieldType.dropdown,
@@ -54,7 +42,7 @@ export class TableTest {
         visible: true,
         outline: true,
         floatLabel: FloatLabel.always,
-        numberOfColumns: 1
+        numberOfColumns: 3
       },
       {
         type: FieldType.email,
@@ -66,7 +54,7 @@ export class TableTest {
         visible: true,
         outline: true,
         floatLabel: FloatLabel.always,
-        numberOfColumns: 1
+        numberOfColumns: 3
       }
     ],
     outline: false
@@ -367,7 +355,7 @@ export class TableTest {
     tableButtons: { add: true, delete: true, edit: true, view: true, export: true },
     columns: this.columnDetails(),
   }
-  
+
   public columnDetails() {
     return [
       {
@@ -444,34 +432,6 @@ export class TableTest {
     ]
   }
 
-  public masterTableDetail: TableDetails = {
-    paging: {
-      enabled: true,
-      pageSizeOptions: [defaultPageSize, 10, 40, 50, 100],
-      pageNumber: this.pagination.offset,
-      pageSize: this.pagination.limit
-    },
-    selectRequired: true,
-    tableButtons: { add: true, delete: true, edit: true, view: true, export: true },
-    columns: this.columnDetails(),
-  }
-
-  constructor(private _cd: ChangeDetectorRef) {
-    this.editorOptions = new JsonEditorOptions()
-    this.editorOptions.mode = 'code';
-    this.editorOptions.modes = ['code'];
-    this.jsonData = this.tableDetail;
-    this.updatedJsonValue = this.jsonData;
-  }
-
-  changeLog(event: any) {
-    if (event && !event.type) {
-      setTimeout(() => {
-        this.updatedJsonValue = event;
-        this._cd.detectChanges();
-      }, 500);
-    }
-  }
 
   public onTableAction(event: any) {
     switch (event.name) {
@@ -506,20 +466,5 @@ export class TableTest {
       default:
         break;
     }
-  }
-
-  public resetJsonData() {
-   this.tableDetail = structuredClone(this.masterTableDetail);
-    this.jsonData = structuredClone(this.tableDetail);
-    this.updatedJsonValue = structuredClone(this.tableDetail);
-  }
-
-  public generateComponent() {
-    this.tableDetail = structuredClone(this.updatedJsonValue);
-    this.jsonData = structuredClone(this.updatedJsonValue);
-  }
-
-  public ngOnDestroy(): void {
-
   }
 }
