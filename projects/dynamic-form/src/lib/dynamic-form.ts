@@ -8,6 +8,7 @@ import { GroupComponent } from './form-type/group/group.component';
 import { DynamicFormDetails } from './model/dynamic-form.model';
 import { WizardComponent } from './form-type/wizard/wizard.component';
 import { FormTypeIndex } from './form-type/form-type-index';
+import { PopupBaseComponent } from 'dynamic-modal'
 
 @Component({
   selector: 'lib-dynamic-form',
@@ -26,7 +27,7 @@ import { FormTypeIndex } from './form-type/form-type-index';
   templateUrl: './dynamic-form.html',
   styleUrl: './dynamic-form.scss',
 })
-export class DynamicForm {
+export class DynamicForm extends PopupBaseComponent {
   /**
    * Desc : input form data from consumer component
    */
@@ -55,13 +56,21 @@ export class DynamicForm {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public submitForm(value: any) {
-    this.onSubmitForm.emit(value);
+    if(this.popupContext){
+          this.onPopupSubmit.emit(value);
+    }else {
+        this.onSubmitForm.emit(value);
+    }
   }
   /**
    * Desc : emitting the form values to parent component
    * @param value : form values
    */
   public cancelForm() {
-    this.onCancelForm.emit();
+    if(this.popupContext){
+       this.onPopupClose.emit();
+    }else{
+        this.onCancelForm.emit();
+    }
   }
 }

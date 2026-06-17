@@ -5,7 +5,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NgComponentOutlet } from '@angular/common';
-
+import { IoEventContextToken } from 'ng-dynamic-component';
+import { DynamicModule } from 'ng-dynamic-component';
+import { DynamicLoaderComponent } from './dynamic-loader';
 @Component({
   selector: 'lib-dynamic-modal',
   templateUrl: './dynamic-modal.html',
@@ -15,10 +17,11 @@ import { NgComponentOutlet } from '@angular/common';
     MatDialogModule,
     MatIconModule,
     MatButtonModule,
+    DynamicLoaderComponent,
     NgComponentOutlet
   ]
 })
-export class DynamicModal implements AfterViewInit {
+export class DynamicModal {
   /**
    * Desc : title
    */
@@ -32,55 +35,38 @@ export class DynamicModal implements AfterViewInit {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public inputs: any = { };
-  
-  @ViewChild('dynamicContainer', {
-    read: ViewContainerRef
-  })
-  container!: ViewContainerRef;
+
+  public outputs = {
+    onPopupSubmit: (event: any) => {
+      this.onSubmit(event);
+    },
+
+    onPopupClose: () => {
+      this.onClose();
+    }
+  };
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public inputData: any,
     private dialog: MatDialog
   ) {
-    this.inputs = { popupContext: this.inputData.ContextData };
+    this.inputs = { popupContext : {} , ...this.inputData.ContextData };
     this.title = this.inputData.header?.title;
     this.justification = this.inputData.header?.justification;
-  }
-
-  ngAfterViewInit(): void {
-    const componentRef: ComponentRef<any> =
-      this.container.createComponent(
-        this.inputData.component
-      );
-
-    // Pass Inputs
-    componentRef.setInput(
-      'popupContext',
-      this.inputData.ContextData
-    );
-
-    // Subscribe Outputs
-    componentRef.instance.onPopupSubmit?.subscribe(
-      (value: any) => this.onSubmit(value)
-    );
-
-    componentRef.instance.onPopupClose?.subscribe(
-      (value: any) => this.onClose(value)
-    );
   }
 
   onSubmit(eventValue: any): void {
     if (eventValue && this.inputData.autoClose) {
       this.dialog.closeAll();
-      this.inputData.onSubmit();
+      this.inputData.onSubmit(eventValue);
     }
   }
 
-  onClose(eventValue: any): void {
-    if (eventValue && this.inputData.autoClose) {
+  onClose(): void {
+    // if (eventValue && this.inputData.autoClose) {
       this.dialog.closeAll();
       this.inputData.onClose();
-    }
+    // }
   }
 }
 

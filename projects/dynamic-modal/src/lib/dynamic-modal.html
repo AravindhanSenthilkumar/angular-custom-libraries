@@ -6,19 +6,10 @@
       </button>
     </div>
     <div class="mat-dialog-content" mat-dialog-content>
-      <!-- <ndc-dynamic
-        [ndcDynamicComponent]="inputData.component"
-        [ndcDynamicInputs]="inputs"
-        [ndcDynamicOutputs]="{
-          onPopupSubmit: { handler: onSubmit, args: ['$event'] },
-          onPopupClose: { handler: onClose, args: ['$event'] }
-        }"
-      ></ndc-dynamic> -->
-      <ng-template #dynamicContainer
-        *ngComponentOutlet="
-          inputData.component;
-          inputs: inputs
-        ">
-      </ng-template>
+      <lib-dynamic-loader
+        [component]="inputData.component"
+        [inputs]="inputs"
+        [outputs]="outputs">
+      </lib-dynamic-loader>
     </div>
   </section>

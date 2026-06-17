@@ -1,6 +1,17 @@
 import { Component } from '@angular/core';
-import { FieldType, FloatLabel, Form } from 'dynamic-form';
+import { DynamicFormDetails, FieldType, FloatLabel, Form } from 'dynamic-form';
 import { defaultPageSize, DynamicTable, OrderBy, SearchAt, SearchModel, SearchOn, SearchRequest, TableDetails } from 'dynamic-table';
+import { ModalService, IPopupDetails, PopupBaseComponent } from 'dynamic-modal';
+import { DynamicForm } from 'dynamic-form';
+import { AlertService } from 'dynamic-alert';
+import { SnackbarService } from 'dynamic-toast';
+
+export enum Justify {
+    left = "left",
+    right = "right",
+    center = "center"
+}
+
 
 @Component({
   selector: 'app-config-test',
@@ -10,6 +21,169 @@ import { defaultPageSize, DynamicTable, OrderBy, SearchAt, SearchModel, SearchOn
 })
 export class ConfigTest {
     /**
+   * Desc : form controls initialization
+   */
+  public formData: Form = {
+    "controls": [
+      {
+        type: FieldType.text,
+        name: 'name',
+        label: 'Name',
+        value: '',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+      {
+        type: FieldType.dropdown,
+        name: 'department',
+        label: 'Department',
+        options: [
+          { key: 'Engineering', label: 'Engineering' },
+          { key: 'Marketing', label: 'Marketing' },
+          { key: 'Sales', label: 'Sales' },
+          { key: 'Human Resources', label: 'Human Resources' },
+        ],
+        value: 'Engineering',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+      {
+        type: FieldType.email,
+        name: 'email',
+        label: 'Email',
+        value: '',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+      {
+        type: FieldType.date,
+        name: 'joiningDate',
+        label: 'Joining Date',
+        value: '',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+      {
+        type: FieldType.tel,
+        name: 'phone',
+        label: 'Mobile',
+        value: '',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+      {
+        type: FieldType.text,
+        name: 'location',
+        label: 'Location',
+        value: '',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+      {
+        type: FieldType.number,
+        name: 'salary',
+        label: 'Salary',
+        value: '',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+      {
+        type: FieldType.dropdown,
+        name: 'position',
+        label: 'Position',
+        options: [
+          { key: 'Marketing Specialist', label: 'Marketing Specialist' },
+          { key: 'HR Manager', label: 'HR Manager' },
+          { key: 'Financial Analyst', label: 'Financial Analyst' },
+          { key: 'Software Engineer', label: 'Software Engineer' },
+        ],
+        value: '',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        multipleSelect:false,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+      {
+        type: FieldType.number,
+        name: 'performanceRating',
+        label: 'Performance Rating',
+        value: '',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+      {
+        type: FieldType.dropdown,
+        name: 'projects',
+        label: 'Projects',
+        options: [
+          { key: 'Campaign A', label: 'Campaign A' },
+          { key: 'Social Media Strategy', label: 'Social Media Strategy' },
+          { key: 'Q1 Sales Drive', label: 'Q1 Sales Drive' },
+          { key: 'Client Acquisition', label: 'Client Acquisition' },
+        ],
+        value: '',
+        markerInLabel: false,
+        displayLabel: true,
+        visible: true,
+        outline: true,
+        multipleSelect:true,
+        floatLabel: FloatLabel.never,
+        numberOfColumns: 12
+      },
+    ],
+    "buttons": {
+      "submit": {
+        "visible": true,
+        "name": "submit"
+      },
+      "cancel": {
+        "visible": true,
+        "name": "cancel"
+      }
+    },
+    "outline": false
+  };
+
+
+  public dynamicFormDetails: DynamicFormDetails = {
+    formComponent: this.formData
+  }
+  /**
    * desc : search form  
    */
   public searhForm: Form = {
@@ -337,6 +511,7 @@ export class ConfigTest {
     searchOn: SearchOn.MatchingColumns,
     searchAt: SearchAt.ClientSide
   }
+
   public pagination: SearchRequest = {
     offset: 0,
     limit: defaultPageSize,
@@ -432,20 +607,57 @@ export class ConfigTest {
     ]
   }
 
+  constructor(
+    private modelService: ModalService,
+    private alertService: AlertService,
+    private snackBarService: SnackbarService
+  ){
+
+    }
 
   public onTableAction(event: any) {
     switch (event.name) {
       case 'create':
-        console.log('create');
-        console.log(event);
+        const model : IPopupDetails = {
+          width: 800,
+          component: DynamicForm ,
+          header:{
+            title:'Add form',
+            justification: Justify.left
+          },
+          ContextData: {dynamicFormDetails : this.dynamicFormDetails} ,
+          autoClose: true,
+          onClose:()=>{},
+          onSubmit:(createEvent:any)=>{
+             this.snackBarService.success("Created");
+          }
+        }
+        this.modelService.openComponentAsPopup(model);
         break;
       case 'edit':
-        console.log('edit');
         console.log(event);
+        const editmodel : IPopupDetails = {
+          width: 800,
+          component: DynamicForm ,
+          header:{
+            title:'Add form',
+            justification: Justify.left
+          },
+          ContextData: { dynamicFormDetails : this.dynamicFormDetails } ,
+          autoClose: true,
+          onClose:()=>{},
+          onSubmit:(editEvent:any)=>{ console.log(event.value.id ,editEvent) }
+        }
+        this.modelService.openComponentAsPopup(editmodel);
         break;
       case 'delete':
         console.log('delete');
         console.log(event);
+        this.alertService.confirmationModel("Are you sure want to delete", ()=>{
+          this.snackBarService.success("Deleted");
+        },()=>{
+
+        })
         break;
       case 'view':
         console.log('view');
@@ -468,3 +680,13 @@ export class ConfigTest {
     }
   }
 }
+
+
+// {
+//   formData: {},
+//   searchForm: {},
+//   data : [],
+//   tableContent : {
+
+//   }
+// }

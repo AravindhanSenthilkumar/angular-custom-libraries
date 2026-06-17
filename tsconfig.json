@@ -5,6 +5,7 @@
   "compilerOptions": {
     "paths": {
       "dynamic-alert": ["./dist/dynamic-alert"],
+      "dynamic-data-table": ["./dist/dynamic-data-table"],
       "dynamic-form": ["./dist/dynamic-form"],
       "dynamic-modal": ["./dist/dynamic-modal"],
       "dynamic-popup": ["./dist/dynamic-popup"],
@@ -78,6 +79,12 @@
     },
     {
       "path": "./projects/dynamic-toast/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/dynamic-data-table/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/dynamic-data-table/tsconfig.spec.json"
     }
   ]
 }
