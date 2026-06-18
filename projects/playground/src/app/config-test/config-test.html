@@ -1,6 +1,21 @@
-<lib-dynamic-table
-    [dataset]="data"
-    [tableDetails]="tableDetail"
-    [search]="search"
-    (action)="onTableAction($event)"
-></lib-dynamic-table>
+<div class="dashboard-container">
+  <div class="sidebar">
+    <json-editor 
+        style="height:90%;" 
+        [options]="editorOptions"
+        [data]="jsonDatas" 
+        (change)="changeLog($event)" 
+        #editor
+    ></json-editor>
+    <div class="button-container">
+        <button mat-button (click)="resetJsonData()">Reset</button>
+        <button mat-button color="primary" (click)="generateComponent()">Generate</button>
+    </div>
+  </div>
+  <div class="playground-content">
+       <lib-dynamic-data-table
+            [dataTableDetails]="jsonData"
+            (action)="onTableAction($event)"
+        ></lib-dynamic-data-table>
+  </div>
+</div>

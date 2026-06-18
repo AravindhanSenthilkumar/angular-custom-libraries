@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Input, OnChanges, Output, EventEmitter, AfterViewInit,Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, OnChanges, Output, EventEmitter, AfterViewInit,Renderer2, ElementRef, SimpleChange, SimpleChanges } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -59,27 +59,16 @@ import { OrderBy, SearchRequest } from './model/table.model';
   ],
 })
 export class DynamicTable implements OnChanges, OnInit, OnDestroy, AfterViewInit {
-  /**
-   * Desc : declaring dataset variable for storing the bin data
-   */
   public data: DataSet = {
     data: [],
     totalRecords: 0
-  };
-  /**
-   * Desc : declaring defaultPageSize variable for showing initail page size
-   */
-  public defaultOffsetSize:number = 1;
-  /**
-   * Desc : declaring defaultPageSize variable for showing initail page size
-   */
-  public defaultPageSize: number = 5;
+  }
   /**
    * Desc : declaring search variable for customizing the table data search
    */
-  public pagination: SearchRequest = {
-    offset: this.defaultOffsetSize,
-    limit: this.defaultPageSize,
+  @Input() public pagination: SearchRequest = {
+    offset: 1,
+    limit:  5,
     searchQuery: {},
     order: AppLiteralConsts.actionButton.sortBy,
     sort: OrderBy.asc,
@@ -207,8 +196,12 @@ export class DynamicTable implements OnChanges, OnInit, OnDestroy, AfterViewInit
   /**
    * Desc : execute when component has any changes
    */
-  public ngOnChanges(): void {
+  public ngOnChanges(changes: SimpleChanges): void {
+    if(changes['dataset'] || changes['search'] || changes['tableDetails']){
+      this.displayedColumns = [];
+    }
     this.dataSource = new MatTableDataSource(this.dataset.data);
+    this.renderTableDetails();
     this.initializeSearchPredicate();
     this.initializeGridColumns();
     if (this.search) {

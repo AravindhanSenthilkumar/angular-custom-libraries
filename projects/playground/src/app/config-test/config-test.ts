@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { DynamicFormDetails, FieldType, FloatLabel, Form } from 'dynamic-form';
-import { defaultPageSize, DynamicTable, OrderBy, SearchAt, SearchModel, SearchOn, SearchRequest, TableDetails } from 'dynamic-table';
-import { ModalService, IPopupDetails, PopupBaseComponent } from 'dynamic-modal';
-import { DynamicForm } from 'dynamic-form';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { FieldType, FloatLabel } from 'dynamic-form';
+import { DynamicTable, SearchAt, SearchOn } from 'dynamic-table';
 import { AlertService } from 'dynamic-alert';
 import { SnackbarService } from 'dynamic-toast';
+import { DynamicDataTable, DataTable } from 'dynamic-data-table';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
+import { MatButtonModule } from '@angular/material/button';
 
 export enum Justify {
     left = "left",
@@ -12,232 +14,25 @@ export enum Justify {
     center = "center"
 }
 
-
 @Component({
   selector: 'app-config-test',
-  imports: [DynamicTable],
+  imports: [DynamicDataTable,  NgxJsonViewerModule, JsonEditorComponent, MatButtonModule],
+  standalone: true,
   templateUrl: './config-test.html',
   styleUrl: './config-test.scss',
 })
 export class ConfigTest {
-    /**
-   * Desc : form controls initialization
-   */
-  public formData: Form = {
-    "controls": [
-      {
-        type: FieldType.text,
-        name: 'name',
-        label: 'Name',
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-      {
-        type: FieldType.dropdown,
-        name: 'department',
-        label: 'Department',
-        options: [
-          { key: 'Engineering', label: 'Engineering' },
-          { key: 'Marketing', label: 'Marketing' },
-          { key: 'Sales', label: 'Sales' },
-          { key: 'Human Resources', label: 'Human Resources' },
-        ],
-        value: 'Engineering',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-      {
-        type: FieldType.email,
-        name: 'email',
-        label: 'Email',
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-      {
-        type: FieldType.date,
-        name: 'joiningDate',
-        label: 'Joining Date',
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-      {
-        type: FieldType.tel,
-        name: 'phone',
-        label: 'Mobile',
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-      {
-        type: FieldType.text,
-        name: 'location',
-        label: 'Location',
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-      {
-        type: FieldType.number,
-        name: 'salary',
-        label: 'Salary',
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-      {
-        type: FieldType.dropdown,
-        name: 'position',
-        label: 'Position',
-        options: [
-          { key: 'Marketing Specialist', label: 'Marketing Specialist' },
-          { key: 'HR Manager', label: 'HR Manager' },
-          { key: 'Financial Analyst', label: 'Financial Analyst' },
-          { key: 'Software Engineer', label: 'Software Engineer' },
-        ],
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        multipleSelect:false,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-      {
-        type: FieldType.number,
-        name: 'performanceRating',
-        label: 'Performance Rating',
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-      {
-        type: FieldType.dropdown,
-        name: 'projects',
-        label: 'Projects',
-        options: [
-          { key: 'Campaign A', label: 'Campaign A' },
-          { key: 'Social Media Strategy', label: 'Social Media Strategy' },
-          { key: 'Q1 Sales Drive', label: 'Q1 Sales Drive' },
-          { key: 'Client Acquisition', label: 'Client Acquisition' },
-        ],
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        multipleSelect:true,
-        floatLabel: FloatLabel.never,
-        numberOfColumns: 12
-      },
-    ],
-    "buttons": {
-      "submit": {
-        "visible": true,
-        "name": "submit"
-      },
-      "cancel": {
-        "visible": true,
-        "name": "cancel"
-      }
-    },
-    "outline": false
-  };
 
+  public jsonDatas: any;
 
-  public dynamicFormDetails: DynamicFormDetails = {
-    formComponent: this.formData
-  }
-  /**
-   * desc : search form  
-   */
-  public searhForm: Form = {
-    controls: [
-      {
-        type: FieldType.text,
-        name: 'name',
-        label: 'Name',
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.always,
-        numberOfColumns: 3
-      },
-      {
-        type: FieldType.dropdown,
-        name: 'department',
-        label: 'Department',
-        options: [
-          { key: 'Engineering', label: 'Engineering' },
-          { key: 'Marketing', label: 'Marketing' },
-          { key: 'Sales', label: 'Sales' },
-          { key: 'Human Resources', label: 'Human Resources' },
-        ],
-        value: 'Engineering',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.always,
-        numberOfColumns: 3
-      },
-      {
-        type: FieldType.email,
-        name: 'email',
-        label: 'Email',
-        value: '',
-        markerInLabel: false,
-        displayLabel: true,
-        visible: true,
-        outline: true,
-        floatLabel: FloatLabel.always,
-        numberOfColumns: 3
-      }
-    ],
-    outline: false
-  }
+  public updatedJsonValue: any;
 
-  /**
-   * desc: sample table data
-   */
-  public sampleData: any = [
+  @ViewChild(JsonEditorComponent, { static: false })
+  editor!: JsonEditorComponent;
+
+  public editorOptions: JsonEditorOptions;
+
+  public data: any =  [
     {
       "id": 41,
       "name": "Angela Parker",
@@ -499,165 +294,776 @@ export class ConfigTest {
       "projects": ["Power Distribution", "Renewable Energy"]
     }
   ]
-
-  public data = {
-    data: this.sampleData,
-    totalRecords: this.sampleData.length
-  }
-
-  public search: SearchModel = {
-    formElements: this.searhForm,
-    value: {},
-    searchOn: SearchOn.MatchingColumns,
-    searchAt: SearchAt.ClientSide
-  }
-
-  public pagination: SearchRequest = {
-    offset: 0,
-    limit: defaultPageSize,
-    searchQuery: this.search.value,
-    sort: OrderBy.asc
-  }
-
-  public tableDetail: TableDetails = {
-    paging: {
-      enabled: true,
-      pageSizeOptions: [defaultPageSize, 10, 40, 50, 100],
-      pageNumber: this.pagination.offset,
-      pageSize: this.pagination.limit
+  
+  public masterJsonData: DataTable = {
+    tableDataFields :  {
+      formComponent: {
+          "controls": [
+             {
+              type: FieldType.number,
+              name: 'id',
+              label: 'ID',
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: false,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12,
+              readonly: true
+            },
+            {
+              type: FieldType.text,
+              name: 'name',
+              label: 'Name',
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              placeholder:"Enter employee name",
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.dropdown,
+              name: 'department',
+              label: 'Department',
+              placeholder:"Choose department",
+              options: [
+                { key: 'Engineering', label: 'Engineering' },
+                { key: 'Marketing', label: 'Marketing' },
+                { key: 'Sales', label: 'Sales' },
+                { key: 'Human Resources', label: 'Human Resources' },
+              ],
+              value: 'Engineering',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.email,
+              name: 'email',
+              label: 'Email',
+              value: '',
+              placeholder:"enter email",
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.date,
+              name: 'joiningDate',
+              label: 'Joining Date',
+              placeholder:"Enter joining date",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.tel,
+              name: 'phone',
+              label: 'Mobile',
+              placeholder:"Enter Mobile number",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.text,
+              name: 'location',
+              label: 'Location',
+              placeholder:"Choose Location",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.number,
+              name: 'salary',
+              label: 'Salary',
+               placeholder:"Provide Salary",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.dropdown,
+              name: 'position',
+              label: 'Position',
+              placeholder:"Choose Position",
+              options: [
+                { key: 'Marketing Specialist', label: 'Marketing Specialist' },
+                { key: 'HR Manager', label: 'HR Manager' },
+                { key: 'Financial Analyst', label: 'Financial Analyst' },
+                { key: 'Software Engineer', label: 'Software Engineer' },
+              ],
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              multipleSelect:false,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.number,
+              name: 'performanceRating',
+              label: 'Performance Rating',
+              placeholder:"Provide rating",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.dropdown,
+              name: 'projects',
+              label: 'Projects',
+              placeholder: 'Choose projects',
+              options: [
+                { key: 'Campaign A', label: 'Campaign A' },
+                { key: 'Social Media Strategy', label: 'Social Media Strategy' },
+                { key: 'Q1 Sales Drive', label: 'Q1 Sales Drive' },
+                { key: 'Client Acquisition', label: 'Client Acquisition' },
+              ],
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              multipleSelect:true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+          ],
+          "buttons": {
+            "submit": {
+              "visible": true,
+              "name": "submit"
+            },
+            "cancel": {
+              "visible": true,
+              "name": "cancel"
+            }
+          },
+        "outline": false
+      }
     },
-    selectRequired: true,
-    tableButtons: { add: true, delete: true, edit: true, view: true, export: true },
-    columns: this.columnDetails(),
-  }
-
-  public columnDetails() {
-    return [
-      {
+    tableSearch :{
+      formElements:  {
+        controls: [
+          {
+            type: FieldType.text,
+            name: 'name',
+            label: 'Name',
+            value: '',
+            markerInLabel: false,
+            displayLabel: true,
+            visible: true,
+            outline: true,
+            floatLabel: FloatLabel.always,
+            numberOfColumns: 3
+          },
+          {
+            type: FieldType.dropdown,
+            name: 'department',
+            label: 'Department',
+            options: [
+              { key: 'Engineering', label: 'Engineering' },
+              { key: 'Marketing', label: 'Marketing' },
+              { key: 'Sales', label: 'Sales' },
+              { key: 'Human Resources', label: 'Human Resources' },
+            ],
+            value: 'Engineering',
+            markerInLabel: false,
+            displayLabel: true,
+            visible: true,
+            outline: true,
+            floatLabel: FloatLabel.always,
+            numberOfColumns: 3
+          },
+          {
+            type: FieldType.email,
+            name: 'email',
+            label: 'Email',
+            value: '',
+            markerInLabel: false,
+            displayLabel: true,
+            visible: true,
+            outline: true,
+            floatLabel: FloatLabel.always,
+            numberOfColumns: 3
+          }
+        ],
+          outline: false
+      },
+      value: {},
+      searchOn: SearchOn.MatchingColumns,
+      searchAt: SearchAt.ClientSide
+    },
+    tableData :{
+      data: this.data,
+      totalRecords: this.data.length
+    },
+    tableConfig :{
+      paging: {
+        enabled: true,
+        pageSizeOptions: [5, 10, 40, 50, 100],
+        pageNumber: 0,
+        pageSize: 5
+      },
+      selectRequired: true,
+      tableButtons: { add: true, delete: true, edit: true, view: true, export: true },
+      columns: [
+        {
+        columnDef: 'id',
+        header: 'Id',
+        isComplex: false,
+        sortRequired: true,
+        innerColumns: null,
+        },
+       {
         columnDef: 'name',
         header: 'Name',
         isComplex: false,
         sortRequired: true,
         innerColumns: null
+        },
+        {
+          columnDef: 'department',
+          header: 'Department',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'email',
+          header: 'Email',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'joiningDate',
+          header: 'JoiningDate',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'phone',
+          header: 'Phone',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'location',
+          header: 'Location',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'salary',
+          header: 'Salary',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'position',
+          header: 'Position',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'performanceRating',
+          header: 'Performance Rating',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'projects',
+          header: 'Projects',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null,
+          cell: (rec: any) => { return rec.projects }
+        }
+      ],
+    },
+    serverSidePagination: {
+      offset: 0,
+      limit: 0
+    },
+    popupDetails:{
+      addForm: {
+        title: 'Add Employee ',
+        width: 800,
+        justify: Justify.center
       },
-      {
-        columnDef: 'department',
-        header: 'Department',
-        isComplex: false,
-        sortRequired: true,
-        innerColumns: null
+      editForm: {
+        title: 'Edit Employee',
+        width: 800,
+        justify: Justify.center
+      }
+    }
+  }
+  /**
+   * Desc : dynamic data table input
+   */
+  public jsonData:DataTable = {
+    tableDataFields :  {
+      formComponent: {
+          "controls": [
+             {
+              type: FieldType.number,
+              name: 'id',
+              label: 'ID',
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: false,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12,
+              readonly: true
+            },
+            {
+              type: FieldType.text,
+              name: 'name',
+              label: 'Name',
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              placeholder:"Enter employee name",
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.dropdown,
+              name: 'department',
+              label: 'Department',
+              placeholder:"Choose department",
+              options: [
+                { key: 'Engineering', label: 'Engineering' },
+                { key: 'Marketing', label: 'Marketing' },
+                { key: 'Sales', label: 'Sales' },
+                { key: 'Human Resources', label: 'Human Resources' },
+              ],
+              value: 'Engineering',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.email,
+              name: 'email',
+              label: 'Email',
+              value: '',
+              placeholder:"enter email",
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.date,
+              name: 'joiningDate',
+              label: 'Joining Date',
+              placeholder:"Enter joining date",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.tel,
+              name: 'phone',
+              label: 'Mobile',
+              placeholder:"Enter Mobile number",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.text,
+              name: 'location',
+              label: 'Location',
+              placeholder:"Choose Location",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.number,
+              name: 'salary',
+              label: 'Salary',
+               placeholder:"Provide Salary",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.dropdown,
+              name: 'position',
+              label: 'Position',
+              placeholder:"Choose Position",
+              options: [
+                { key: 'Marketing Specialist', label: 'Marketing Specialist' },
+                { key: 'HR Manager', label: 'HR Manager' },
+                { key: 'Financial Analyst', label: 'Financial Analyst' },
+                { key: 'Software Engineer', label: 'Software Engineer' },
+              ],
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              multipleSelect:false,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.number,
+              name: 'performanceRating',
+              label: 'Performance Rating',
+              placeholder:"Provide rating",
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+            {
+              type: FieldType.dropdown,
+              name: 'projects',
+              label: 'Projects',
+              placeholder: 'Choose projects',
+              options: [
+                { key: 'Campaign A', label: 'Campaign A' },
+                { key: 'Social Media Strategy', label: 'Social Media Strategy' },
+                { key: 'Q1 Sales Drive', label: 'Q1 Sales Drive' },
+                { key: 'Client Acquisition', label: 'Client Acquisition' },
+              ],
+              value: '',
+              markerInLabel: false,
+              displayLabel: true,
+              visible: true,
+              outline: true,
+              multipleSelect:true,
+              floatLabel: FloatLabel.always,
+              numberOfColumns: 12
+            },
+          ],
+          "buttons": {
+            "submit": {
+              "visible": true,
+              "name": "submit"
+            },
+            "cancel": {
+              "visible": true,
+              "name": "cancel"
+            }
+          },
+        "outline": false
+      }
+    },
+    tableSearch :{
+      formElements:  {
+        controls: [
+          {
+            type: FieldType.text,
+            name: 'name',
+            label: 'Name',
+            value: '',
+            markerInLabel: false,
+            displayLabel: true,
+            visible: true,
+            outline: true,
+            floatLabel: FloatLabel.always,
+            numberOfColumns: 3
+          },
+          {
+            type: FieldType.dropdown,
+            name: 'department',
+            label: 'Department',
+            options: [
+              { key: 'Engineering', label: 'Engineering' },
+              { key: 'Marketing', label: 'Marketing' },
+              { key: 'Sales', label: 'Sales' },
+              { key: 'Human Resources', label: 'Human Resources' },
+            ],
+            value: 'Engineering',
+            markerInLabel: false,
+            displayLabel: true,
+            visible: true,
+            outline: true,
+            floatLabel: FloatLabel.always,
+            numberOfColumns: 3
+          },
+          {
+            type: FieldType.email,
+            name: 'email',
+            label: 'Email',
+            value: '',
+            markerInLabel: false,
+            displayLabel: true,
+            visible: true,
+            outline: true,
+            floatLabel: FloatLabel.always,
+            numberOfColumns: 3
+          }
+        ],
+          outline: false
       },
-      {
-        columnDef: 'email',
-        header: 'Email',
-        isComplex: false,
-        sortRequired: true,
-        innerColumns: null
+      value: {},
+      searchOn: SearchOn.MatchingColumns,
+      searchAt: SearchAt.ClientSide
+    },
+    tableData :{
+      data: this.data,
+      totalRecords: this.data.length
+    },
+    tableConfig :{
+      paging: {
+        enabled: true,
+        pageSizeOptions: [5, 10, 40, 50, 100],
+        pageNumber: 0,
+        pageSize: 5
       },
-      {
-        columnDef: 'joiningDate',
-        header: 'JoiningDate',
-        isComplex: false,
-        sortRequired: true,
-        innerColumns: null
-      },
-      {
-        columnDef: 'phone',
-        header: 'Phone',
-        isComplex: false,
-        sortRequired: true,
-        innerColumns: null
-      },
-      {
-        columnDef: 'location',
-        header: 'Location',
-        isComplex: false,
-        sortRequired: true,
-        innerColumns: null
-      },
-      {
-        columnDef: 'salary',
-        header: 'Salary',
-        isComplex: false,
-        sortRequired: true,
-        innerColumns: null
-      },
-      {
-        columnDef: 'position',
-        header: 'Position',
-        isComplex: false,
-        sortRequired: true,
-        innerColumns: null
-      },
-      {
-        columnDef: 'performanceRating',
-        header: 'Performance Rating',
-        isComplex: false,
-        sortRequired: true,
-        innerColumns: null
-      },
-      {
-        columnDef: 'projects',
-        header: 'Projects',
+      selectRequired: true,
+      tableButtons: { add: true, delete: true, edit: true, view: true, export: true },
+      columns: [
+        {
+        columnDef: 'id',
+        header: 'Id',
         isComplex: false,
         sortRequired: true,
         innerColumns: null,
-        cell: (rec: any) => { return rec.projects }
+        },
+       {
+        columnDef: 'name',
+        header: 'Name',
+        isComplex: false,
+        sortRequired: true,
+        innerColumns: null
+        },
+        {
+          columnDef: 'department',
+          header: 'Department',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'email',
+          header: 'Email',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'joiningDate',
+          header: 'JoiningDate',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'phone',
+          header: 'Phone',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'location',
+          header: 'Location',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'salary',
+          header: 'Salary',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'position',
+          header: 'Position',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'performanceRating',
+          header: 'Performance Rating',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null
+        },
+        {
+          columnDef: 'projects',
+          header: 'Projects',
+          isComplex: false,
+          sortRequired: true,
+          innerColumns: null,
+          cell: (rec: any) => { return rec.projects }
+        }
+      ],
+    },
+    serverSidePagination: {
+      offset: 0,
+      limit: 0
+    },
+    popupDetails:{
+      addForm: {
+        title: 'Add Employee ',
+        width: 800,
+        justify: Justify.center
+      },
+      editForm: {
+        title: 'Edit Employee',
+        width: 800,
+        justify: Justify.center
       }
-    ]
+    }
   }
 
   constructor(
-    private modelService: ModalService,
     private alertService: AlertService,
-    private snackBarService: SnackbarService
+    private snackBarService: SnackbarService,
+    private cdr: ChangeDetectorRef
   ){
-
+      this.editorOptions = new JsonEditorOptions()
+      this.editorOptions.mode = 'code';
+      this.editorOptions.modes = ['code'];
+      this.jsonDatas = this.jsonData;
+      this.updatedJsonValue = this.jsonDatas;
+      this.jsonDatas = {
+        ...this.jsonData,
+        tableDataFields: this.jsonData.tableDataFields,
+        tableSearch:this.jsonData.tableSearch,
+        tableData:this.jsonData.tableData,
+        tableConfig:this.jsonData.tableConfig,
+        serverSidePagination:this.jsonData.serverSidePagination,
+        popupDetails:this.jsonData.popupDetails
+      }
     }
 
   public onTableAction(event: any) {
     switch (event.name) {
       case 'create':
-        const model : IPopupDetails = {
-          width: 800,
-          component: DynamicForm ,
-          header:{
-            title:'Add form',
-            justification: Justify.left
-          },
-          ContextData: {dynamicFormDetails : this.dynamicFormDetails} ,
-          autoClose: true,
-          onClose:()=>{},
-          onSubmit:(createEvent:any)=>{
-             this.snackBarService.success("Created");
-          }
+        event.value['id'] = Math.floor(Math.random() * 1000000);
+        if (this.jsonData.tableData.data) {
+           this.jsonData.tableData.data.push(event.value);
+            this.jsonData = {
+              ...this.jsonData,
+              tableData:{
+                ...this.jsonData.tableData,
+                data: this.jsonData.tableData.data,
+                totalRecords: this.jsonData.tableData.data.length
+              }
+            }
+            this.snackBarService.success('Added Successfully');
         }
-        this.modelService.openComponentAsPopup(model);
+
         break;
       case 'edit':
-        console.log(event);
-        const editmodel : IPopupDetails = {
-          width: 800,
-          component: DynamicForm ,
-          header:{
-            title:'Add form',
-            justification: Justify.left
-          },
-          ContextData: { dynamicFormDetails : this.dynamicFormDetails } ,
-          autoClose: true,
-          onClose:()=>{},
-          onSubmit:(editEvent:any)=>{ console.log(event.value.id ,editEvent) }
-        }
-        this.modelService.openComponentAsPopup(editmodel);
+          const updatedData = this.jsonData.tableData.data.map(data =>
+            data.id === event.value.id
+              ? { ...data, ...event.value }
+              : data
+          );
+          this.jsonData = {
+              ...this.jsonData,
+              tableData:{
+                ...this.jsonData.tableData,
+                data: updatedData,
+                totalRecords: updatedData.length
+                
+              }
+            }
+            this.snackBarService.success('Edited Successfully');
         break;
       case 'delete':
-        console.log('delete');
-        console.log(event);
-        this.alertService.confirmationModel("Are you sure want to delete", ()=>{
-          this.snackBarService.success("Deleted");
-        },()=>{
+          this.alertService.confirmationModel(`Are you sure to delete Employee "${event.value.name}"`, ()=>{
+            const remainingData = this.jsonData.tableData.data.filter(
+            data => data.id !== event.value.id
+          );
+           this.jsonData = {
+              ...this.jsonData,
+              tableData:{
+                ...this.jsonData.tableData,
+                data: remainingData,
+                totalRecords: remainingData.length
+                
+              }
+            }
+            this.snackBarService.success('Deleted Successfully');
+        },
+        ()=>{
 
-        })
+        }
+      )
+       
         break;
       case 'view':
         console.log('view');
@@ -679,14 +1085,42 @@ export class ConfigTest {
         break;
     }
   }
+
+  changeLog(event: any) {
+    if (event && !event.type) {
+      setTimeout(() => {
+        this.updatedJsonValue = event;
+        this.cdr.detectChanges();
+      }, 500);
+    }
+  }
+
+
+  public resetJsonData() {
+    this.jsonDatas = {
+        ...this.jsonData,
+        tableDataFields: structuredClone(this.jsonData.tableDataFields),
+        tableSearch:structuredClone(this.jsonData.tableSearch),
+        tableData:structuredClone(this.jsonData.tableData),
+        tableConfig:structuredClone(this.jsonData.tableConfig),
+        serverSidePagination:structuredClone(this.jsonData.serverSidePagination),
+        popupDetails:structuredClone(this.jsonData.popupDetails)
+    }
+    this.jsonDatas = structuredClone(this.masterJsonData);
+    this.updatedJsonValue = structuredClone(this.masterJsonData);
+  }
+
+  public generateComponent() {
+    this.jsonDatas = {
+        ...this.jsonData,
+        tableDataFields: structuredClone(this.updatedJsonValue.tableDataFields),
+        tableSearch:structuredClone(this.updatedJsonValue.tableSearch),
+        tableData:structuredClone(this.updatedJsonValue.tableData),
+        tableConfig:structuredClone(this.updatedJsonValue.tableConfig),
+        serverSidePagination:structuredClone(this.updatedJsonValue.serverSidePagination),
+        popupDetails:structuredClone(this.updatedJsonValue.popupDetails)
+    }
+    this.jsonData = structuredClone(this.updatedJsonValue);
+  }
+
 }
-
-
-// {
-//   formData: {},
-//   searchForm: {},
-//   data : [],
-//   tableContent : {
-
-//   }
-// }

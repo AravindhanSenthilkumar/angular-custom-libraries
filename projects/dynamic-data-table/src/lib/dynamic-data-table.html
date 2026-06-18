@@ -1,0 +1,7 @@
+<lib-dynamic-table 
+    [dataset]="dataTableDetails?.tableData" 
+    [tableDetails]="dataTableDetails?.tableConfig"
+    [pagination]="dataTableDetails?.serverSidePagination" 
+    [search]="dataTableDetails?.tableSearch"
+    (action)="onTableAction($event)"
+></lib-dynamic-table>
