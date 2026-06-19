@@ -41,3 +41,47 @@ body{
 .generate-button{
     right: 0;
 }
+
+.header {
+  height: 64px;
+  background: #1976d2;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nav-links a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-links a.active {
+  background: rgba(255, 255, 255, 0.25);
+  font-weight: 600;
+}
+
+.content-container {
+  height: calc(100vh - 64px);
+  overflow: auto;
+}

@@ -13,7 +13,9 @@
 }
 
 .invalid-feedback {
-  font-size: var(--FONT-SIZE-FOR-SMALL-TEXT);
-  font-weight: var(--FONT-WEIGHT-NORMAL);
-  margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: var(--FONT-WEIGHT-NORMAL);
+    margin-top: 5px;
+    font-family: 'Roboto';
+    color: red;
 }

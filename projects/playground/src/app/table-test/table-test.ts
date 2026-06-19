@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { FieldType, FloatLabel, Form } from 'dynamic-form';
 import { defaultPageSize, DynamicTable, OrderBy, SearchAt, SearchModel, SearchOn, SearchRequest, TableDetails } from 'dynamic-table';
@@ -7,7 +8,7 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 @Component({
   selector: 'app-table-test',
-  imports: [DynamicTable,MatButtonModule, NgxJsonViewerModule, JsonEditorComponent],
+  imports: [DynamicTable,MatButtonModule, NgxJsonViewerModule, JsonEditorComponent, RouterLink, RouterLinkActive],
   templateUrl: './table-test.html',
   styleUrl: './table-test.scss',
 })
@@ -36,7 +37,7 @@ export class TableTest {
         visible: true,
         outline: true,
         floatLabel: FloatLabel.always,
-        numberOfColumns: 1
+        numberOfColumns: 3
       },
       {
         type: FieldType.dropdown,
@@ -54,7 +55,7 @@ export class TableTest {
         visible: true,
         outline: true,
         floatLabel: FloatLabel.always,
-        numberOfColumns: 1
+        numberOfColumns: 3
       },
       {
         type: FieldType.email,
@@ -66,7 +67,7 @@ export class TableTest {
         visible: true,
         outline: true,
         floatLabel: FloatLabel.always,
-        numberOfColumns: 1
+        numberOfColumns: 3
       }
     ],
     outline: false

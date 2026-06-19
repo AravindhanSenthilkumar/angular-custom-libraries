@@ -4,6 +4,7 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { ModalService, IPopupDetails, PopupBaseComponent } from 'dynamic-modal';
 import { FormTest } from '../form-test/form-test';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 export  enum Justify {
     left = "left",
@@ -13,7 +14,7 @@ export  enum Justify {
 
 @Component({
   selector: 'app-modal-test',
-  imports: [MatButtonModule, NgxJsonViewerModule, JsonEditorComponent],
+  imports: [MatButtonModule, NgxJsonViewerModule, JsonEditorComponent, RouterLink, RouterLinkActive],
   templateUrl: './modal-test.html',
   styleUrl: './modal-test.scss',
 })

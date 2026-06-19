@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { AppLiteralConsts } from '../constant/consts';
@@ -58,10 +58,13 @@ export class FormTypeIndex {
   /**
    * Desc : executes when input changes from child component
    */
-  public ngOnChanges(): void {
+  public ngOnChanges(change:SimpleChanges): void {
     this.form.valueChanges.subscribe(() => {
       this.onFormValueChange.emit(this.form);
     });
+    if(change['fields']){
+       this.getForm(this.form, change['fields'].currentValue.controls);
+    }
   }
   /**
    * Desc : emitting the form values to parent component
@@ -122,10 +125,17 @@ export class FormTypeIndex {
               field.value != null && field.value != undefined
                 ? field.value
                 : '';
-            group.addControl(
-              field.name,
-              new FormControl(val, MainValidator.getValidators(field))
-            );
+            if(group.controls[field.name]){
+              group.controls[field.name].setErrors(null);
+              group.controls[field.name].clearValidators();
+              group.controls[field.name].setValidators(MainValidator.getValidators(field));
+              group.controls[field.name].updateValueAndValidity();
+            } else{
+              group.addControl(
+                field.name,
+                new FormControl(val, MainValidator.getValidators(field))
+              );
+            }
             break;
         }
       }

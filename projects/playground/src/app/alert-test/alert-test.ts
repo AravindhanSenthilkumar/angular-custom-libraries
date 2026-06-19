@@ -4,10 +4,11 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { AlertService } from 'dynamic-alert';
 import { PopupBaseComponent } from 'dynamic-modal';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-alert-test',
-  imports: [MatButtonModule, NgxJsonViewerModule, JsonEditorComponent],
+  imports: [MatButtonModule, NgxJsonViewerModule, JsonEditorComponent, RouterLink, RouterLinkActive],
   templateUrl: './alert-test.html',
   styleUrl: './alert-test.scss',
 })

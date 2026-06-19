@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { DynamicForm, DynamicFormDetails, FieldType, FloatLabel, Form, Wizards } from 'dynamic-form';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 @Component({
   selector: 'app-wizard-test',
-  imports: [DynamicForm, NgxJsonViewerModule, JsonEditorComponent,MatButtonModule],
+  imports: [DynamicForm, NgxJsonViewerModule, JsonEditorComponent,MatButtonModule, RouterLink, RouterLinkActive],
   templateUrl: './wizard-test.html',
   styleUrl: './wizard-test.scss',
 })

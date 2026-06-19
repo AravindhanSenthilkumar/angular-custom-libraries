@@ -7,6 +7,7 @@ import { DynamicDataTable, DataTable } from 'dynamic-data-table';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 export enum Justify {
     left = "left",
@@ -16,7 +17,7 @@ export enum Justify {
 
 @Component({
   selector: 'app-config-test',
-  imports: [DynamicDataTable,  NgxJsonViewerModule, JsonEditorComponent, MatButtonModule],
+  imports: [DynamicDataTable,  NgxJsonViewerModule, JsonEditorComponent, MatButtonModule, RouterLink, RouterLinkActive],
   standalone: true,
   templateUrl: './config-test.html',
   styleUrl: './config-test.scss',

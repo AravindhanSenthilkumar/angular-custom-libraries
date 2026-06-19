@@ -1,7 +1,25 @@
+<div class="app-container">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      Dynamic Components Playground
+    </div>
+
+    <nav class="nav-links">
+     <a routerLink="/form" routerLinkActive="active">Form</a>
+     <a routerLink="/wizard" routerLinkActive="active">Wizard</a>
+    <a routerLink="/table" routerLinkActive="active">Table</a>
+    <a routerLink="/modal" routerLinkActive="active">Modal</a>
+    <a routerLink="/alert" routerLinkActive="active">Alert</a>
+    <a routerLink="/toast" routerLinkActive="active">Toast</a>
+    <a routerLink="/config" routerLinkActive="active">Config</a>
+    </nav>
+  </header>
 <div class="dashboard-container">
   <div class="sidebar">
     <json-editor 
-        style="height:90%;" 
+        style="height:80%;" 
         [options]="editorOptions"
         [data]="jsonDatas" 
         (change)="changeLog($event)" 
@@ -18,4 +36,5 @@
             (action)="onTableAction($event)"
         ></lib-dynamic-data-table>
   </div>
+</div>
 </div>

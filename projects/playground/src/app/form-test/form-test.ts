@@ -5,11 +5,12 @@ import { FieldType, FloatLabel } from 'dynamic-form';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { MatButtonModule } from '@angular/material/button';
 import { PopupBaseComponent } from 'dynamic-modal';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-form-test',
   standalone:true,
-  imports: [DynamicForm,  NgxJsonViewerModule, JsonEditorComponent, MatButtonModule],
+  imports: [DynamicForm,  NgxJsonViewerModule, JsonEditorComponent, MatButtonModule, RouterLink, RouterLinkActive],
   templateUrl: './form-test.html',
   styleUrl: './form-test.scss',
 })
@@ -119,6 +120,7 @@ export class FormTest extends PopupBaseComponent{
         "suffixText": "",
         "numberOfColumns": 12,
         "multipleSelect": false,
+        "OnChange": undefined,
         "options": [
           {
             "key": "IND",

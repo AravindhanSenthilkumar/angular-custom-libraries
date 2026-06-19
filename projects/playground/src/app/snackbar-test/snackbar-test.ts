@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { SnackbarService } from 'dynamic-toast';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 @Component({
   selector: 'app-snackbar-test',
-  imports: [ NgxJsonViewerModule, JsonEditorComponent, MatButtonModule],
+  imports: [ NgxJsonViewerModule, JsonEditorComponent, MatButtonModule, RouterLink, RouterLinkActive],
   templateUrl: './snackbar-test.html',
   styleUrl: './snackbar-test.scss',
 })
