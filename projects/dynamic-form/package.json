@@ -1,10 +1,33 @@
 {
-  "name": "dynamic-form",
-  "version": "0.0.1",
+  "name": "devlab-one-dynamic-form",
+  "version": "1.0.4",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0"
   },
+  "keywords": [
+    "devlab-one-dynamic-form",
+    "angular",
+    "dynamic-form",
+    "angular-dynamic-form",
+    "json-form",
+    "form-generator",
+    "reactive-forms",
+    "angular-material",
+    "form-builder",
+    "dynamic-validation",
+    "schema-driven-form",
+    "config-driven-form",
+    "metadata-driven-form",
+    "conditional-form",
+    "multi-step-form",
+    "ngx-dynamic-form",
+    "angular-library",
+    "reusable-components",
+    "typescript",
+    "devlab",
+    "devlab-form"
+  ],
   "dependencies": {
     "tslib": "^2.3.0"
   },

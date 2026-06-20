@@ -11,6 +11,12 @@
   "private": true,
   "packageManager": "npm@11.11.0",
   "dependencies": {
+    "devlab-one-dynamic-form":"^1.0.4",
+    "devlab-one-dynamic-table":"^1.0.5",
+    "devlab-one-dynamic-modal":"^1.0.4",
+    "devlab-one-dynamic-data-table":"^1.0.4",
+    "devlab-one-dynamic-alert":"^1.0.3",
+    "devlab-one-dynamic-toast":"^1.0.2",
     "@angular/animations": "^22.0.1",
     "@angular/cdk": "^22.0.1",
     "@angular/common": "^22.0.1",

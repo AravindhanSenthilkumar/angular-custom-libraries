@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { DynamicForm, Form, DynamicFormDetails } from 'dynamic-form';
-import { DataSet, DynamicTable, SearchAt, SearchModel, SearchOn, SearchRequest, TableDetails } from 'dynamic-table';
-import { IPopupDetails, ModalService } from 'dynamic-modal';
+import { DynamicForm, Form, DynamicFormDetails } from 'devlab-one-dynamic-form';
+import { DataSet, DynamicTable, SearchAt, SearchModel, SearchOn, SearchRequest, TableDetails } from 'devlab-one-dynamic-table';
+import { IPopupDetails, ModalService } from 'devlab-one-dynamic-modal';
 
 export enum Justify {
   left = "left",

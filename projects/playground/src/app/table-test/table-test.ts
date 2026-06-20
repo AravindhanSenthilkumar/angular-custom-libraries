@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import { FieldType, FloatLabel, Form } from 'dynamic-form';
-import { defaultPageSize, DynamicTable, OrderBy, SearchAt, SearchModel, SearchOn, SearchRequest, TableDetails } from 'dynamic-table';
+import { FieldType, FloatLabel, Form } from 'devlab-one-dynamic-form';
+import { defaultPageSize, DynamicTable, OrderBy, SearchAt, SearchModel, SearchOn, SearchRequest, TableDetails } from 'devlab-one-dynamic-table';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 @Component({

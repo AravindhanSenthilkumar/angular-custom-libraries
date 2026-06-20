@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import { DynamicForm, DynamicFormDetails, FieldType, FloatLabel, Form, Wizards } from 'dynamic-form';
+import { DynamicForm, DynamicFormDetails, FieldType, FloatLabel, Form, Wizards } from 'devlab-one-dynamic-form';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 @Component({

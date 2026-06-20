@@ -1,10 +1,36 @@
 {
-  "name": "dynamic-data-table",
-  "version": "0.0.1",
+  "name": "devlab-one-dynamic-data-table",
+  "version": "1.0.4",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "devlab-one-dynamic-form": "^1.0.4",
+    "devlab-one-dynamic-table": "^1.0.5",
+    "devlab-one-dynamic-modal": "^1.0.4"
   },
+  "keywords": [
+    "devlab-one-dynamic-data-table",
+    "angular",
+    "dynamic-data-table",
+    "dynamic-table",
+    "data-grid",
+    "crud-table",
+    "angular-crud",
+    "dynamic-crud",
+    "dynamic-form",
+    "dynamic-modal",
+    "admin-dashboard",
+    "enterprise-ui",
+    "metadata-driven-ui",
+    "config-driven-ui",
+    "json-driven-ui",
+    "dynamic-components",
+    "reactive-forms",
+    "angular-material",
+    "angular-library",
+    "devlab",
+    "devlab-data-table"
+  ],
   "dependencies": {
     "tslib": "^2.3.0"
   },

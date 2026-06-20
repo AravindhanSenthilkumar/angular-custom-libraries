@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { FieldType, FloatLabel } from 'dynamic-form';
-import { DynamicTable, SearchAt, SearchOn } from 'dynamic-table';
-import { AlertService } from 'dynamic-alert';
-import { SnackbarService } from 'dynamic-toast';
-import { DynamicDataTable, DataTable } from 'dynamic-data-table';
+import { FieldType, FloatLabel } from 'devlab-one-dynamic-form';
+import { DynamicTable, SearchAt, SearchOn } from 'devlab-one-dynamic-table';
+import { AlertService } from 'devlab-one-dynamic-alert';
+import { SnackbarService } from 'devlab-one-dynamic-toast';
+import { DynamicDataTable, DataTable } from 'devlab-one-dynamic-data-table';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { MatButtonModule } from '@angular/material/button';

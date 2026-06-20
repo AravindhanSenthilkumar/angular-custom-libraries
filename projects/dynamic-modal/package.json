@@ -1,10 +1,33 @@
 {
-  "name": "dynamic-modal",
-  "version": "0.0.1",
+  "name": "devlab-one-dynamic-modal",
+  "version": "1.0.4",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0"
   },
+  "keywords": [
+    "devlab-one-dynamic-modal",
+    "angular",
+    "dynamic-modal",
+    "dynamic-dialog",
+    "angular-modal",
+    "angular-dialog",
+    "modal",
+    "dialog",
+    "popup",
+    "mat-dialog",
+    "angular-material",
+    "dynamic-component",
+    "runtime-component",
+    "reusable-modal",
+    "confirmation-dialog",
+    "alert-dialog",
+    "ngx-modal",
+    "ngx-dialog",
+    "angular-library",
+    "devlab",
+    "devlab-modal"
+  ],
   "dependencies": {
     "tslib": "^2.3.0"
   },

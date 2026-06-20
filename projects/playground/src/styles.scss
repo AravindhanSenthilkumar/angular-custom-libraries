@@ -2,48 +2,26 @@
 @import '@angular/material/prebuilt-themes/azure-blue.css';
 @import "jsoneditor/dist/jsoneditor.min.css";
 
-
-body{
-    margin: unset;
+* {
+  box-sizing: border-box;
 }
 
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
+html,
+body {
+  margin: 0;
+  height: 100%;
 }
 
-.sidebar {
-  flex: 0 0 25%;
-  max-width: 25%;
-  height: 100vh;
-
-  padding: 16px;
-  border-right: 1px solid #ddd;
-  background: #fafafa;
+.app-container {
+  min-height: 100vh;
 }
 
-.playground-content {
-  flex: 1;
-  height: 100vh;
-
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.button-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid blue;
-}
-
-.generate-button{
-    right: 0;
-}
+/* ===========================
+   HEADER
+=========================== */
 
 .header {
-  height: 64px;
+  min-height: 64px;
   background: #1976d2;
   color: white;
 
@@ -51,17 +29,22 @@ body{
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 24px;
+  padding: 12px 24px;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .logo {
   font-size: 20px;
   font-weight: 600;
+  font-family: Roboto, sans-serif;
+  letter-spacing: 0.6px;
 }
 
 .nav-links {
   display: flex;
-  gap: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .nav-links a {
@@ -69,7 +52,8 @@ body{
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
-  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Roboto';
 }
 
 .nav-links a:hover {
@@ -81,7 +65,126 @@ body{
   font-weight: 600;
 }
 
-.content-container {
+/* ===========================
+   MAIN LAYOUT
+=========================== */
+
+.dashboard-container {
+  display: flex;
+  min-height: calc(100vh - 64px);
+}
+
+.sidebar {
+  flex: 0 0 30%;
+  max-width: 30%;
+
+  padding: 16px;
+  border-right: 1px solid #ddd;
+  background: #fafafa;
+
+  display: flex;
+  flex-direction: column;
   height: calc(100vh - 64px);
+}
+
+.playground-content {
+  flex: 1;
+  padding: 20px;
   overflow: auto;
+}
+
+json-editor {
+  flex: 1;
+  min-height: 500px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid blue;
+}
+
+.button-container button {
+  flex: 1;
+}
+
+.reset-button{
+    border-right: 1px solid blue!important;
+    border-radius: 0!important;
+}
+
+/* ===========================
+   TABLET
+=========================== */
+
+@media (max-width: 1024px) {
+  .sidebar {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width: 768px) {
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .nav-links {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    max-width: 100%;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .playground-content {
+    width: 100%;
+    padding: 16px;
+  }
+
+  json-editor {
+    min-height: 200px;
+  }
+}
+
+/* ===========================
+   SMALL MOBILE
+=========================== */
+
+@media (max-width: 480px) {
+
+  .logo {
+    font-size: 16px;
+  }
+
+  .nav-links a {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
 }

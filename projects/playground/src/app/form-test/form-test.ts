@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { DynamicForm, DynamicFormDetails, Form, Wizards } from 'dynamic-form';
+import { DynamicForm, DynamicFormDetails, Form, Wizards } from 'devlab-one-dynamic-form';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import { FieldType, FloatLabel } from 'dynamic-form';
+import { FieldType, FloatLabel } from 'devlab-one-dynamic-form';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { MatButtonModule } from '@angular/material/button';
-import { PopupBaseComponent } from 'dynamic-modal';
+import { PopupBaseComponent } from 'devlab-one-dynamic-modal';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({

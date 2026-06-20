@@ -1,11 +1,34 @@
 {
-  "name": "dynamic-table",
-  "version": "0.0.1",
+  "name": "devlab-one-dynamic-table",
+  "version": "1.0.5",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0",
-    "dynamic-form": "^0.0.1"
+    "devlab-one-dynamic-form": "^1.0.4"
   },
+  "keywords": [
+    "devlab-one-dynamic-table",
+    "angular",
+    "dynamic-table",
+    "dynamic-data-table",
+    "data-table",
+    "angular-table",
+    "mat-table",
+    "angular-material",
+    "data-grid",
+    "dynamic-columns",
+    "json-table",
+    "config-driven-table",
+    "metadata-driven-table",
+    "sortable-table",
+    "filterable-table",
+    "pagination",
+    "editable-table",
+    "ngx-table",
+    "angular-library",
+    "devlab",
+    "devlab-table"
+  ],
   "dependencies": {
     "tslib": "^2.3.0"
   },

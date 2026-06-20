@@ -8,7 +8,7 @@ import { GroupComponent } from './form-type/group/group.component';
 import { DynamicFormDetails } from './model/dynamic-form.model';
 import { WizardComponent } from './form-type/wizard/wizard.component';
 import { FormTypeIndex } from './form-type/form-type-index';
-import { PopupBaseComponent } from 'dynamic-modal'
+import { PopupBaseComponent } from 'devlab-one-dynamic-modal'
 
 @Component({
   selector: 'lib-dynamic-form',

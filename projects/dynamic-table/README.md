@@ -1,64 +1,369 @@
-# DynamicTable
+# Dynamic Table
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+A powerful Angular Material-based Dynamic Table Library that provides configurable data tables with built-in support for:
 
-## Code scaffolding
+* Sorting
+* Pagination
+* Search
+* CRUD Actions
+* Export
+* Row Selection
+* Dynamic Columns
+* Client-side and Server-side operations
+* Angular Reactive Search Forms
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## Features
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+* 🚀 Dynamic column generation
+* 🔍 Built-in search support
+* 📄 Pagination
+* ↕️ Column sorting
+* ✏️ Edit records
+* 👁️ View records
+* ➕ Create records
+* 🗑️ Delete records
+* 📤 Export table data
+* ✅ Row selection support
+* 🎨 Angular Material Design
+* ⚡ Client-side and Server-side operations
 
-```bash
-ng generate --help
-```
+---
 
-## Building
-
-To build the library, run:
-
-```bash
-ng build dynamic-table
-```
-
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-
-   ```bash
-   cd dist/dynamic-table
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Installation
 
 ```bash
-ng test
+npm install devlab-one/dynamic-table
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## Component Usage
 
-```bash
-ng e2e
+```html
+<lib-dynamic-table
+  [dataset]="data"
+  [tableDetails]="tableDetail"
+  [search]="search"
+  (action)="onTableAction($event)"
+></lib-dynamic-table>
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## Dataset Structure
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```typescript
+public data = {
+  data: employeeData,
+  totalRecords: employeeData.length
+};
+```
+
+| Property     | Description             |
+| ------------ | ----------------------- |
+| data         | Array of records        |
+| totalRecords | Total available records |
+
+---
+
+## Search Configuration
+
+The table supports dynamic search forms generated using the Dynamic Form library.
+
+```typescript
+public search: SearchModel = {
+  formElements: this.searchForm,
+  value: {},
+  searchOn: SearchOn.MatchingColumns,
+  searchAt: SearchAt.ClientSide
+};
+```
+
+### Search Modes
+
+```typescript
+SearchOn.MatchingColumns
+SearchOn.AllColumns
+```
+
+### Search Locations
+
+```typescript
+SearchAt.ClientSide
+SearchAt.ServerSide
+```
+
+---
+
+## Table Configuration
+
+```typescript
+public tableDetail: TableDetails = {
+  paging: {
+    enabled: true,
+    pageSizeOptions: [5, 10, 25, 50, 100],
+    pageNumber: 0,
+    pageSize: 10
+  },
+  selectRequired: true,
+  tableButtons: {
+    add: true,
+    edit: true,
+    delete: true,
+    view: true,
+    export: true
+  },
+  columns: this.columnDetails()
+};
+```
+
+---
+
+## Column Configuration
+
+```typescript
+public columnDetails() {
+  return [
+    {
+      columnDef: 'name',
+      header: 'Name',
+      sortRequired: true
+    },
+    {
+      columnDef: 'department',
+      header: 'Department',
+      sortRequired: true
+    },
+    {
+      columnDef: 'email',
+      header: 'Email',
+      sortRequired: true
+    }
+  ];
+}
+```
+
+### Column Properties
+
+| Property     | Description                |
+| ------------ | -------------------------- |
+| columnDef    | Property name from dataset |
+| header       | Display header             |
+| sortRequired | Enable sorting             |
+| isComplex    | Nested object support      |
+| innerColumns | Child columns              |
+| cell         | Custom value renderer      |
+
+---
+
+## Custom Cell Rendering
+
+```typescript
+{
+  columnDef: 'projects',
+  header: 'Projects',
+  sortRequired: true,
+  cell: (record) => {
+    return record.projects;
+  }
+}
+```
+
+---
+
+## Pagination Configuration
+
+```typescript
+paging: {
+  enabled: true,
+  pageSizeOptions: [5,10,25,50,100],
+  pageNumber: 0,
+  pageSize: 10
+}
+```
+
+---
+
+## Table Buttons
+
+```typescript
+tableButtons: {
+  add: true,
+  edit: true,
+  delete: true,
+  view: true,
+  export: true
+}
+```
+
+| Button | Description            |
+| ------ | ---------------------- |
+| add    | Create new record      |
+| edit   | Edit selected record   |
+| delete | Delete selected record |
+| view   | View selected record   |
+| export | Export table data      |
+
+---
+
+## Events
+
+All table interactions emit through a single action output.
+
+```html
+<lib-dynamic-table
+  (action)="onTableAction($event)"
+></lib-dynamic-table>
+```
+
+### Event Handler
+
+```typescript
+public onTableAction(event: any) {
+  switch (event.name) {
+    case 'create':
+      break;
+
+    case 'edit':
+      break;
+
+    case 'delete':
+      break;
+
+    case 'view':
+      break;
+
+    case 'search':
+      break;
+
+    case 'pageChange':
+      break;
+
+    case 'sortChange':
+      break;
+
+    default:
+      break;
+  }
+}
+```
+
+---
+
+## Available Events
+
+### Create
+
+```typescript
+{
+  name: 'create'
+}
+```
+
+### Edit
+
+```typescript
+{
+  name: 'edit',
+  data: selectedRow
+}
+```
+
+### Delete
+
+```typescript
+{
+  name: 'delete',
+  data: selectedRow
+}
+```
+
+### View
+
+```typescript
+{
+  name: 'view',
+  data: selectedRow
+}
+```
+
+### Search
+
+```typescript
+{
+  name: 'search',
+  data: searchValues
+}
+```
+
+### Pagination Change
+
+```typescript
+{
+  name: 'pageChange',
+  pageIndex: 0,
+  pageSize: 10
+}
+```
+
+### Sort Change
+
+```typescript
+{
+  name: 'sortChange',
+  active: 'name',
+  direction: 'asc'
+}
+```
+
+---
+
+## Server-Side Pagination Example
+
+---
+
+## Search Form Example
+
+```typescript
+public searchForm: Form = {
+  controls: [
+    {
+      type: FieldType.text,
+      name: 'name',
+      label: 'Name'
+    },
+    {
+      type: FieldType.dropdown,
+      name: 'department',
+      label: 'Department',
+      options: [
+        {
+          key: 'Engineering',
+          label: 'Engineering'
+        },
+        {
+          key: 'Marketing',
+          label: 'Marketing'
+        }
+      ]
+    }
+  ]
+};
+```
+
+---
+
+## Built With
+
+* Angular 21+
+* Angular Material
+* Reactive Forms
+* TypeScript
+
+---
+
+## License
+
+MIT License

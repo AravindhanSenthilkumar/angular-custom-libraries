@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
-import { ModalService, IPopupDetails, PopupBaseComponent } from 'dynamic-modal';
+import { ModalService, IPopupDetails, PopupBaseComponent } from 'devlab-one-dynamic-modal';
 import { FormTest } from '../form-test/form-test';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 

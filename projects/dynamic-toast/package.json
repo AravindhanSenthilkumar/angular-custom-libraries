@@ -1,10 +1,33 @@
 {
-  "name": "dynamic-toast",
-  "version": "0.0.1",
+  "name": "devlab-one-dynamic-toast",
+  "version": "1.0.2",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0"
   },
+  "keywords": [
+    "devlab-one-dynamic-toast",
+    "angular",
+    "dynamic-toast",
+    "angular-toast",
+    "toast",
+    "toast-notification",
+    "dynamic-snackbar",
+    "angular-snackbar",
+    "snackbar",
+    "notification",
+    "dynamic-notification",
+    "success-toast",
+    "error-toast",
+    "warning-toast",
+    "info-toast",
+    "toast-service",
+    "ngx-toast",
+    "ngx-snackbar",
+    "angular-material",
+    "devlab",
+    "devlab-toast"
+  ],
   "dependencies": {
     "tslib": "^2.3.0"
   },

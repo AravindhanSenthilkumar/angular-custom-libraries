@@ -12,21 +12,20 @@
     <a routerLink="/table" routerLinkActive="active">Table</a>
     <a routerLink="/modal" routerLinkActive="active">Modal</a>
     <a routerLink="/alert" routerLinkActive="active">Alert</a>
-    <a routerLink="/toast" routerLinkActive="active">Toast</a>
+    <a routerLink="/snackbar" routerLinkActive="active">Toast</a>
     <a routerLink="/config" routerLinkActive="active">Config</a>
     </nav>
   </header>
 <div class="dashboard-container">
   <div class="sidebar">
-    <json-editor 
-        style="height:80%;" 
+    <json-editor
         [options]="editorOptions"
         [data]="jsonDatas" 
         (change)="changeLog($event)" 
         #editor
     ></json-editor>
     <div class="button-container">
-        <button mat-button (click)="resetJsonData()">Reset</button>
+        <button class="reset-button" mat-button (click)="resetJsonData()">Reset</button>
         <button mat-button color="primary" (click)="generateComponent()">Generate</button>
     </div>
   </div>

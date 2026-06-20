@@ -23,7 +23,7 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { DynamicForm, DynamicFormDetails } from 'dynamic-form';
+import { DynamicForm, DynamicFormDetails } from 'devlab-one-dynamic-form';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { OrderBy, SearchRequest } from './model/table.model';
 

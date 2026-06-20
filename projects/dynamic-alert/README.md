@@ -1,64 +1,388 @@
-# DynamicAlert
+# Dynamic Alert
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+A lightweight Angular Material-based Alert Library that provides beautiful and consistent alert dialogs for common application scenarios such as:
 
-## Code scaffolding
+* Success Messages
+* Error Messages
+* Information Messages
+* Warning Messages
+* Confirmation Dialogs
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The library eliminates the need to manually create dialog components for simple notifications and confirmation popups.
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Features
 
-```bash
-ng generate --help
-```
+* 🚀 Simple API
+* 🎨 Angular Material Design
+* ✅ Success Alerts
+* ❌ Error Alerts
+* ℹ️ Information Alerts
+* ⚠️ Warning Alerts
+* 🤔 Confirmation Dialogs
+* 🔄 Callback Support
+* 📝 Supports String Messages
+* 📋 Supports Structured Error Messages
+* ⚡ Zero Configuration
 
-## Building
+---
 
-To build the library, run:
-
-```bash
-ng build dynamic-alert
-```
-
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-
-   ```bash
-   cd dist/dynamic-alert
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Installation
 
 ```bash
-ng test
+npm install devlab-one-dynamic-alert
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## Inject Alert Service
 
-```bash
-ng e2e
+```typescript
+import { AlertService } from 'devlab-one-dynamic-alert';
+
+constructor(
+  private alertService: AlertService
+) {}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## Available Methods
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```typescript
+success(
+  message: string | IErrorMessage,
+  okCallback?: () => void
+): void;
+
+error(
+  message: string | IErrorMessage,
+  okCallback?: () => void
+): void;
+
+info(
+  message: string | IErrorMessage,
+  okCallback?: () => void
+): void;
+
+warning(
+  message: string | IErrorMessage,
+  okCallback?: () => void
+): void;
+
+confirmationModel(
+  message: string | IErrorMessage,
+  okCallback?: () => void,
+  cancelCallback?: () => void
+): void;
+```
+
+---
+
+## Success Alert
+
+Display a success message after a successful operation.
+
+```typescript
+this.alertService.success(
+  'Employee created successfully'
+);
+```
+
+### With Callback
+
+```typescript
+this.alertService.success(
+  'Employee created successfully',
+  () => {
+    this.loadEmployees();
+  }
+);
+```
+
+---
+
+## Error Alert
+
+Display application or API error messages.
+
+```typescript
+this.alertService.error(
+  'Unable to save employee details'
+);
+```
+
+### With Callback
+
+```typescript
+this.alertService.error(
+  'Unable to save employee details',
+  () => {
+    console.log('Error acknowledged');
+  }
+);
+```
+
+---
+
+## Information Alert
+
+Display informational messages to the user.
+
+```typescript
+this.alertService.info(
+  'New application update is available'
+);
+```
+
+### With Callback
+
+```typescript
+this.alertService.info(
+  'New application update is available',
+  () => {
+    console.log('Information viewed');
+  }
+);
+```
+
+---
+
+## Warning Alert
+
+Display warning messages before a critical action.
+
+```typescript
+this.alertService.warning(
+  'You have unsaved changes'
+);
+```
+
+### With Callback
+
+```typescript
+this.alertService.warning(
+  'You have unsaved changes',
+  () => {
+    console.log('Warning acknowledged');
+  }
+);
+```
+
+---
+
+## Confirmation Dialog
+
+Display a confirmation popup before performing an action.
+
+```typescript
+this.alertService.confirmationModel(
+  'Are you sure you want to delete this employee?'
+);
+```
+
+### With Confirm Callback
+
+```typescript
+this.alertService.confirmationModel(
+  'Are you sure you want to delete this employee?',
+  () => {
+    this.deleteEmployee();
+  }
+);
+```
+
+### With Confirm and Cancel Callback
+
+```typescript
+this.alertService.confirmationModel(
+  'Are you sure you want to delete this employee?',
+  () => {
+    console.log('Confirmed');
+  },
+  () => {
+    console.log('Cancelled');
+  }
+);
+```
+
+---
+
+## Using Structured Error Messages
+
+The library supports both string messages and structured error objects.
+
+```typescript
+export interface IErrorMessage {
+  title?: string;
+  message: string;
+  errors?: string[];
+}
+```
+
+### Example
+
+```typescript
+const error: IErrorMessage = {
+  title: 'Validation Error',
+  message: 'Unable to submit the form',
+  errors: [
+    'Name is required',
+    'Email is invalid'
+  ]
+};
+
+this.alertService.error(error);
+```
+
+---
+
+## Alert Types
+
+| Method              | Description              |
+| ------------------- | ------------------------ |
+| success()           | Success notification     |
+| error()             | Error notification       |
+| info()              | Information notification |
+| warning()           | Warning notification     |
+| confirmationModel() | Confirmation dialog      |
+
+---
+
+## Callback Flow
+
+### Success
+
+```typescript
+this.alertService.success(
+  'Saved Successfully',
+  () => {
+    console.log('OK Clicked');
+  }
+);
+```
+
+### Confirmation
+
+```typescript
+this.alertService.confirmationModel(
+  'Delete Employee?',
+  () => {
+    console.log('Confirmed');
+  },
+  () => {
+    console.log('Cancelled');
+  }
+);
+```
+
+---
+
+## UI Examples
+
+### Success Alert
+
+```text
+✓ Success
+
+Employee saved successfully
+
+          [ OK ]
+```
+
+### Error Alert
+
+```text
+✕ Error
+
+Unable to save employee
+
+          [ OK ]
+```
+
+### Information Alert
+
+```text
+ℹ Information
+
+New update available
+
+          [ OK ]
+```
+
+### Warning Alert
+
+```text
+⚠ Warning
+
+Unsaved changes detected
+
+          [ OK ]
+```
+
+### Confirmation Dialog
+
+```text
+? Confirmation
+
+Are you sure you want to delete this record?
+
+    [ Cancel ] [ Confirm ]
+```
+
+---
+
+## Typical Usage Scenarios
+
+### API Success
+
+```typescript
+this.employeeService.create(employee)
+  .subscribe({
+    next: () => {
+      this.alertService.success(
+        'Employee created successfully'
+      );
+    }
+  });
+```
+
+### API Error
+
+```typescript
+this.employeeService.create(employee)
+  .subscribe({
+    error: () => {
+      this.alertService.error(
+        'Unable to create employee'
+      );
+    }
+  });
+```
+
+### Delete Confirmation
+
+```typescript
+this.alertService.confirmationModel(
+  'Delete selected employee?',
+  () => {
+    this.deleteEmployee();
+  }
+);
+```
+
+---
+
+## Built With
+
+* Angular 21+
+* Angular Material Dialog
+* TypeScript
+* RxJS
+
+---
+
+## License
+
+MIT License
