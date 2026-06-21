@@ -12,7 +12,11 @@ A powerful Angular Material-based Dynamic Table Library that provides configurab
 * Client-side and Server-side operations
 * Angular Reactive Search Forms
 
----
+
+# Feedback / Suggestion / Report issue
+[https://github.com/AravindhanSenthilkumar/Feedback/issues/1](https://github.com/AravindhanSenthilkumar/Feedback/issues/1)
+
+
 
 ## Features
 
@@ -29,7 +33,6 @@ A powerful Angular Material-based Dynamic Table Library that provides configurab
 * 🎨 Angular Material Design
 * ⚡ Client-side and Server-side operations
 
----
 
 ## Installation
 
@@ -37,7 +40,6 @@ A powerful Angular Material-based Dynamic Table Library that provides configurab
 npm install devlab-one/dynamic-table
 ```
 
----
 
 ## Component Usage
 
@@ -50,7 +52,6 @@ npm install devlab-one/dynamic-table
 ></lib-dynamic-table>
 ```
 
----
 
 ## Dataset Structure
 
@@ -66,7 +67,6 @@ public data = {
 | data         | Array of records        |
 | totalRecords | Total available records |
 
----
 
 ## Search Configuration
 
@@ -95,7 +95,6 @@ SearchAt.ClientSide
 SearchAt.ServerSide
 ```
 
----
 
 ## Table Configuration
 
@@ -119,7 +118,6 @@ public tableDetail: TableDetails = {
 };
 ```
 
----
 
 ## Column Configuration
 
@@ -156,7 +154,6 @@ public columnDetails() {
 | innerColumns | Child columns              |
 | cell         | Custom value renderer      |
 
----
 
 ## Custom Cell Rendering
 
@@ -171,7 +168,6 @@ public columnDetails() {
 }
 ```
 
----
 
 ## Pagination Configuration
 
@@ -184,7 +180,6 @@ paging: {
 }
 ```
 
----
 
 ## Table Buttons
 
@@ -206,7 +201,6 @@ tableButtons: {
 | view   | View selected record   |
 | export | Export table data      |
 
----
 
 ## Events
 
@@ -250,7 +244,6 @@ public onTableAction(event: any) {
 }
 ```
 
----
 
 ## Available Events
 
@@ -318,11 +311,9 @@ public onTableAction(event: any) {
 }
 ```
 
----
 
 ## Server-Side Pagination Example
 
----
 
 ## Search Form Example
 
@@ -353,8 +344,6 @@ public searchForm: Form = {
 };
 ```
 
----
-
 ## Built With
 
 * Angular 21+
@@ -362,7 +351,6 @@ public searchForm: Form = {
 * Reactive Forms
 * TypeScript
 
----
 
 ## License
 

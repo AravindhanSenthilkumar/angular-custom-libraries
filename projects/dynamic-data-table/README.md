@@ -10,7 +10,11 @@ The library automatically combines dynamic forms, dynamic tables, search forms, 
 
 Instead of manually wiring forms, dialogs, tables, search filters, and actions together, simply provide a JSON configuration and the component handles everything automatically.
 
----
+
+# Feedback / Suggestion / Report issue
+[https://github.com/AravindhanSenthilkumar/Feedback/issues/1](https://github.com/AravindhanSenthilkumar/Feedback/issues/1)
+
+
 
 ## Features
 
@@ -29,7 +33,6 @@ Instead of manually wiring forms, dialogs, tables, search filters, and actions t
 * 🎨 Angular Material Design
 * ⚡ Client-side & Server-side Support
 
----
 
 ## Dependencies
 
@@ -43,7 +46,6 @@ devlab-one-dynamic-modal
 
 No manual integration is required.
 
----
 
 ## Installation
 
@@ -51,7 +53,6 @@ No manual integration is required.
 npm install devlab-one-dynamic-data-table
 ```
 
----
 
 ## Component Usage
 
@@ -62,7 +63,6 @@ npm install devlab-one-dynamic-data-table
 ></lib-dynamic-data-table>
 ```
 
----
 
 ## DataTable Structure
 
@@ -79,7 +79,6 @@ public jsonData: DataTable = {
 };
 ```
 
----
 
 ## Architecture
 
@@ -97,7 +96,6 @@ Form      Table     Modal
 (Add/Edit) (Grid)  (Popup)
 ```
 
----
 
 ## Form Configuration
 
@@ -128,7 +126,6 @@ The same form is used automatically for:
 * Edit Record
 * View Record
 
----
 
 ## Search Configuration
 
@@ -156,7 +153,6 @@ tableSearch: {
 }
 ```
 
----
 
 ## Table Data
 
@@ -167,7 +163,6 @@ tableData: {
 }
 ```
 
----
 
 ## Table Configuration
 
@@ -200,7 +195,6 @@ tableConfig: {
 }
 ```
 
----
 
 ## Popup Configuration
 
@@ -230,7 +224,6 @@ When users click:
 
 A popup is opened automatically using Dynamic Modal.
 
----
 
 ## Supported Actions
 
@@ -242,7 +235,6 @@ All actions are emitted through a single output.
 ></lib-dynamic-data-table>
 ```
 
----
 
 ## Action Handler
 
@@ -275,7 +267,6 @@ public onTableAction(event: any) {
 }
 ```
 
----
 
 ## Create Record Example
 
@@ -306,7 +297,6 @@ case 'create':
 break;
 ```
 
----
 
 ## Edit Record Example
 
@@ -337,7 +327,6 @@ case 'edit':
 break;
 ```
 
----
 
 ## Delete Record Example
 
@@ -373,7 +362,6 @@ case 'delete':
 break;
 ```
 
----
 
 ## Event Payloads
 
@@ -442,7 +430,6 @@ break;
 }
 ```
 
----
 
 ## Server Side Support
 
@@ -463,7 +450,6 @@ searchAt: SearchAt.ServerSide
 
 to enable server-side searching.
 
----
 
 ## Lifecycle
 
@@ -489,7 +475,6 @@ User Clicks Add/Edit/View
  Dynamic Table Refreshes
 ```
 
----
 
 ## Why Dynamic Data Table?
 
@@ -516,7 +501,6 @@ With Dynamic Data Table:
 
 Everything is configured through JSON.
 
----
 
 ## Built With
 
@@ -528,7 +512,6 @@ Everything is configured through JSON.
 * RxJS
 * TypeScript
 
----
 
 ## License
 

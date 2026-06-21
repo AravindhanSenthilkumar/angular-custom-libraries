@@ -4,7 +4,10 @@ A powerful Angular Material-based Dynamic Popup Library that allows you to open 
 
 The library eliminates the need to manually create dialog components, pass data, subscribe to outputs, or manage dialog closing behavior.
 
----
+
+# Feedback / Suggestion / Report issue
+[https://github.com/AravindhanSenthilkumar/Feedback/issues/1](https://github.com/AravindhanSenthilkumar/Feedback/issues/1)
+
 
 ## Features
 
@@ -20,7 +23,6 @@ The library eliminates the need to manually create dialog components, pass data,
 * 🔌 Fully reusable and configurable
 * ⚡ Minimal setup
 
----
 
 ## Installation
 
@@ -28,7 +30,6 @@ The library eliminates the need to manually create dialog components, pass data,
 npm install devlab-one-dynamic-popup
 ```
 
----
 
 ## Inject Modal Service
 
@@ -40,7 +41,6 @@ constructor(
 ) {}
 ```
 
----
 
 ## Open Component as Popup
 
@@ -74,7 +74,6 @@ const modal: IPopupDetails = {
 this.modalService.openComponentAsPopup(modal);
 ```
 
----
 
 ## Basic Component Example
 
@@ -102,7 +101,6 @@ export class UserFormComponent {
 }
 ```
 
----
 
 ## Passing Inputs
 
@@ -123,7 +121,6 @@ contextData: {
 
 No manual data injection is required.
 
----
 
 ## Receiving Outputs
 
@@ -149,7 +146,6 @@ Result:
 }
 ```
 
----
 
 ## Auto Close Popup
 
@@ -174,7 +170,6 @@ this.submitForm.emit(data);
 
 The popup closes automatically.
 
----
 
 ## Keep Popup Open After Submit
 
@@ -195,7 +190,6 @@ Useful for:
 * Validation workflows
 * Save and continue scenarios
 
----
 
 ## Header Configuration
 
@@ -216,7 +210,6 @@ export enum Justify {
 }
 ```
 
----
 
 ## Width Configuration
 
@@ -234,7 +227,6 @@ width: 1000
 
 The popup width is automatically converted to pixels.
 
----
 
 ## Full Example
 
@@ -269,7 +261,6 @@ const modal: IPopupDetails = {
 this.modalService.openComponentAsPopup(modal);
 ```
 
----
 
 ## IPopupDetails
 
@@ -294,7 +285,6 @@ export interface IPopupDetails {
 }
 ```
 
----
 
 ## Properties
 
@@ -308,7 +298,6 @@ export interface IPopupDetails {
 | onClose     | Triggered when popup closes           |
 | onSubmit    | Triggered when component emits submit |
 
----
 
 ## Supported Use Cases
 
@@ -321,7 +310,6 @@ export interface IPopupDetails {
 * Custom Angular Components
 * CRUD Operations
 
----
 
 ## Lifecycle Flow
 
@@ -350,7 +338,6 @@ Auto Close (Optional)
 onClose Callback
 ```
 
----
 
 ## Built With
 
@@ -359,7 +346,6 @@ onClose Callback
 * TypeScript
 * RxJS
 
----
 
 ## License
 

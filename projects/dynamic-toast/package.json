@@ -1,6 +1,6 @@
 {
   "name": "devlab-one-dynamic-toast",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0"

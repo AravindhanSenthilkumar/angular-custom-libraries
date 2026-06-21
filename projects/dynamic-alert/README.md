@@ -10,7 +10,11 @@ A lightweight Angular Material-based Alert Library that provides beautiful and c
 
 The library eliminates the need to manually create dialog components for simple notifications and confirmation popups.
 
----
+
+# Feedback / Suggestion / Report issue
+[https://github.com/AravindhanSenthilkumar/Feedback/issues/1](https://github.com/AravindhanSenthilkumar/Feedback/issues/1)
+
+
 
 ## Features
 
@@ -26,7 +30,6 @@ The library eliminates the need to manually create dialog components for simple 
 * 📋 Supports Structured Error Messages
 * ⚡ Zero Configuration
 
----
 
 ## Installation
 
@@ -34,7 +37,6 @@ The library eliminates the need to manually create dialog components for simple 
 npm install devlab-one-dynamic-alert
 ```
 
----
 
 ## Inject Alert Service
 
@@ -46,7 +48,6 @@ constructor(
 ) {}
 ```
 
----
 
 ## Available Methods
 
@@ -78,7 +79,6 @@ confirmationModel(
 ): void;
 ```
 
----
 
 ## Success Alert
 
@@ -101,7 +101,6 @@ this.alertService.success(
 );
 ```
 
----
 
 ## Error Alert
 
@@ -124,7 +123,6 @@ this.alertService.error(
 );
 ```
 
----
 
 ## Information Alert
 
@@ -147,7 +145,6 @@ this.alertService.info(
 );
 ```
 
----
 
 ## Warning Alert
 
@@ -170,7 +167,6 @@ this.alertService.warning(
 );
 ```
 
----
 
 ## Confirmation Dialog
 
@@ -207,7 +203,6 @@ this.alertService.confirmationModel(
 );
 ```
 
----
 
 ## Using Structured Error Messages
 
@@ -236,7 +231,6 @@ const error: IErrorMessage = {
 this.alertService.error(error);
 ```
 
----
 
 ## Alert Types
 
@@ -248,7 +242,6 @@ this.alertService.error(error);
 | warning()           | Warning notification     |
 | confirmationModel() | Confirmation dialog      |
 
----
 
 ## Callback Flow
 
@@ -277,7 +270,6 @@ this.alertService.confirmationModel(
 );
 ```
 
----
 
 ## UI Examples
 
@@ -331,7 +323,6 @@ Are you sure you want to delete this record?
     [ Cancel ] [ Confirm ]
 ```
 
----
 
 ## Typical Usage Scenarios
 
@@ -372,7 +363,6 @@ this.alertService.confirmationModel(
 );
 ```
 
----
 
 ## Built With
 
@@ -381,7 +371,6 @@ this.alertService.confirmationModel(
 * TypeScript
 * RxJS
 
----
 
 ## License
 

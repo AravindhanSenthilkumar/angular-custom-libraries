@@ -2,6 +2,11 @@
 
 A powerful Angular Material-based Dynamic Form Library that generates reactive forms from JSON configuration. Instead of manually creating form controls and templates, you can define your entire form structure using a JSON object and the library will automatically render the corresponding Angular Material components.
 
+
+# Feedback / Suggestion / Report issue
+[https://github.com/AravindhanSenthilkumar/Feedback/issues/1](https://github.com/AravindhanSenthilkumar/Feedback/issues/1)
+
+
 ## Wizard Forms
 
 The Dynamic Form library supports multi-step wizard forms. Each wizard step can contain its own form configuration and validation rules.
@@ -34,7 +39,6 @@ export interface DynamicForm {
 * ✅ Submit, Cancel, and Reset buttons
 * ✅ Auto-complete dropdown support
 
----
 
 ## Supported Field Types
 
@@ -63,7 +67,6 @@ export enum FieldType {
 }
 ```
 
----
 
 ## Installation
 
@@ -71,7 +74,6 @@ export enum FieldType {
 npm install devlab-one-dynamic-form
 ```
 
----
 
 ## Usage
 
@@ -86,7 +88,6 @@ import { DynamicForm } from 'devlab-one-dynamic-form';
 export class AppComponent {}
 ```
 
----
 
 ## Basic Example
 
@@ -133,7 +134,6 @@ HTML:
    </lib-dynamic-form>
 ```
 
----
 
 ## Complete Form Configuration Example
 
@@ -293,7 +293,6 @@ The following example demonstrates multiple supported field types including:
 }
 ```
 
----
 
 ## Supported Validators
 
@@ -308,7 +307,6 @@ validators: {
 }
 ```
 
----
 
 ## Field Properties
 
@@ -333,7 +331,6 @@ validators: {
 | multipleSelect  | Enable multi-select dropdown   |
 | autoComplete    | Enable autocomplete search     |
 
----
 
 
 ## Wizard Form Example
@@ -413,7 +410,6 @@ dynamicFormDetails: DynamicFormDetails = {
 };
 ```
 
----
 
 ## Component Usage
 
@@ -425,7 +421,6 @@ dynamicFormDetails: DynamicFormDetails = {
    </lib-dynamic-form>
 ```
 
----
 
 ## Wizard Features
 
@@ -440,7 +435,6 @@ dynamicFormDetails: DynamicFormDetails = {
 * Supports nested Form Groups
 * Supports Form Arrays
 
----
 
 ## Wizard Navigation
 
@@ -470,7 +464,6 @@ onReset() {
 }
 ```
 
----
 
 ## Responsive Layout
 
@@ -489,7 +482,6 @@ Based on a 12-column grid system:
 | 4     | One Third  |
 | 3     | One Fourth |
 
----
 
 ## Built With
 
@@ -508,7 +500,6 @@ Based on a 12-column grid system:
 | Submit   | Available on the final step             |
 | Cancel   | Closes or resets the wizard             |
 
----
 
 ### Submit Wizard
 

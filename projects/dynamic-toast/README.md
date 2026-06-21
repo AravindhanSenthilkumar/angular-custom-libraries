@@ -4,7 +4,11 @@ A lightweight Angular Material-based Snackbar Library that provides beautiful, c
 
 The library offers predefined notification types such as Success, Error, Warning, and Information while also allowing fully customizable snackbars through a configuration object.
 
----
+
+# Feedback / Suggestion / Report issue
+[https://github.com/AravindhanSenthilkumar/Feedback/issues/1](https://github.com/AravindhanSenthilkumar/Feedback/issues/1)
+
+
 
 ## Features
 
@@ -20,7 +24,6 @@ The library offers predefined notification types such as Success, Error, Warning
 * 🎨 Custom Styling Support
 * ⚡ Lightweight and Fast
 
----
 
 ## Installation
 
@@ -28,7 +31,6 @@ The library offers predefined notification types such as Success, Error, Warning
 npm install devlab-one-dynamic-snackbar
 ```
 
----
 
 ## Inject Snackbar Service
 
@@ -40,7 +42,6 @@ constructor(
 ) {}
 ```
 
----
 
 ## Available Methods
 
@@ -68,7 +69,6 @@ info(
 ): void;
 ```
 
----
 
 ## Success Snackbar
 
@@ -89,7 +89,6 @@ this.snackbar.success(
 );
 ```
 
----
 
 ## Error Snackbar
 
@@ -110,7 +109,6 @@ this.snackbar.error(
 );
 ```
 
----
 
 ## Warning Snackbar
 
@@ -131,7 +129,6 @@ this.snackbar.warning(
 );
 ```
 
----
 
 ## Information Snackbar
 
@@ -152,7 +149,6 @@ this.snackbar.info(
 );
 ```
 
----
 
 ## Custom Snackbar
 
@@ -166,7 +162,6 @@ this.snackbar.show({
 });
 ```
 
----
 
 ## Snackbar Configuration
 
@@ -181,7 +176,6 @@ export interface SnackbarConfig {
 }
 ```
 
----
 
 ## Snackbar Types
 
@@ -194,7 +188,6 @@ export enum SnackbarType {
 }
 ```
 
----
 
 ## Duration Configuration
 
@@ -216,7 +209,6 @@ Duration is specified in milliseconds.
 | 5000  | 5 seconds   |
 | 10000 | 10 seconds  |
 
----
 
 ## Position Configuration
 
@@ -248,7 +240,6 @@ this.snackbar.show({
 });
 ```
 
----
 
 ## Complete Example
 
@@ -263,7 +254,6 @@ this.snackbar.show({
 });
 ```
 
----
 
 ## API Success Example
 
@@ -278,7 +268,6 @@ this.employeeService.create(employee)
   });
 ```
 
----
 
 ## API Error Example
 
@@ -293,7 +282,6 @@ this.employeeService.create(employee)
   });
 ```
 
----
 
 ## UI Examples
 
@@ -333,7 +321,6 @@ this.employeeService.create(employee)
 └──────────────────────────────┘
 ```
 
----
 
 ## Typical Usage Scenarios
 
@@ -369,7 +356,6 @@ this.snackbar.info(
 );
 ```
 
----
 
 ## Built With
 
@@ -378,7 +364,6 @@ this.snackbar.info(
 * TypeScript
 * RxJS
 
----
 
 ## Why Dynamic Snackbar?
 
@@ -406,7 +391,6 @@ this.snackbar.success(
 
 and let the library handle styling, icons, duration, positioning, and consistency automatically.
 
----
 
 ## License
 
