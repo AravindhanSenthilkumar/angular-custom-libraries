@@ -1,4 +1,4 @@
-import { AppLiteralConsts } from '../consts/app-literal-constant';
+import { AppLiteralConsts } from '../constant/consts';
 import { SearchRequest } from '../interfaces/search-request.interface';
 
 

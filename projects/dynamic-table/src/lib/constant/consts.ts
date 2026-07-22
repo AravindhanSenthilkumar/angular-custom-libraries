@@ -28,6 +28,9 @@ export const AppLiteralConsts = {
   dateFormat: {
     yearMonthDay: 'yyyy-MM-dd HH:mm',
   },
+  queryString: {
+    searchQuery: 'searchQuery',
+  },
   imgIconPath: {
     swipeCard: '../../../../assets/images/icons/swipe-card-white.svg',
     merchant: '../../../../assets/images/icons/merchant-white.svg',

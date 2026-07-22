@@ -31,7 +31,7 @@ describe('DropdownFieldComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should return result from OnChange when OnChange is provided', () => {
-    const mockOnChange = jest.fn((option, fieldName) => {
+    const mockOnChange = vi.fn((option: any, fieldName: any) => {
       expect(option).toBe('selectedOption');
       expect(fieldName).toBe('fieldName');
       return true;
@@ -51,7 +51,7 @@ describe('DropdownFieldComponent', () => {
     expect(result).toBe(false);
   });
   it('should return result from isValueSelectedInSingle when form control value is not an array', () => {
-    const mockIsValueSelectedInSingle = jest.fn(() => true);
+    const mockIsValueSelectedInSingle = vi.fn(() => true);
     component.form.get('fieldName')?.setValue('singleOption');
     component.isValueSelectedInSingle = mockIsValueSelectedInSingle;
     const result = component.isValueSelectedInMultiple('selectedOption');
@@ -59,7 +59,7 @@ describe('DropdownFieldComponent', () => {
     expect(result).toBe(true);
   });
   it('should return result from OnChange when OnChange is provided', () => {
-    const mockOnChange = jest.fn((option, fieldName) => {
+    const mockOnChange = vi.fn((option: any, fieldName: any) => {
       expect(option).toBe('selectedOption');
       expect(fieldName).toBe('fieldName');
       return true;

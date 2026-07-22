@@ -4,13 +4,13 @@ import * as XLSX from 'xlsx';
 import { of } from 'rxjs';
 
 
-jest.mock('xlsx', () => ({
+vi.mock('xlsx', () => ({
   utils: {
-    book_new: jest.fn(),
-    json_to_sheet: jest.fn(),
-    book_append_sheet: jest.fn(),
+    book_new: vi.fn(),
+    json_to_sheet: vi.fn(),
+    book_append_sheet: vi.fn(),
   },
-  writeFile: jest.fn(),
+  writeFile: vi.fn(),
 }));
 
 
@@ -20,8 +20,8 @@ describe('ExportService', () => {
   let mockFunction: any;
   beforeEach(() => {
     mockFunction = {
-      exportData: jest.fn(),
-      prepareDataForExport: jest.fn(),
+      exportData: vi.fn(),
+      prepareDataForExport: vi.fn(),
     };
     TestBed.configureTestingModule({});
     service = TestBed.inject(ExportService);
@@ -39,7 +39,7 @@ describe('ExportService', () => {
       { testName: 'Client-1', testId: 35 },
     ];
     service.exportData('xlsx', dataSheets, 'test');
-    jest.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
+    vi.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
       of({
         numberOfSheets: {
           test: dataSheets,
@@ -59,7 +59,7 @@ describe('ExportService', () => {
       { testName: 'Client-1', testId: 35 },
     ];
     service.exportData('csv', dataSheets, 'test');
-    jest.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
+    vi.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
       of({
         numberOfSheets: {
           test: dataSheets,
@@ -81,7 +81,7 @@ describe('ExportService', () => {
     ];
     const sourceName = 'test';
     const preparedDataSheet = service.prepareDataForExport(dataSheets, sourceName);
-    jest.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
+    vi.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
       of({
         numberOfSheets: {
           test: dataSheets,
@@ -102,7 +102,7 @@ describe('ExportService', () => {
       { testName: 'Client-1', testId: 35 },
       { testName: 'Client-1', testId: 35 },
     ];
-    jest.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
+    vi.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
       of({
         numberOfSheets: {
           test: dataSheets,
@@ -127,7 +127,7 @@ describe('ExportService', () => {
     ];
     const sourceName = 'test';
     const preparedDataSheet = service.prepareDataForExport(dataSheets, sourceName);
-    jest.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
+    vi.spyOn(mockFunction, 'prepareDataForExport').mockReturnValue(
       of({
         numberOfSheets: {
           test: dataSheets,

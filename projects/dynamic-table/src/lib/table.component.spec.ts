@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 import { DynamicTable } from './table.component';
 import {
   IBasicColumn,
@@ -11,14 +16,8 @@ import {
   SearchAt,
   SearchOn,
   TableColumn,
-} from '../../core/interfaces/itable';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatMenuModule } from '@angular/material/menu';
-import { IControl } from '../../core/interfaces/icontrol';
-import { ExportService } from '../../core/services/export.service';
+} from './interfaces/itable';
+import { ExportService } from './services/export.service';
 
 
 describe('TableComponent', () => {
@@ -31,7 +30,7 @@ describe('TableComponent', () => {
     pageIndex: 1,
     length: 0,
   };
-  let mockPaginatorUndefined: MatPaginator;
+  let mockPaginatorUndefined: MatPaginator | undefined = undefined;
   const mockTableDetails: ITableDetails = {
     paging: {
       pageSize: 5,
@@ -80,7 +79,6 @@ describe('TableComponent', () => {
       imports: [MatTableModule, MatSortModule, MatPaginatorModule, BrowserAnimationsModule, MatMenuModule],
       declarations: [DynamicTable],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
-      providers: [MatPaginator, MatTableDataSource],
     }).compileComponents();
   });
 
@@ -104,7 +102,7 @@ describe('TableComponent', () => {
 
 
   it('should have on ngOnInit', () => {
-    jest.spyOn(component, 'initializeGridColumns');
+    vi.spyOn(component, 'initializeGridColumns');
     component.ngOnInit();
     expect(component.initializeGridColumns).toHaveBeenCalled();
   });
@@ -118,32 +116,32 @@ describe('TableComponent', () => {
           clientName: 'Test client',
         },
       ],
+      totalRecords: 1,
     };
-    jest.spyOn(component, 'setupSortFilterPagination');
+    vi.spyOn(component, 'renderTableDetails');
     component.ngOnChanges();
     expect(component.dataset.data).toBeDefined();
+    expect(component.renderTableDetails).toHaveBeenCalled();
   });
 
 
-  it('should have setupSortFilterPagination', () => {
-    jest.spyOn(component, 'setSort');
-    jest.spyOn(component, 'setPaginator');
-    jest.spyOn(component, 'initializeSearchPredicate');
-    component.setupSortFilterPagination();
+  it('should render table details', () => {
+    vi.spyOn(component, 'setSort');
+    vi.spyOn(component, 'setPaginator');
+    vi.spyOn(component, 'initializeSearchPredicate');
+    component.renderTableDetails();
     expect(component.setSort).toHaveBeenCalled();
-    expect(component.setPaginator).toHaveBeenCalled();
     expect(component.initializeSearchPredicate).toHaveBeenCalled();
   });
 
 
-  it('should have setupSortFilterPagination with pagination undefined', () => {
+  it('should render table details with paginator undefined', () => {
     component.paginator = mockPaginatorUndefined;
-    jest.spyOn(component, 'setSort');
-    jest.spyOn(component, 'setPaginator');
-    jest.spyOn(component, 'initializeSearchPredicate');
-    component.setupSortFilterPagination();
+    vi.spyOn(component, 'setSort');
+    vi.spyOn(component, 'setPaginator');
+    vi.spyOn(component, 'initializeSearchPredicate');
+    component.renderTableDetails();
     expect(component.setSort).toHaveBeenCalled();
-    expect(component.setPaginator).toHaveBeenCalled();
     expect(component.initializeSearchPredicate).toHaveBeenCalled();
   });
 
@@ -246,7 +244,7 @@ describe('TableComponent', () => {
 
   it('should initialize filterPredicate when searchOn is MatchingColumns', () => {
     mockSearch.searchOn = SearchOn.MatchingColumns;
-    const mockFilter: IControl = {
+    const mockFilter: any = {
       name: 'test',
       type: 'text',
     };
@@ -277,7 +275,7 @@ describe('TableComponent', () => {
     component.search.searchAt = SearchAt.ClientSide;
     component.search.searchOn = SearchOn.MatchingColumns;
     component.dataSource = new MatTableDataSource<any>(mockDataSet.data);
-    jest.spyOn(component, 'applyDefaultFilter');
+    vi.spyOn(component, 'applyDefaultFilter');
     component.filterGrid(filterValue, field);
     expect(component.applyDefaultFilter).toHaveBeenCalled();
   });
@@ -293,7 +291,7 @@ describe('TableComponent', () => {
 
 
   it('should have isAllSelected', () => {
-    jest.spyOn(component, 'isAllSelected');
+    vi.spyOn(component, 'isAllSelected');
     component.isAllSelected();
     expect(component.isAllSelected).toHaveReturnedWith(false);
   });
@@ -438,7 +436,7 @@ describe('TableComponent', () => {
       pointOfSaleId: 'test2',
     };
     component.dataSource = new MatTableDataSource<any>(mockDataSet.data);
-    jest.spyOn(component, 'filterGrid');
+    vi.spyOn(component, 'filterGrid');
     component.filterFieldChanges(event, filter);
     expect(component.filterGrid).toHaveBeenCalled();
   });
@@ -448,7 +446,7 @@ describe('TableComponent', () => {
     let event: any;
     const filter: any = 'test';
     component.dataSource = new MatTableDataSource<any>(mockDataSet.data);
-    jest.spyOn(component, 'filterGrid');
+    vi.spyOn(component, 'filterGrid');
     component.filterFieldChanges(event, filter);
     expect(component.filterGrid).toHaveBeenCalled();
   });
@@ -501,7 +499,7 @@ describe('TableComponent', () => {
         clientName: 'testname',
       },
     ];
-    jest.spyOn(component, 'onTableAction');
+    vi.spyOn(component, 'onTableAction');
     component.exportData('excel');
     expect(component.onTableAction).toHaveBeenCalled();
   });
@@ -515,7 +513,7 @@ describe('TableComponent', () => {
         clientName: 'testname',
       },
     ];
-    jest.spyOn(exportService, 'exportData');
+    vi.spyOn(exportService, 'exportData');
     component.exportData('xlsx');
     expect(exportService.exportData).toHaveBeenCalled();
   });

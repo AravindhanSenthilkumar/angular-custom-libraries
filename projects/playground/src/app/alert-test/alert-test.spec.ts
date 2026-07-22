@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AlertTest } from './alert-test';
 
@@ -8,7 +9,7 @@ describe('AlertTest', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AlertTest],
+      imports: [AlertTest, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AlertTest);
