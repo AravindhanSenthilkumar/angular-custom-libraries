@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FileInputFieldComponent } from './file-input-field.component';
-import { FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 
 describe('FileInputFieldComponent', () => {
   let component: FileInputFieldComponent;
@@ -9,7 +9,7 @@ describe('FileInputFieldComponent', () => {
   let formBuilder: FormBuilder;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FileInputFieldComponent],
+      imports: [ReactiveFormsModule, FileInputFieldComponent],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
     });
     fixture = TestBed.createComponent(FileInputFieldComponent);

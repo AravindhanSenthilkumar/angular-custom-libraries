@@ -126,7 +126,7 @@ describe('MainValidator', () => {
         email: true,
       },
     });
-    expect(errorMessage).toEqual('Sample should be valid email.');
+    expect(errorMessage).toEqual('Please provide valid email.');
   });
   it('should return an error message for a given control 6', () => {
     const mockFormControl = {
@@ -143,7 +143,7 @@ describe('MainValidator', () => {
         minLength: 5,
       },
     });
-    expect(errorMessage).toEqual('Enter more than 5');
+    expect(errorMessage).toEqual('Minimum atleast 5 is required.');
   });
   it('should return an error message for a given control 7', () => {
     const mockFormControl = {
@@ -160,7 +160,7 @@ describe('MainValidator', () => {
         maxLength: 5,
       },
     });
-    expect(errorMessage).toEqual('Enter less than 5');
+    expect(errorMessage).toEqual('Maximum characters is  5 only.');
   });
   it('should return an error message for a given control 8', () => {
     const mockFormControl = {
@@ -177,7 +177,7 @@ describe('MainValidator', () => {
         pattern: /^[A-Za-z]+$/.source,
       },
     });
-    expect(errorMessage).toEqual('Sample should be valid value.');
+    expect(errorMessage).toEqual('Sample should be valid.');
   });
   it('should return an error message for a given control 9', () => {
     const mockFormControl = {

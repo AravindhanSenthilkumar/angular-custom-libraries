@@ -7,7 +7,7 @@ describe('PopupBaseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PopupBaseComponent],
+      imports: [PopupBaseComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PopupBaseComponent);

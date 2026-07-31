@@ -2,9 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { FieldIndexComponent } from './fields/field-index.component';
-import { ArrayComponent } from './form-type/array/array.component';
-import { GroupComponent } from './form-type/group/group.component';
 import { DynamicFormDetails } from './model/dynamic-form.model';
 import { WizardComponent } from './form-type/wizard/wizard.component';
 import { FormTypeIndex } from './form-type/form-type-index';
@@ -15,12 +12,9 @@ import { PopupBaseComponent } from 'devlab-one-dynamic-modal'
   standalone: true,
   imports: [
     CommonModule,
-    FieldIndexComponent,
     ReactiveFormsModule,
     FormsModule,
     MatButtonModule,
-    ArrayComponent,
-    GroupComponent,
     WizardComponent,
     FormTypeIndex
   ],

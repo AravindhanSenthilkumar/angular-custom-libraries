@@ -51,6 +51,8 @@ export class ExportService {
    * dec : export in pdf format
    */
   public exportPdf(values:any){
-    console.log(values);
+  }
+  public exportArrayToExcel(arr: Array<any>, name: string) {
+    const values = arr.map((item) => Object.values(item));
   }
 }

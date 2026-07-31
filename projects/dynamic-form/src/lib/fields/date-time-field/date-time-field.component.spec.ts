@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DateTimeFieldComponent } from './date-time-field.component';
 
 describe('DateTimeFieldComponent', () => {
@@ -7,12 +8,13 @@ describe('DateTimeFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DateTimeFieldComponent]
-    })
-    .compileComponents();
+      imports: [DateTimeFieldComponent, ReactiveFormsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DateTimeFieldComponent);
     component = fixture.componentInstance;
+    component.field = { name: 'dateField', type: 'date' } as any;
+    component.form = new FormGroup({ dateField: new FormControl('') });
     fixture.detectChanges();
   });
 

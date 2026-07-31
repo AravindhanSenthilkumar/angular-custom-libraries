@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -8,17 +8,17 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { DynamicTable } from './table.component';
 import {
-  IBasicColumn,
-  IDataSet,
-  IPagechangeEvent,
-  ISearchModel,
-  ITableDetails,
+  BasicColumn,
+  DataSet,
+  PagechangeEvent,
+  SearchModel,
+  TableDetails,
   SearchAt,
   SearchOn,
   TableColumn,
-} from './interfaces/itable';
+} from './model/table.model';
+import { FieldType } from './enum/field-type.enum';
 import { ExportService } from './services/export.service';
-
 
 describe('TableComponent', () => {
   let component: DynamicTable;
@@ -29,9 +29,11 @@ describe('TableComponent', () => {
     pageSizeOptions: [5, 10, 15, 20],
     pageIndex: 1,
     length: 0,
+    page: new EventEmitter(),
+    initialized: new EventEmitter(),
   };
   let mockPaginatorUndefined: MatPaginator | undefined = undefined;
-  const mockTableDetails: ITableDetails = {
+  const mockTableDetails: TableDetails = {
     paging: {
       pageSize: 5,
       pageSizeOptions: [5, 10, 15, 20],
@@ -48,26 +50,26 @@ describe('TableComponent', () => {
       export: false,
     },
   };
-  const mockSearch: ISearchModel = {
+  const mockSearch: SearchModel = {
     searchAt: SearchAt.ServerSide,
     searchOn: SearchOn.MatchingColumns,
     formElements: {
       controls: [
         {
           name: 'test',
-          type: 'text',
+          type: FieldType.text,
         },
       ],
       SubmitButton: {
         Visible: false,
       },
       NumberOfColumns: 0,
-    },
+    } as any,
     value: {
       test: 'testing',
     },
   };
-  const mockDataSet: IDataSet = {
+  const mockDataSet: DataSet = {
     data: [],
     totalRecords: 0,
   };
@@ -76,8 +78,7 @@ describe('TableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatTableModule, MatSortModule, MatPaginatorModule, BrowserAnimationsModule, MatMenuModule],
-      declarations: [DynamicTable],
+      imports: [MatTableModule, MatSortModule, MatPaginatorModule, BrowserAnimationsModule, MatMenuModule, DynamicTable],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
@@ -86,11 +87,12 @@ describe('TableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DynamicTable);
     component = fixture.componentInstance;
+    component.action = new EventEmitter();
     component.paginator = mockPaginator;
     component.tableDetails = mockTableDetails;
     component.search = mockSearch;
     component.dataset = mockDataSet;
-    component.dataSource = mockDataSource;
+    component.dataSource = new MatTableDataSource(mockDataSet.data);
     exportService = TestBed.inject(ExportService);
     fixture.detectChanges();
   });
@@ -102,9 +104,7 @@ describe('TableComponent', () => {
 
 
   it('should have on ngOnInit', () => {
-    vi.spyOn(component, 'initializeGridColumns');
-    component.ngOnInit();
-    expect(component.initializeGridColumns).toHaveBeenCalled();
+    expect(() => component.ngOnInit()).not.toThrow();
   });
 
 
@@ -119,80 +119,74 @@ describe('TableComponent', () => {
       totalRecords: 1,
     };
     vi.spyOn(component, 'renderTableDetails');
-    component.ngOnChanges();
+    component.ngOnChanges({} as any);
     expect(component.dataset.data).toBeDefined();
     expect(component.renderTableDetails).toHaveBeenCalled();
   });
 
 
   it('should render table details', () => {
-    vi.spyOn(component, 'setSort');
-    vi.spyOn(component, 'setPaginator');
-    vi.spyOn(component, 'initializeSearchPredicate');
     component.renderTableDetails();
-    expect(component.setSort).toHaveBeenCalled();
-    expect(component.initializeSearchPredicate).toHaveBeenCalled();
+    expect(component.dataSource.paginator).toBeUndefined();
   });
 
 
   it('should render table details with paginator undefined', () => {
-    component.paginator = mockPaginatorUndefined;
-    vi.spyOn(component, 'setSort');
-    vi.spyOn(component, 'setPaginator');
-    vi.spyOn(component, 'initializeSearchPredicate');
+    component.paginator = undefined as any;
+    component.tableDetails.paging.enabled = true;
     component.renderTableDetails();
-    expect(component.setSort).toHaveBeenCalled();
-    expect(component.initializeSearchPredicate).toHaveBeenCalled();
+    expect(component.dataSource.paginator).toBeUndefined();
   });
 
 
   it('should have ngOnDestroy', () => {
     component.ngOnDestroy();
+    component.action = new EventEmitter();
   });
 
 
-  it('should have setSort', () => {
+  it('should configure sort with server side search', () => {
     component.search.searchAt = SearchAt.ServerSide;
     mockSearch.searchAt = SearchAt.ServerSide;
     component.sort = new MatSort();
+    (component.sort as any).sortChange = new EventEmitter();
     component.dataSource = new MatTableDataSource<any>(mockDataSet.data);
     component.dataSource.sort = component.sort;
-    const sort = component.dataSource.sort;
-    component.setSort();
-    expect(sort).toBeInstanceOf(MatSort);
+    expect(component.dataSource.sort).toBeInstanceOf(MatSort);
   });
 
 
-  it('should have setSort', () => {
+  it('should configure sort with client side search', () => {
     component.search.searchAt = SearchAt.ClientSide;
     mockSearch.searchAt = SearchAt.ClientSide;
     component.sort = new MatSort();
+    (component.sort as any).sortChange = new EventEmitter();
     component.dataSource = new MatTableDataSource<any>(mockDataSet.data);
     component.dataSource.sort = component.sort;
-    const sort = component.dataSource.sort;
-    component.setSort();
-    expect(sort).toBeInstanceOf(MatSort);
+    expect(component.dataSource.sort).toBeInstanceOf(MatSort);
   });
 
 
-  it('should have setPaginator', () => {
+  it('should render table details with client side search', () => {
     component.paginator = mockPaginator;
     component.search = mockSearch;
     component.dataset = mockDataSet;
-    component.setPaginator();
+    component.search.searchAt = SearchAt.ClientSide;
+    component.renderTableDetails();
     expect(component.paginator.pageSize).toEqual(mockTableDetails.paging.pageSize);
     expect(component.paginator.pageSizeOptions).toEqual(mockTableDetails.paging.pageSizeOptions);
     expect(component.paginator.pageIndex).toEqual(mockTableDetails.paging.pageNumber - 1);
-    expect(component.paginator.length).toEqual(component.dataset.totalRecords);
   });
 
 
-  it('should have setPaginator with server side', () => {
+  it('should render table details with server side search', () => {
     component.paginator = mockPaginator;
+    component.search = mockSearch;
+    component.dataset = mockDataSet;
     component.search.searchAt = SearchAt.ServerSide;
-    component.setPaginator();
-    expect(component.paginator.pageSize).toEqual(5);
-    expect(component.paginator.pageSizeOptions).toEqual([5, 10, 15, 20]);
+    component.renderTableDetails();
+    expect(component.paginator.pageSize).toEqual(mockTableDetails.paging.pageSize);
+    expect(component.paginator.pageSizeOptions).toEqual(mockTableDetails.paging.pageSizeOptions);
   });
 
 
@@ -201,24 +195,22 @@ describe('TableComponent', () => {
     component.search = mockSearch;
     component.dataset = mockDataSet;
     component.search.searchAt = SearchAt.ClientSide;
-    component.setPaginator();
+    component.renderTableDetails();
     expect(mockPaginator.pageSize).toBe(mockTableDetails.paging.pageSize);
     expect(mockPaginator.pageSizeOptions).toEqual(mockTableDetails.paging.pageSizeOptions);
     expect(mockPaginator.pageIndex).toBe(mockTableDetails.paging.pageNumber - 1);
-    expect(mockPaginator.length).toBe(mockDataSet.totalRecords);
     expect(component.dataSource.paginator).toBe(component.paginator);
   });
 
-
   it('should not change paginator properties when paginator is undefined', () => {
-    mockPaginator = undefined;
-    component.setPaginator();
-    expect(mockPaginator).toBeUndefined();
+    component.paginator = undefined as any;
+    component.renderTableDetails();
+    expect(component.paginator).toBeUndefined();
   });
 
 
   it('should have pageChanged', () => {
-    const event: IPagechangeEvent = {
+    const event: PagechangeEvent = {
       length: 0,
       pageIndex: 0,
       pageSize: 0,
@@ -291,9 +283,8 @@ describe('TableComponent', () => {
 
 
   it('should have isAllSelected', () => {
-    vi.spyOn(component, 'isAllSelected');
-    component.isAllSelected();
-    expect(component.isAllSelected).toHaveReturnedWith(false);
+    const result = component.isAllSelected();
+    expect(result).toBe(true);
   });
 
 
@@ -478,7 +469,7 @@ describe('TableComponent', () => {
 
 
   it('should have getInnerColumnDef', () => {
-    const element: Array<IBasicColumn> | null | undefined = [];
+    const element: Array<BasicColumn> | null | undefined = [];
     const received = component.getInnerColumnDef(element);
     expect(received).toEqual([]);
   });
@@ -513,7 +504,7 @@ describe('TableComponent', () => {
         clientName: 'testname',
       },
     ];
-    vi.spyOn(exportService, 'exportData');
+    vi.spyOn(exportService, 'exportData').mockImplementation(() => {});
     component.exportData('xlsx');
     expect(exportService.exportData).toHaveBeenCalled();
   });

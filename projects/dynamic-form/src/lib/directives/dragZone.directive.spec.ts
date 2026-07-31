@@ -4,6 +4,8 @@ import { DropzoneDirective } from './dragZone.directive';
 
 @Component({
   template: '<div dropZone></div>',
+  standalone: true,
+  imports: [DropzoneDirective],
 })
 class TestHostComponent {}
 
@@ -14,7 +16,7 @@ describe('DropzoneDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TestHostComponent, DropzoneDirective],
+      imports: [TestHostComponent, DropzoneDirective],
     });
 
     fixture = TestBed.createComponent(TestHostComponent);

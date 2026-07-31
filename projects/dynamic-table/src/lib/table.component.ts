@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, Input, OnChanges, Output, EventEmitter, AfterViewInit,Renderer2, ElementRef, SimpleChange, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -181,6 +182,9 @@ export class DynamicTable implements OnChanges, OnInit, OnDestroy, AfterViewInit
    * Desc : expand group
    */
   public isExpandedGroupRow: number | undefined = undefined;
+
+  private selectionSubscription?: Subscription;
+
   /**
    * Desc : constructor initialization
    */
@@ -189,7 +193,7 @@ export class DynamicTable implements OnChanges, OnInit, OnDestroy, AfterViewInit
    * Desc : execute when component is initalized
    */
   public ngOnInit(): void {
-    this.selection.changed.subscribe((change) => {
+    this.selectionSubscription = this.selection.changed.subscribe((change) => {
       this.addActionForSelectedRows();
     });
   }
@@ -246,7 +250,7 @@ export class DynamicTable implements OnChanges, OnInit, OnDestroy, AfterViewInit
    * Desc : execute when moved to another component
    */
   public ngOnDestroy(): void {
-    this.action.unsubscribe();
+    this.selectionSubscription?.unsubscribe();
   }
   /**
    * Desc : organizing the search filter fields

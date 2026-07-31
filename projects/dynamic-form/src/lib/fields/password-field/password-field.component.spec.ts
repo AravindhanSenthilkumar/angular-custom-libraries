@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PasswordFieldComponent } from './password-field.component';
 
 describe('PasswordFieldComponent', () => {
@@ -8,12 +8,13 @@ describe('PasswordFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PasswordFieldComponent]
-    })
-    .compileComponents();
+      imports: [PasswordFieldComponent, ReactiveFormsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PasswordFieldComponent);
     component = fixture.componentInstance;
+    component.field = { name: 'passwordField', type: 'password' } as any;
+    component.form = new FormGroup({ passwordField: new FormControl('') });
     fixture.detectChanges();
   });
 

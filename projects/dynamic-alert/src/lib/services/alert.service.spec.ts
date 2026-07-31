@@ -1,47 +1,79 @@
 import { TestBed } from '@angular/core/testing';
-import { ModalService } from './alert.service';
-import { MatDialogModule } from '@angular/material/dialog';
+import { AlertService } from './alert.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AlertType, MessageType } from '../interfaces/idialog';
-describe('ModalService', () => {
-  let service: ModalService;
+import { of } from 'rxjs';
+import { vi } from 'vitest';
+
+describe('AlertService', () => {
+  let service: AlertService;
+  let dialogSpy: { open: ReturnType<typeof vi.fn> };
+
   beforeEach(async () => {
+    dialogSpy = {
+      open: vi.fn().mockReturnValue({
+        afterClosed: () => of(true),
+      }),
+    };
+
     await TestBed.configureTestingModule({
       imports: [MatDialogModule],
+      providers: [
+        AlertService,
+        { provide: MatDialog, useValue: dialogSpy },
+      ],
     }).compileComponents();
-    service = TestBed.inject(ModalService);
+    service = TestBed.inject(AlertService);
   });
+
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
   it('should have model width', () => {
     expect(service.widthModel).toBe('400px');
   });
-  it('should have success alert', () => {
+
+  it('should trigger success alert', () => {
     const message = 'Test success';
-    service.success(message);
+    const callback = vi.fn();
+    service.success(message, callback);
+    expect(dialogSpy.open).toHaveBeenCalled();
+    expect(callback).toHaveBeenCalled();
   });
-  it('should have error alert', () => {
+
+  it('should trigger error alert', () => {
     const message = 'Test error';
     service.error(message);
+    expect(dialogSpy.open).toHaveBeenCalled();
   });
-  it('should have info alert', () => {
+
+  it('should trigger info alert', () => {
     const message = 'Test info';
     service.info(message);
+    expect(dialogSpy.open).toHaveBeenCalled();
   });
-  it('should have waring alert', () => {
-    const message = 'Test waring';
+
+  it('should trigger warning alert', () => {
+    const message = 'Test warning';
     service.warning(message);
+    expect(dialogSpy.open).toHaveBeenCalled();
   });
-  it('should have waring alert', () => {
+
+  it('should trigger confirmationModel alert', () => {
     const message = 'Test Confirmation';
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    service.confirmationModel(message, () => {});
+    const okCallback = vi.fn();
+    service.confirmationModel(message, okCallback);
+    expect(dialogSpy.open).toHaveBeenCalled();
+    expect(okCallback).toHaveBeenCalled();
   });
-  it('should have open dialog', () => {
-    const disableClose = false;
-    const width = service.widthModel;
-    const messageContent = 'Test Dialog';
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    service.openDialog(disableClose, width, messageContent, MessageType.info, AlertType.confirmation, () => {});
+
+  it('should execute cancelCallback on negative result', () => {
+    dialogSpy.open.mockReturnValueOnce({
+      afterClosed: () => of(false),
+    });
+    const cancelCallback = vi.fn();
+    service.openDialog(false, '400px', 'Test Dialog', MessageType.info, AlertType.confirmation, undefined, cancelCallback);
+    expect(cancelCallback).toHaveBeenCalled();
   });
 });

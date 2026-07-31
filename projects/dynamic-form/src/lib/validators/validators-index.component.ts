@@ -67,10 +67,8 @@ export class MainValidator {
    * Desc : generate error message
    */
   public static getErrorMessage(ctrl: any, model: any): string {
-    console.log(ctrl,model);
     const isValid = ctrl?.valid;
     const isDirty = ctrl?.dirty;
-    console.log(isValid,isDirty);
     if (!isValid && isDirty) {
       const finalName = model.label ?? model.name;
       const errors: any = ctrl.errors ?? [];

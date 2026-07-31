@@ -1,4 +1,4 @@
-import { CommonModule, JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -19,7 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule, 
     FormsModule, 
     ReactiveFormsModule, 
-    JsonPipe, 
     MatInputModule, 
     MatTooltipModule
   ],

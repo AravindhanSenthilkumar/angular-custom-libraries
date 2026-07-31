@@ -33,8 +33,8 @@ export class ModalService {
    */
   public openComponentAsPopup(inputData: IPopupDetails): void {
     const disableCloseOnEventOutsideOfPopup = true;
-    const widthInPixel = inputData.width ? `${inputData.width}px` : `${this.widthModel}px`;
-    const heightInPixel = inputData.height ? `${inputData.height}px` : `${this.heightModel}px`;
+    const widthInPixel = inputData.width ? (typeof inputData.width === 'number' ? `${inputData.width}px` : inputData.width) : this.widthModel;
+    const heightInPixel = inputData.height ? (typeof inputData.height === 'number' ? `${inputData.height}px` : inputData.height) : this.heightModel;
     this.openComponentOnPopup(disableCloseOnEventOutsideOfPopup, widthInPixel, heightInPixel, inputData);
   }
   /**

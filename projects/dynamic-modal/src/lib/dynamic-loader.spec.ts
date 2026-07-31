@@ -1,9 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Type } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Type } from '@angular/core';
 import { DynamicLoaderComponent } from './dynamic-loader';
 
-@Component({ template: '<div>Loaded</div>' })
-class TestHostComponent {}
+@Component({
+  template: '<div>Loaded</div>',
+  standalone: true,
+})
+class TestHostComponent {
+  @Input() testInput?: string;
+  @Output() testOutput = new EventEmitter<any>();
+}
 
 describe('DynamicLoaderComponent', () => {
   let component: DynamicLoaderComponent;
@@ -11,7 +17,7 @@ describe('DynamicLoaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DynamicLoaderComponent],
+      imports: [DynamicLoaderComponent, TestHostComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DynamicLoaderComponent);
@@ -37,7 +43,7 @@ describe('DynamicLoaderComponent', () => {
     expect(component['container'].length).toBe(1);
   });
 
-  it('should update inputs and bind outputs when child component exists', () => {
+  it('should update inputs and bind outputs when inputs change', () => {
     component.component = TestHostComponent as Type<any>;
     component.inputs = { testInput: 'value' };
     component.outputs = {};
@@ -52,5 +58,16 @@ describe('DynamicLoaderComponent', () => {
 
     fixture.detectChanges();
     expect(component['componentRef']).toBeDefined();
+
+    component.inputs = { testInput: 'newValue' };
+    component.ngOnChanges({
+      inputs: {
+        currentValue: component.inputs,
+        previousValue: { testInput: 'value' },
+        firstChange: false,
+        isFirstChange: () => false,
+      },
+    } as any);
+    expect(component['componentRef']?.instance.testInput).toBe('newValue');
   });
 });

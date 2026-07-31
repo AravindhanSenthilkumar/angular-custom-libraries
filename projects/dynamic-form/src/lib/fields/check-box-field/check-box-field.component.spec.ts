@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CheckBoxFieldComponent } from './check-box-field.component';
-import { FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 
 describe('CheckBoxComponent', () => {
   let component: CheckBoxFieldComponent;
@@ -9,7 +9,7 @@ describe('CheckBoxComponent', () => {
   let formBuilder: FormBuilder;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CheckBoxFieldComponent],
+      imports: [ReactiveFormsModule, CheckBoxFieldComponent],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
     formBuilder = TestBed.inject(FormBuilder);

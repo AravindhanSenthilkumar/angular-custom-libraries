@@ -36,7 +36,7 @@
             mat-button
             (click)="formReset()" 
             >
-            {{fields.buttons.reset?.name}}
+            {{fields.buttons.reset.name}}
           </button>
         }
         @if(fields.buttons.cancel?.visible){
@@ -44,7 +44,7 @@
             mat-stroked-button
             (click)="cancelForm()"
           >
-          {{fields.buttons.cancel?.name}}
+          {{fields.buttons.cancel.name}}
           </button>
         }
         @if(fields.buttons.submit?.visible){
@@ -55,7 +55,7 @@
             [disabled]="!form.valid"
             (click)="submitForm(form.getRawValue())"
           >
-          {{fields.buttons.submit?.name}}
+          {{fields.buttons.submit.name}}
           </button>
         }
       </div>

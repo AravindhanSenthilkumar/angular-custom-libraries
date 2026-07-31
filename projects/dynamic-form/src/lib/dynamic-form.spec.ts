@@ -10,7 +10,7 @@ describe('DynamicForm', () => {
   let fixture: ComponentFixture<DynamicForm>;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DynamicForm],
+      imports: [DynamicForm],
     });
     fixture = TestBed.createComponent(DynamicForm);
     component = fixture.componentInstance;

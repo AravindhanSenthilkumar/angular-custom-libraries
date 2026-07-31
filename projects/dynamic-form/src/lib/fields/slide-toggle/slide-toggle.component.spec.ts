@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SlideToggleComponent } from './slide-toggle.component';
 
 describe('SlideToggleComponent', () => {
@@ -8,12 +8,13 @@ describe('SlideToggleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SlideToggleComponent]
-    })
-    .compileComponents();
+      imports: [SlideToggleComponent, ReactiveFormsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SlideToggleComponent);
     component = fixture.componentInstance;
+    component.field = { name: 'toggleField', type: 'slide-toggle' } as any;
+    component.form = new FormGroup({ toggleField: new FormControl(false) });
     fixture.detectChanges();
   });
 

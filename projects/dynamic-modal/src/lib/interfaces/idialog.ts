@@ -27,3 +27,14 @@ export enum Justify {
   right = 'right',
   center = 'center',
 }
+
+export interface IErrorMessage {
+  code: string;
+  info?: Array<IErrorInfo>;
+  message: string;
+}
+
+export interface IErrorInfo {
+  code: string;
+  message: string;
+}

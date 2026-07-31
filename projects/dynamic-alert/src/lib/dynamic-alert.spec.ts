@@ -14,11 +14,10 @@ describe('DynamicAlert', () => {
   let fixture: ComponentFixture<DynamicAlert>;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatIconModule, MatDialogModule, RouterTestingModule],
-      declarations: [DynamicAlert],
+      imports: [MatIconModule, MatDialogModule, RouterTestingModule, DynamicAlert],
       providers: [
         { provide: MatDialogRef, useValue: dialogMock },
-        { provide: MAT_DIALOG_DATA, useValue: [] },
+        { provide: MAT_DIALOG_DATA, useValue: { message: 'Test message', type: 'info', alertType: 'notification' } },
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(DynamicAlert);

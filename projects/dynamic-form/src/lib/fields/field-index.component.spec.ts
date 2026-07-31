@@ -7,8 +7,7 @@ describe('FieldIndexComponent', () => {
   let fixture: ComponentFixture<FieldIndexComponent>;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FieldIndexComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, FieldIndexComponent],
     }).compileComponents();
     fixture = TestBed.createComponent(FieldIndexComponent);
     component = fixture.componentInstance;

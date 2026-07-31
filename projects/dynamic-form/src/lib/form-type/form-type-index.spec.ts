@@ -10,7 +10,7 @@ describe('FormTypeIndex', () => {
   let fixture: ComponentFixture<FormTypeIndex>;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FormTypeIndex],
+      imports: [FormTypeIndex],
     });
     fixture = TestBed.createComponent(FormTypeIndex);
     component = fixture.componentInstance;

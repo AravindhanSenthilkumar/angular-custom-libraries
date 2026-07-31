@@ -128,32 +128,6 @@
         }
       }
     },
-    "dynamic-popup": {
-      "projectType": "library",
-      "root": "projects/dynamic-popup",
-      "sourceRoot": "projects/dynamic-popup/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/dynamic-popup/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/dynamic-popup/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "projects/dynamic-popup/tsconfig.spec.json"
-          }
-        }
-      }
-    },
     "dynamic-modal": {
       "projectType": "library",
       "root": "projects/dynamic-modal",

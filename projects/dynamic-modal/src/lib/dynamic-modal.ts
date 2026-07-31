@@ -4,7 +4,6 @@ import { Justify } from './interfaces/idialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { NgComponentOutlet } from '@angular/common';
 import { IoEventContextToken } from 'ng-dynamic-component';
 import { DynamicModule } from 'ng-dynamic-component';
 import { DynamicLoaderComponent } from './dynamic-loader';
@@ -17,8 +16,7 @@ import { DynamicLoaderComponent } from './dynamic-loader';
     MatDialogModule,
     MatIconModule,
     MatButtonModule,
-    DynamicLoaderComponent,
-    NgComponentOutlet
+    DynamicLoaderComponent
   ]
 })
 export class DynamicModal {
