@@ -1,46 +1,56 @@
 <!-- file input section begins -->
-<section [formGroup]="form" [matTooltipPosition]="'above'" matTooltip="{{ field?.tooltip }}">
-  <mat-form-field class="input-form-field" [appearance]="field?.outline ? 'outline' : 'fill'" [floatLabel]="field?.floatLabel" [hideRequiredMarker]="field?.markerInLabel ? true : false">
+<section
+  [formGroup]="form"
+  class="file-field-container"
+  [ngClass]="{ 'file-field-outline': field?.outline }"
+  [matTooltipPosition]="'above'"
+  matTooltip="{{ field?.tooltip }}"
+>
+
+  <!-- ── Trigger row ─────────────────────────────────────────── -->
+  <mat-form-field
+    class="input-form-field"
+    [appearance]="field?.outline ? 'outline' : 'fill'"
+    [floatLabel]="field?.floatLabel"
+    [hideRequiredMarker]="field?.markerInLabel ? true : false"
+  >
     @if(field?.displayLabel){
       <mat-label class="field-label">{{ field?.label }}</mat-label>
     }
-    @if(field?.prefixIcon){
-      <mat-icon matPrefix>{{ field?.prefixIcon }}</mat-icon>
-    } @else {
-      <mat-icon matPrefix>upload_file</mat-icon>
-    }
+
+    <mat-icon matPrefix>{{ field?.prefixIcon || 'upload_file' }}</mat-icon>
+
     @if(field?.prefixText){
       <span matTextPrefix>{{ field?.prefixText }}</span>
     }
 
-    <!-- Hidden native file input -->
-    <input 
+    <!-- Hidden native file input — allows multi-file pick -->
+    <input
       #fileInput
       type="file"
       class="hidden-file-input"
-      [class.is-invalid]="isDirty && !isValid"
-      [formControlName]="field.name"
-      [placeholder]="field.placeholder ? field.placeholder : 'Choose file...'"
-      title="{{ field.label }}"
-      [readonly]="field.readonly"
-      (change)="onFileChange($event)" 
-    /> 
-
-    <!-- Visible Material text trigger -->
-    <input 
-      matInput 
-      readonly 
-      [value]="selectedFileName || field?.placeholder || 'Choose file...'"
-      (click)="fileInput.click()" 
-      class="file-display-input"
+      [multiple]="field?.multiple !== false"
+      [accept]="field?.accept || '*'"
+      [readonly]="field?.readonly"
+      (change)="onFileChange($event)"
     />
 
-    <button 
-      type="button" 
-      mat-icon-button 
-      matSuffix 
-      (click)="fileInput.click()" 
-      title="Browse File"
+    <!-- Visible read-only text showing selection state -->
+    <input
+      matInput
+      readonly
+      [value]="displayLabel"
+      (click)="!field?.readonly && fileInput.click()"
+      class="file-display-input"
+      [class.is-invalid]="isDirty && !isValid"
+    />
+
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="!field?.readonly && fileInput.click()"
+      title="Browse Files"
     >
       <mat-icon>attach_file</mat-icon>
     </button>
@@ -56,21 +66,45 @@
     }
   </mat-form-field>
 
-  <!-- File Preview Card if value present -->
-  @if(field?.value){
-    <div class="file-preview-container">
-      <div class="file-preview-card">
-        @if(isImage(field?.value)){
-          <img [src]="field.value" alt="file-upload" class="preview-thumbnail" />
-        } @else {
-          <mat-icon class="preview-file-icon">insert_drive_file</mat-icon>
-          <span class="preview-filename">{{ selectedFileName || 'Uploaded File' }}</span>
-        }
-        <button type="button" mat-stroked-button color="primary" class="change-btn" (click)="fileInput.click()">
-          <mat-icon>refresh</mat-icon> Change
-        </button>
-      </div>
+  <!-- ── File preview grid ───────────────────────────────────── -->
+  @if(selectedFiles.length > 0){
+    <div class="file-preview-grid">
+      @for(entry of selectedFiles; track entry; let i = $index){
+        <div class="file-card">
+
+          <!-- Remove button -->
+          <button
+            type="button"
+            class="file-card-remove"
+            mat-icon-button
+            (click)="removeFile(i)"
+            title="Remove file"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+
+          <!-- Thumbnail area -->
+          <div class="file-card-thumb">
+            @if(entry.isImage){
+              <img [src]="entry.previewUrl" [alt]="entry.file.name" class="thumb-img" />
+            } @else if(entry.isVideo){
+              <video [src]="entry.previewUrl" class="thumb-video" muted preload="metadata"></video>
+              <mat-icon class="thumb-play-icon">play_circle</mat-icon>
+            } @else {
+              <mat-icon class="thumb-file-icon">insert_drive_file</mat-icon>
+            }
+          </div>
+
+          <!-- File name + size -->
+          <div class="file-card-meta">
+            <span class="file-card-name" [title]="entry.localPath">{{ entry.file.name }}</span>
+            <span class="file-card-size">{{ formatSize(entry.file.size) }}</span>
+          </div>
+
+        </div>
+      }
     </div>
   }
+
 </section>
 <!-- file input section ends -->
