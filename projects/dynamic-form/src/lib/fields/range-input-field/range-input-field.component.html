@@ -1,27 +1,40 @@
 <!-- slider section begins -->
-<section [formGroup]="form" [ngClass]="{ 'check-box-form': field?.outline }" [matTooltipPosition]="'above'" matTooltip="{{ field?.tooltip }}">
-    @if(field.displayLabel){
-        <label class="field-label"  [ngClass]="{ 'range-form-label': field?.outline }">
-            {{ field.label }} @if(field?.markerInLabel){*}
-        </label>
+<section [formGroup]="form" class="range-field-container" [ngClass]="{ 'range-form-outline': field?.outline }" [matTooltipPosition]="'above'" matTooltip="{{ field?.tooltip }}">
+  <div class="range-header">
+    @if(field?.displayLabel){
+      <label class="field-label" [ngClass]="{ 'range-form-label': field?.outline }">
+        {{ field?.label }} @if(field?.markerInLabel){<span class="required">*</span>}
+      </label>
     }
+    <span class="range-current-value">
+      {{ form.get(field.name)?.value ?? field?.value ?? field?.rangeMinimum ?? 0 }}
+    </span>
+  </div>
+
+  <div class="range-slider-wrapper">
+    <span class="range-limit-text min-limit">{{ field?.rangeMinimum ?? 0 }}</span>
     <mat-slider 
-        min="{{field?.rangeMinimum}}" 
-        max="{{field?.rangeMaximum}}"
-        step = {{field?.rangeStepper}}
-        discrete 
-        [displayWith]="formatLabel"
-        class="slider"
+      [min]="field?.rangeMinimum ?? 0" 
+      [max]="field?.rangeMaximum ?? 100"
+      [step]="field?.rangeStepper ?? 1"
+      discrete 
+      [displayWith]="formatLabel"
+      class="slider-control"
     >
-        <input 
-            matSliderThumb
-            [class.is-invalid]="isDirty && !isValid"
-            [formControlName]="field.name"
-            [formGroup]="form"
-            title="{{ field.label }}"
-            [readonly]="field.readonly"
-            (ngModelChange)="field?.OnChange ? field?.OnChange($event, field.name) : null"
-        >
-      </mat-slider>
-  </section>
-  <!-- slider section ends -->
+      <input 
+        matSliderThumb
+        [class.is-invalid]="isDirty && !isValid"
+        [formControlName]="field.name"
+        title="{{ field.label }}"
+        [readonly]="field.readonly"
+        (ngModelChange)="field?.OnChange ? field?.OnChange($event, field.name) : null"
+      />
+    </mat-slider>
+    <span class="range-limit-text max-limit">{{ field?.rangeMaximum ?? 100 }}</span>
+  </div>
+
+  @if(field?.hint){
+    <mat-hint class="range-hint">{{ field?.hint }}</mat-hint>
+  }
+</section>
+<!-- slider section ends -->

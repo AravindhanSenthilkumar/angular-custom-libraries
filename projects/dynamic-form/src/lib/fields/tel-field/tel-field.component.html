@@ -1,0 +1,60 @@
+<!-- telephone field section begins -->
+<section [formGroup]="form" [matTooltipPosition]="'above'" matTooltip="{{ field?.tooltip }}">
+  <div class="tel-field-group">
+    <!-- Country Code Dropdown Field -->
+    <mat-form-field
+      class="country-code-field"
+      [appearance]="field?.outline ? 'outline' : 'fill'"
+      [floatLabel]="field?.floatLabel"
+    >
+      @if(field?.displayLabel){<mat-label class="field-label">Code</mat-label>}
+      <mat-select
+        [value]="selectedCountryCode"
+        (selectionChange)="onCountryCodeChange($event.value)"
+        [disabled]="field?.readonly"
+        title="Country Code"
+        [class.is-invalid]="isDirty && (isCountryCodeInvalid || !isValid)"
+      >
+        @for (c of countryCodes; track c.code) {
+          <mat-option [value]="c.code">
+            {{ c.label ? c.label : (c.code + (c.country ? ' (' + c.country + ')' : '')) }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (isDirty && countryCodeError) {
+        <mat-error>{{ countryCodeError }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Phone Number Input Field -->
+    <mat-form-field
+      class="phone-number-field"
+      [appearance]="field?.outline ? 'outline' : 'fill'"
+      [floatLabel]="field?.floatLabel"
+      [hideRequiredMarker]="field?.markerInLabel ? true : false"
+    >
+      @if(field?.displayLabel){<mat-label class="field-label">{{ field?.label }}</mat-label>}
+      @if(field?.prefixIcon){<mat-icon matPrefix>{{field?.prefixIcon}}</mat-icon>}
+      @if(field?.prefixText){<span matTextPrefix>{{field?.prefixText}}</span>}
+      <input
+        matInput
+        type="tel"
+        class="form-control"
+        [class.is-invalid]="isDirty && (isPhoneNumberInvalid || !isValid)"
+        [placeholder]="field?.placeholder ? field.placeholder : 'Enter phone number'"
+        title="{{ field?.label }}"
+        [readonly]="field?.readonly"
+        [value]="phoneNumber"
+        (input)="onPhoneNumberInput($any($event.target).value)"
+        (blur)="onBlur()"
+      />
+      @if(field?.suffixText){<span matTextSuffix>{{field?.suffixText}}</span>}
+      @if(field?.suffixIcon){<mat-icon matSuffix>{{field?.suffixIcon}}</mat-icon>}
+      @if(field?.hint && (!isDirty || !phoneError)){ <mat-hint>{{field?.hint}}</mat-hint>}
+      @if (isDirty && phoneError) {
+        <mat-error>{{ phoneError }}</mat-error>
+      }
+    </mat-form-field>
+  </div>
+</section>
+<!-- telephone field section ends -->

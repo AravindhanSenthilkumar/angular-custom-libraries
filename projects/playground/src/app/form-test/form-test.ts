@@ -9,12 +9,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-form-test',
-  standalone:true,
-  imports: [DynamicForm,  NgxJsonViewerModule, JsonEditorComponent, MatButtonModule, RouterLink, RouterLinkActive],
+  standalone: true,
+  imports: [DynamicForm, NgxJsonViewerModule, JsonEditorComponent, MatButtonModule, RouterLink, RouterLinkActive],
   templateUrl: './form-test.html',
   styleUrl: './form-test.scss',
 })
-export class FormTest extends PopupBaseComponent{
+export class FormTest extends PopupBaseComponent {
 
   public jsonData: any;
 
@@ -98,12 +98,21 @@ export class FormTest extends PopupBaseComponent{
         "displayLabel": true,
         "floatLabel": FloatLabel.always,
         "value": "",
-        "placeholder": "+1 555-0199",
+        "placeholder": "Enter phone number",
         "prefixIcon": "phone",
+        "countryCodes": [
+          { "code": "+91", "country": "India", "label": "+91 (India)" },
+          { "code": "+1", "country": "United States", "label": "+1 (US)" },
+          { "code": "+44", "country": "United Kingdom", "label": "+44 (UK)" },
+          { "code": "+61", "country": "Australia", "label": "+61 (AU)" },
+          { "code": "+971", "country": "UAE", "label": "+971 (UAE)" }
+        ],
         "numberOfColumns": 6,
         "visible": true,
         "validators": {
-          "required": true
+          "required": true,
+          "minLength": 10,
+          "maxLength": 10
         }
       },
       {
@@ -174,7 +183,14 @@ export class FormTest extends PopupBaseComponent{
         "markerInLabel": false,
         "displayLabel": true,
         "floatLabel": FloatLabel.always,
-        "value": "10:30",
+        "value": "10:30 AM IST",
+        "timeZones": [
+          { "code": "IST", "label": "IST (UTC+05:30)", "offset": "+05:30" },
+          { "code": "ET", "label": "ET / EST (UTC-05:00)", "offset": "-05:00" },
+          { "code": "CT", "label": "CT / CST (UTC-06:00)", "offset": "-06:00" },
+          { "code": "PT", "label": "PT / PST (UTC-08:00)", "offset": "-08:00" },
+          { "code": "UTC", "label": "UTC (UTC+00:00)", "offset": "+00:00" }
+        ],
         "numberOfColumns": 6,
         "visible": true
       },
@@ -331,6 +347,7 @@ export class FormTest extends PopupBaseComponent{
             "outline": true,
             "label": "Contact Person Name",
             "displayLabel": true,
+            "floatLabel": FloatLabel.always,
             "value": "",
             "placeholder": "Enter contact name",
             "numberOfColumns": 6,
@@ -342,6 +359,7 @@ export class FormTest extends PopupBaseComponent{
             "outline": true,
             "label": "Contact Person Phone",
             "displayLabel": true,
+            "floatLabel": FloatLabel.always,
             "value": "",
             "placeholder": "Enter contact phone",
             "numberOfColumns": 6,
@@ -365,6 +383,7 @@ export class FormTest extends PopupBaseComponent{
             "label": "Company Name",
             "displayLabel": true,
             "value": "",
+            "floatLabel": FloatLabel.always,
             "placeholder": "Enter company name",
             "numberOfColumns": 6,
             "visible": true
@@ -376,6 +395,7 @@ export class FormTest extends PopupBaseComponent{
             "label": "Job Title / Role",
             "displayLabel": true,
             "value": "",
+            "floatLabel": FloatLabel.always,
             "placeholder": "Enter job title",
             "numberOfColumns": 6,
             "visible": true
@@ -400,48 +420,48 @@ export class FormTest extends PopupBaseComponent{
     "outline": true
   };
 
-  public masterData: any =      {
-      name: 'name',
-      type: FieldType.text,
-      outline: false,
-      label: "name",
-      displayLabel: true,
-      markerInLabel: true,
-      floatLabel: FloatLabel.always,
-      value: "",
-      placeholder: "Enter name",
-      readonly: false,
-      tooltip: "",
-      hint: "",
-      prefixIcon: "",
-      prefixText: "",
-      suffixText: "",
-      suffixIcon: "",
-      numberOfColumns: 3,
-      visible: true,
-      OnChange: ()=> this.fieldOnChange.bind(this),
-      options: [],
-      multipleSelect: false,
-      autoComplete: false,
-      onUpload: ()=> this.onUpload.bind(this),
-      rangeMinimum: 0,
-      rangeMaximum: 0,
-      rangeStepper: 0,
-      linkOnly: false,
-      validators: {
-          min: 0,
-          max: 0,
-          required: false,
-          requiredTrue: false,
-          email: false,
-          minLength: 0,
-          maxLength: 0,
-          pattern: '',
-          nullValidator: false,
-          jsonValidator: false,
-          duplicateValidator: false,
-      },
-      children: []
+  public masterData: any = {
+    name: 'name',
+    type: FieldType.text,
+    outline: false,
+    label: "name",
+    displayLabel: true,
+    markerInLabel: true,
+    floatLabel: FloatLabel.always,
+    value: "",
+    placeholder: "Enter name",
+    readonly: false,
+    tooltip: "",
+    hint: "",
+    prefixIcon: "",
+    prefixText: "",
+    suffixText: "",
+    suffixIcon: "",
+    numberOfColumns: 3,
+    visible: true,
+    OnChange: () => this.fieldOnChange.bind(this),
+    options: [],
+    multipleSelect: false,
+    autoComplete: false,
+    onUpload: () => this.onUpload.bind(this),
+    rangeMinimum: 0,
+    rangeMaximum: 0,
+    rangeStepper: 0,
+    linkOnly: false,
+    validators: {
+      min: 0,
+      max: 0,
+      required: false,
+      requiredTrue: false,
+      email: false,
+      minLength: 0,
+      maxLength: 0,
+      pattern: '',
+      nullValidator: false,
+      jsonValidator: false,
+      duplicateValidator: false,
+    },
+    children: []
   }
 
   public dynamicFormDetails: DynamicFormDetails = {
@@ -502,11 +522,11 @@ export class FormTest extends PopupBaseComponent{
     this.jsonData = structuredClone(this.updatedJsonValue);
   }
 
-  public fieldOnChange(event:any){
+  public fieldOnChange(event: any) {
     console.log(event);
   }
 
-  public onUpload(event:any){
+  public onUpload(event: any) {
     console.log(event);
   }
 }

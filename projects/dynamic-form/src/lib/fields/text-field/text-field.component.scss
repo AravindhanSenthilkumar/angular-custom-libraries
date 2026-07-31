@@ -6,7 +6,7 @@
 .field-label {
   color: var(--TEXT-GREY-COLOR);
   font-weight: var(--FONT-WEIGHT-LOW);
-  font-size: var(--FONT-SIZE-FOR-SMALL-TEXT);
+  font-size: var(--FONT-SIZE-FOR-VERY-TINY);
 }
 .input-form-field {
   width: 100%;
@@ -36,4 +36,13 @@ input::-webkit-inner-spin-button {
 }
 .required {
   color: var(--ALERT-DANGER-COLOR);
+}
+
+::placeholder,
+input::placeholder,
+textarea::placeholder,
+.mat-mdc-input-element::placeholder {
+  color: #757575 !important;
+  opacity: 0.6 !important;
+  font-weight: 400 !important;
 }

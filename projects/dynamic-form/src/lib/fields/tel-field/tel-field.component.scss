@@ -1,0 +1,29 @@
+.tel-field-group {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  align-items: flex-start;
+
+  .country-code-field {
+    flex: 0 0 130px;
+    max-width: 140px;
+  }
+
+  .phone-number-field {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .tel-field-group {
+    flex-direction: column;
+    gap: 4px;
+
+    .country-code-field {
+      flex: 1 1 100%;
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+}

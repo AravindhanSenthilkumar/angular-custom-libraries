@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { PasswordFieldComponent } from './password-field/password-field.component';
 import { RangeInputFieldComponent } from './range-input-field/range-input-field.component';
+import { TelFieldComponent } from './tel-field/tel-field.component';
+import { TimeFieldComponent } from './time-field/time-field.component';
 
 /********************************************************************** 
   Page : field index page (used by form builder compoent and by itself(rescursive))
@@ -40,7 +42,9 @@ import { RangeInputFieldComponent } from './range-input-field/range-input-field.
     DateTimeFieldComponent, 
     SlideToggleComponent,
     PasswordFieldComponent,
-    RangeInputFieldComponent
+    RangeInputFieldComponent,
+    TelFieldComponent,
+    TimeFieldComponent
   ],
   templateUrl: './field-index.component.html',
   styleUrl: './field-index.component.scss'

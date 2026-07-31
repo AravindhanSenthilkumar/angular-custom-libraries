@@ -1,40 +1,65 @@
-/********************************************************************** 
-  Page : check box component styles
-  Desc : contains scss styles of check box component
-**********************************************************************/
+/***********************************************************************
+  Page : check box field component styles
+  Desc : contains scss styles of check box field component
+***********************************************************************/
 
+.check-box-container {
+  width: 100%;
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--FONT-FAMILY-NORMAL-TEXT);
+}
 
-.check-box-form{
-  border: 1px solid #74777f;
-  padding: 10px;
+.check-box-outline {
+  border: 1px solid var(--BORDER-COLOR, #74777f);
+  padding: 12px 14px;
   position: relative;
   border-radius: 4px;
-  .check-box-form-label{
+
+  .check-box-outline-label {
     position: absolute;
-    top: -12px;
-    padding: 0 5px;
-    margin: 0 4px;
-    background: #ffffff;
+    top: -10px;
+    left: 8px;
+    padding: 0 4px;
+    background-color: var(--BG-WHITE-COLOR, #ffffff);
+    font-size: var(--FONT-SIZE-FOR-VERY-TINY);
   }
 }
 
 .field-label {
   color: var(--TEXT-GREY-COLOR);
   font-weight: var(--FONT-WEIGHT-LOW);
-  font-size: 12px;
+  font-size: var(--FONT-SIZE-FOR-VERY-TINY);
   display: block;
-}
-.check-box-section {
-  height: 100%;
-  .check-box-input {
-    padding: 2px 0px;
+  margin-bottom: 6px;
+
+  .required {
+    color: var(--ALERT-DANGER-COLOR, #f44336);
+    margin-left: 2px;
   }
 }
-.input-checkbox-label {
-  font-size: var(--FONT-SIZE-FOR-NORMAL-TEXT);
-  font-weight: var(--FONT-WEIGHT-NORMAL);
-  margin-right: 20px;
+
+.check-box-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  padding: 2px 0;
+}
+
+.check-box-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.check-box-option-label {
+  font-size: var(--FONT-SIZE-FOR-VERY-SMALL-TEXT, 14px);
+  font-weight: var(--FONT-WEIGHT-NORMAL, 400);
   color: var(--TEXT-DARK-COLOR);
 }
 
-
+.check-box-hint {
+  font-size: 11px;
+  color: var(--TEXT-GREY-COLOR, #74777f);
+  margin-top: 4px;
+}

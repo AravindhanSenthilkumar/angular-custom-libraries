@@ -1,0 +1,106 @@
+<!-- time picker section begins -->
+<section [formGroup]="form" [matTooltipPosition]="'above'" matTooltip="{{ field?.tooltip }}">
+  <div
+    class="time-picker-card"
+    [ngClass]="floatLabelClass"
+    [class.is-invalid]="isDirty && (!isValid || timeError)"
+  >
+    @if (field?.displayLabel && floatLabelClass !== 'floating-never') {
+      <label class="time-card-label">{{ field?.label }}</label>
+    }
+
+    <div class="time-controls-row">
+      <!-- Hour Select -->
+      <div class="time-control-col">
+        <span class="control-sublabel">Hour</span>
+        <select
+          class="time-native-select"
+          [value]="selectedHour"
+          (change)="onHourChange($any($event.target).value)"
+          [disabled]="field?.readonly"
+          title="Select Hour"
+        >
+          @for (h of hourOptions; track h) {
+            <option [value]="h">{{ h }}</option>
+          }
+        </select>
+      </div>
+
+      <span class="time-colon">:</span>
+
+      <!-- Minute Select -->
+      <div class="time-control-col">
+        <span class="control-sublabel">Min</span>
+        <select
+          class="time-native-select"
+          [value]="selectedMinute"
+          (change)="onMinuteChange($any($event.target).value)"
+          [disabled]="field?.readonly"
+          title="Select Minute"
+        >
+          @for (m of minuteOptions; track m) {
+            <option [value]="m">{{ m }}</option>
+          }
+        </select>
+      </div>
+
+      @if (field?.showSeconds) {
+        <span class="time-colon">:</span>
+
+        <!-- Second Select -->
+        <div class="time-control-col">
+          <span class="control-sublabel">Sec</span>
+          <select
+            class="time-native-select"
+            [value]="selectedSecond"
+            (change)="onSecondChange($any($event.target).value)"
+            [disabled]="field?.readonly"
+            title="Select Second"
+          >
+            @for (s of secondOptions; track s) {
+              <option [value]="s">{{ s }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      <!-- Period Select -->
+      <div class="time-control-col period-col">
+        <span class="control-sublabel">AM/PM</span>
+        <select
+          class="time-native-select"
+          [value]="selectedPeriod"
+          (change)="onPeriodChange($any($event.target).value)"
+          [disabled]="field?.readonly"
+          title="Select AM or PM"
+        >
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
+
+      <!-- Timezone Select -->
+      <div class="time-control-col timezone-col">
+        <span class="control-sublabel">Timezone</span>
+        <select
+          class="time-native-select"
+          [value]="selectedTimeZone"
+          (change)="onTimeZoneChange($any($event.target).value)"
+          [disabled]="field?.readonly"
+          title="Select Timezone"
+        >
+          @for (tz of timeZones; track tz.code) {
+            <option [value]="tz.code">
+              {{ tz.label ? tz.label : (tz.code + (tz.offset ? ' (' + tz.offset + ')' : '')) }}
+            </option>
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+
+  @if (isDirty && timeError) {
+    <div class="time-error-text">{{ timeError }}</div>
+  }
+</section>
+<!-- time picker section ends -->

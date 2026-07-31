@@ -1,24 +1,55 @@
 <!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <!-- check box section begins -->
-<section [formGroup]="form" [ngClass]="{ 'check-box-form': field?.outline }">
-  @if(field.displayLabel){
-    <label class="field-label"  [ngClass]="{ 'check-box-form-label': field?.outline }">
-      {{ field.label }}   @if(field?.markerInLabel){*}
+<section
+  [formGroup]="form"
+  class="check-box-container"
+  [ngClass]="{ 'check-box-outline': field?.outline }"
+  [matTooltipPosition]="'above'"
+  matTooltip="{{ field?.tooltip }}"
+>
+  @if(field?.displayLabel && field?.options?.length > 0){
+    <label class="field-label" [ngClass]="{ 'check-box-outline-label': field?.outline }">
+      {{ field?.label }}
+      @if(field?.markerInLabel){ <span class="required">*</span> }
     </label>
   }
-  <div class="check-box-section">
-    <div class="check-box-input">
-        @for(opt of field.options;track opt){
-          <mat-checkbox
-            [checked]="field.value"
-            (change)="field?.OnChange($event, field.name);toggle($event, opt.key)"
-            [name]="field.name"
-            [color]="'primary'"
-          >
-            {{ opt.label }}
-          </mat-checkbox>
-        }
-    </div>
+
+  <div class="check-box-list">
+    <!-- Single boolean checkbox (no options) -->
+    @if(!field?.options || field?.options?.length === 0){
+      <mat-checkbox
+        class="check-box-item"
+        [formControlName]="field.name"
+        [color]="'primary'"
+        [disabled]="field?.readonly"
+        (change)="field?.OnChange ? field?.OnChange($event, field.name) : null"
+      >
+        <span class="check-box-option-label">
+          {{ field?.label }}
+          @if(field?.markerInLabel){ <span class="required">*</span> }
+        </span>
+      </mat-checkbox>
+    }
+
+    <!-- Multi-option checkboxes -->
+    @if(field?.options && field?.options?.length > 0){
+      @for(opt of field?.options; track opt){
+        <mat-checkbox
+          class="check-box-item"
+          [checked]="isChecked(opt.key)"
+          (change)="field?.OnChange ? field?.OnChange($event, field.name) : null; toggle($event, opt.key)"
+          [name]="field.name"
+          [color]="'primary'"
+          [disabled]="field?.readonly"
+        >
+          <span class="check-box-option-label">{{ opt.label }}</span>
+        </mat-checkbox>
+      }
+    }
   </div>
+
+  @if(field?.hint){
+    <mat-hint class="check-box-hint">{{ field?.hint }}</mat-hint>
+  }
 </section>
 <!-- check box section ends -->

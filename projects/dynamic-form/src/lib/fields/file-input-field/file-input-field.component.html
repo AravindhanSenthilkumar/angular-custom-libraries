@@ -1,25 +1,76 @@
 <!-- file input section begins -->
-<div [formGroup]="form">
-  @if(field?.displayLabel){  <label class="field-label">{{ field?.label }}</label>}
-  <input 
-    type="file"
-    multiple=""
-    class="form-control file-input"
-    [class.is-invalid]="isDirty && !isValid"
-    [formControlName]="field.name"
-    [formGroup]="form"
-    [placeholder]="field.placeholder ? field.placeholder : ''"
-    title="{{ field.label }}"
-    [readonly]="field.readonly"
-    (change)="field.onUpload($any($event).target.files)" 
-  /> 
-  @if(field.value){
-    <div>
-      <button type="button" class="btn btn-primary">Change</button>
-      <div class="card">
-        <img class="card-img-top" [src]="field.value" alt="file-upload" />
+<section [formGroup]="form" [matTooltipPosition]="'above'" matTooltip="{{ field?.tooltip }}">
+  <mat-form-field class="input-form-field" [appearance]="field?.outline ? 'outline' : 'fill'" [floatLabel]="field?.floatLabel" [hideRequiredMarker]="field?.markerInLabel ? true : false">
+    @if(field?.displayLabel){
+      <mat-label class="field-label">{{ field?.label }}</mat-label>
+    }
+    @if(field?.prefixIcon){
+      <mat-icon matPrefix>{{ field?.prefixIcon }}</mat-icon>
+    } @else {
+      <mat-icon matPrefix>upload_file</mat-icon>
+    }
+    @if(field?.prefixText){
+      <span matTextPrefix>{{ field?.prefixText }}</span>
+    }
+
+    <!-- Hidden native file input -->
+    <input 
+      #fileInput
+      type="file"
+      class="hidden-file-input"
+      [class.is-invalid]="isDirty && !isValid"
+      [formControlName]="field.name"
+      [placeholder]="field.placeholder ? field.placeholder : 'Choose file...'"
+      title="{{ field.label }}"
+      [readonly]="field.readonly"
+      (change)="onFileChange($event)" 
+    /> 
+
+    <!-- Visible Material text trigger -->
+    <input 
+      matInput 
+      readonly 
+      [value]="selectedFileName || field?.placeholder || 'Choose file...'"
+      (click)="fileInput.click()" 
+      class="file-display-input"
+    />
+
+    <button 
+      type="button" 
+      mat-icon-button 
+      matSuffix 
+      (click)="fileInput.click()" 
+      title="Browse File"
+    >
+      <mat-icon>attach_file</mat-icon>
+    </button>
+
+    @if(field?.suffixText){
+      <span matTextSuffix>{{ field?.suffixText }}</span>
+    }
+    @if(field?.suffixIcon){
+      <mat-icon matSuffix>{{ field?.suffixIcon }}</mat-icon>
+    }
+    @if(field?.hint){
+      <mat-hint>{{ field?.hint }}</mat-hint>
+    }
+  </mat-form-field>
+
+  <!-- File Preview Card if value present -->
+  @if(field?.value){
+    <div class="file-preview-container">
+      <div class="file-preview-card">
+        @if(isImage(field?.value)){
+          <img [src]="field.value" alt="file-upload" class="preview-thumbnail" />
+        } @else {
+          <mat-icon class="preview-file-icon">insert_drive_file</mat-icon>
+          <span class="preview-filename">{{ selectedFileName || 'Uploaded File' }}</span>
+        }
+        <button type="button" mat-stroked-button color="primary" class="change-btn" (click)="fileInput.click()">
+          <mat-icon>refresh</mat-icon> Change
+        </button>
       </div>
     </div>
   }
-  </div>
-  <!-- file input section ends -->
+</section>
+<!-- file input section ends -->

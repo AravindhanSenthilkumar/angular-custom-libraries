@@ -4,6 +4,7 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 /********************************************************************** 
   Page : check box page (used by field index component)
@@ -13,7 +14,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 @Component({
   selector: 'app-check-box-field',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatCheckboxModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatCheckboxModule, MatTooltipModule],
   templateUrl: './check-box-field.component.html',
   styleUrl: './check-box-field.component.scss'
 })
@@ -50,6 +51,18 @@ export class CheckBoxFieldComponent {
   get value() {
     const val = this.form ? this.form.get(this.field.name)?.value : null;
     return val;
+  }
+  /**
+   * Desc : check whether a specific option key is included in the current value
+   * @param key : option key to check
+   */
+  public isChecked(key: string): boolean {
+    const val = this.value;
+    if (!val) return false;
+    if (typeof val === 'boolean') return val;
+    if (typeof val === 'string') return val.split(',').includes('' + key);
+    if (Array.isArray(val)) return val.includes(key);
+    return false;
   }
   /**
    * Desc : check box event initiated

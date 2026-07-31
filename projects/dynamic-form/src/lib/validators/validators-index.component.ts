@@ -75,6 +75,12 @@ export class MainValidator {
       if (errors['required']) {
         return `${finalName} is required.`;
       }
+      if (errors['countryCodeRequired']) {
+        return `Country code is required for ${finalName}.`;
+      }
+      if (errors['invalidPhoneNumber']) {
+        return `Please provide a valid phone number.`;
+      }
       if (errors['min']) {
         return `${finalName} should be greater than ${model.validators?.min ?? 0}.`;
       }

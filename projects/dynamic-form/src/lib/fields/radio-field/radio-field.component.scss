@@ -16,9 +16,9 @@
     color: var(--TEXT-GREY-COLOR);
     font-weight: var(--FONT-WEIGHT-LOW);
     display: block;
-    font-family: 'Roboto';
+    font-family: var(--FONT-FAMILY-NORMAL-TEXT);
     letter-spacing: 0.65px;
-    font-size: 12px;
+    font-size: var(--FONT-SIZE-FOR-VERY-TINY);
 }
 .radio-section{
     display: block;
@@ -32,7 +32,7 @@
 }
 
 .form-check-label{
-    font-family: 'Roboto';
+    font-family: var(--FONT-FAMILY-NORMAL-TEXT);
     font-weight: 500;
     font-size: 14px;
 }

@@ -1,24 +1,88 @@
-.slider{
-    width: 100%;
+/********************************************************************** 
+  Page : range input field component styles
+  Desc : contains scss styles of range input field component
+**********************************************************************/
+
+.range-field-container {
+  width: 100%;
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--FONT-FAMILY-NORMAL-TEXT);
+
+  *, label, span, mat-hint {
+    font-family: var(--FONT-FAMILY-NORMAL-TEXT);
+  }
+}
+
+.range-form-outline {
+  border: 1px solid var(--BORDER-COLOR, #74777f);
+  padding: 12px 14px;
+  position: relative;
+  border-radius: 4px;
+  background-color: var(--BG-CARD-COLOR, transparent);
+
+  .range-form-label {
+    font-family: var(--FONT-FAMILY-NORMAL-TEXT);
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    padding: 0 4px;
+    background-color: var(--BG-WHITE-COLOR, #ffffff);
+    font-size: var(--FONT-SIZE-FOR-VERY-TINY);
+  }
+}
+
+.range-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
 }
 
 .field-label {
-    color: var(--TEXT-GREY-COLOR);
-    font-weight: var(--FONT-WEIGHT-LOW);
-    font-size: 12px;
-    display: block;
+  color: var(--TEXT-GREY-COLOR, #74777f);
+  font-weight: var(--FONT-WEIGHT-LOW, 400);
+  font-size: var(--FONT-SIZE-FOR-VERY-TINY);
+  display: inline-block;
+
+  .required {
+    color: var(--ALERT-DANGER-COLOR, #f44336);
+    margin-left: 2px;
+  }
 }
 
-.range-form{
-    border: 1px solid #74777f;
-    padding: 10px;
-    position: relative;
-    border-radius: 4px;
-    .range-form-label{
-    position: absolute;
-    top: -12px;
-    padding: 0 5px;
-    margin: 0 4px;
-    background: #ffffff;
-    }
+.range-current-value {
+  font-size: var(--FONT-SIZE-FOR-VERY-TINY);
+  font-weight: 600;
+  color: var(--TEXT-DARK-COLOR, #212121);
+  background-color: var(--BG-CHIP-COLOR, #e8edf5);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.range-slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+
+  .slider-control {
+    flex: 1;
+    width: 100%;
+  }
+
+  .range-limit-text {
+    font-size: 11px;
+    color: var(--TEXT-GREY-COLOR, #74777f);
+    font-weight: 500;
+    min-width: 24px;
+    text-align: center;
+  }
+}
+
+.range-hint {
+  font-size: 11px;
+  color: var(--TEXT-GREY-COLOR, #74777f);
+  margin-top: 2px;
 }

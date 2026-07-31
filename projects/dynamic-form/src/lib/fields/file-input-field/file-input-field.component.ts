@@ -2,7 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 /********************************************************************** 
@@ -13,7 +16,17 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-file-input-field',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatIconModule, ReactiveFormsModule, FormsModule,DragDropModule],
+  imports: [
+    CommonModule, 
+    MatFormFieldModule, 
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule, 
+    MatTooltipModule,
+    ReactiveFormsModule, 
+    FormsModule,
+    DragDropModule
+  ],
   templateUrl: './file-input-field.component.html',
   styleUrl: './file-input-field.component.scss'
 })
@@ -28,6 +41,10 @@ export class FileInputFieldComponent {
    * Desc : declaring form input to receive data from parent component
    */
   @Input() form!: FormGroup;
+  /**
+   * Desc : selected file name display
+   */
+  public selectedFileName: string = '';
   /**
    * Desc : check whether the form is valid or not
    */
@@ -49,4 +66,25 @@ export class FileInputFieldComponent {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
   public toggleHover(val: any) {}
+
+  /**
+   * Desc: handles file selection change
+   */
+  public onFileChange(event: any): void {
+    const files = event.target?.files;
+    if (files && files.length > 0) {
+      this.selectedFileName = Array.from(files).map((f: any) => f.name).join(', ');
+    }
+    if (this.field?.onUpload) {
+      this.field.onUpload(files);
+    }
+  }
+
+  /**
+   * Desc: checks if the value is an image source
+   */
+  public isImage(val: string): boolean {
+    if (!val || typeof val !== 'string') return false;
+    return val.startsWith('data:image') || /\.(jpg|jpeg|png|gif|svg|webp|avif)$/i.test(val);
+  }
 }

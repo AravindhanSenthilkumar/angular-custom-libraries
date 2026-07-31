@@ -1,0 +1,157 @@
+.time-picker-card {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #79747e;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: Roboto, sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus-within {
+    border-color: #1976d2;
+    border-width: 2px;
+
+    &.floating-always .time-card-label {
+      color: #1976d2;
+      font-weight: 600;
+    }
+  }
+
+  &.is-invalid {
+    border-color: #b00020;
+
+    .time-card-label {
+      color: #b00020;
+    }
+  }
+
+  /* Floating label on outline border when floatLabel === 'always' */
+  &.floating-always {
+    margin-top: 6px;
+
+    .time-card-label {
+      position: absolute;
+      top: -9px;
+      left: 10px;
+      background: #ffffff;
+      padding: 0 4px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #49454f;
+      line-height: 1;
+      z-index: 2;
+    }
+  }
+
+  /* Hide floating label when floatLabel === 'never' */
+  &.floating-never {
+    .time-card-label {
+      display: none;
+    }
+  }
+
+  /* Standard label inside box when floatLabel === 'auto' */
+  &.floating-auto {
+    .time-card-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: #49454f;
+      margin-bottom: 4px;
+    }
+  }
+
+  .time-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+
+    .time-control-col {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+
+      &.period-col {
+        flex: 1.1;
+      }
+
+      &.timezone-col {
+        flex: 1.8;
+      }
+
+      .control-sublabel {
+        font-size: 10px;
+        font-weight: 600;
+        color: #757575;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 2px;
+      }
+
+      .time-native-select {
+        width: 100%;
+        height: 32px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fcfcfc;
+        color: #1d1b20;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 0 4px;
+        cursor: pointer;
+        outline: none;
+
+        &:focus {
+          border-color: #1976d2;
+          background-color: #fff;
+        }
+
+        &:disabled {
+          background-color: #f0f0f0;
+          color: #999;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .time-colon {
+      font-weight: bold;
+      font-size: 16px;
+      color: #49454f;
+      align-self: flex-end;
+      margin-bottom: 6px;
+    }
+  }
+}
+
+.time-error-text {
+  font-size: 12px;
+  color: #b00020;
+  margin-top: 4px;
+  padding-left: 4px;
+}
+
+@media (max-width: 480px) {
+  .time-picker-card {
+    .time-controls-row {
+      flex-wrap: wrap;
+      gap: 6px;
+
+      .time-control-col {
+        flex: 1 1 45%;
+
+        &.timezone-col {
+          flex: 1 1 100%;
+        }
+      }
+
+      .time-colon {
+        display: none;
+      }
+    }
+  }
+}

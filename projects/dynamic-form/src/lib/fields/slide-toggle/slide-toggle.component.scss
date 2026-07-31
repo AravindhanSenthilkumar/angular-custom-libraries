@@ -1,17 +1,74 @@
-.input-slide-label{
-    display: block;
-    margin-bottom: 8px;
-    color: var(--TEXT-GREY-COLOR);
-    font-weight: var(--FONT-WEIGHT-LOW);
-    font-size: 12px;
+/***********************************************************************
+  Page : slide toggle component styles
+  Desc : contains scss styles of slide toggle component
+***********************************************************************/
+
+.slide-toggle-container {
+  width: 100%;
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--FONT-FAMILY-NORMAL-TEXT);
 }
 
-::ng-deep .mdc-switch__track{
-    height: 22px!important;
-    width: 90% !important;
+.slide-toggle-outline {
+  border: 1px solid var(--BORDER-COLOR, #74777f);
+  padding: 12px 14px;
+  position: relative;
+  border-radius: 4px;
+
+  .slide-toggle-outline-label {
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    padding: 0 4px;
+    background-color: var(--BG-WHITE-COLOR, #ffffff);
+    font-size: var(--FONT-SIZE-FOR-VERY-TINY);
+  }
 }
 
-::ng-deep .mdc-switch__handle{
-    width: 20px!important;
-    height: 20px!important;
+.slide-toggle-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.field-label {
+  color: var(--TEXT-GREY-COLOR);
+  font-weight: var(--FONT-WEIGHT-LOW);
+  font-size: var(--FONT-SIZE-FOR-VERY-TINY);
+  display: inline-block;
+
+  .required {
+    color: var(--ALERT-DANGER-COLOR, #f44336);
+    margin-left: 2px;
+  }
+}
+
+.slide-toggle-status {
+  font-size: var(--FONT-SIZE-FOR-VERY-TINY);
+  font-weight: 600;
+  color: var(--TEXT-GREY-COLOR, #74777f);
+  background-color: var(--BG-CHIP-COLOR, #e8edf5);
+  padding: 2px 8px;
+  border-radius: 12px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &.active {
+    background-color: var(--PRIMARY-COLOR, #1976d2);
+    color: #ffffff;
+  }
+}
+
+.slide-toggle-row {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.slide-toggle-hint {
+  font-size: 11px;
+  color: var(--TEXT-GREY-COLOR, #74777f);
+  margin-top: 4px;
 }

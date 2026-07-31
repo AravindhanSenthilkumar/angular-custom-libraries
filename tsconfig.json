@@ -4,13 +4,18 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "devlab-one-dynamic-form": ["./dist/dynamic-form"],
+      "devlab-one-dynamic-table": ["./dist/dynamic-table"],
+      "devlab-one-dynamic-modal": ["./dist/dynamic-modal"],
+      "devlab-one-dynamic-alert": ["./dist/dynamic-alert"],
+      "devlab-one-dynamic-toast": ["./dist/dynamic-toast"],
+      "devlab-one-dynamic-data-table": ["./dist/dynamic-data-table"],
       "dynamic-alert": ["./dist/dynamic-alert"],
       "dynamic-data-table": ["./dist/dynamic-data-table"],
       "dynamic-form": ["./dist/dynamic-form"],
       "dynamic-modal": ["./dist/dynamic-modal"],
-      "dynamic-popup": ["./dist/dynamic-popup"],
       "dynamic-table": ["./dist/dynamic-table"],
-      "dynamic-toast": ["./dist/dynamic-toast", "./dist/dynamic-toast"]
+      "dynamic-toast": ["./dist/dynamic-toast"]
     },
     "strict": true,
     "noImplicitOverride": true,

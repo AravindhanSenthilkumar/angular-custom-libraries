@@ -4,11 +4,12 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-slide-toggle',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, ReactiveFormsModule, FormsModule, MatSlideToggleModule],
+  imports: [CommonModule, MatFormFieldModule, ReactiveFormsModule, FormsModule, MatSlideToggleModule, MatTooltipModule],
   templateUrl: './slide-toggle.component.html',
   styleUrl: './slide-toggle.component.scss'
 })

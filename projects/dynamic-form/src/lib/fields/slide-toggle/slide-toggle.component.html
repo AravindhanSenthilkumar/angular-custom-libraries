@@ -1,9 +1,35 @@
-<section [formGroup]="form">
-  @if(field?.displayLabel){ <mat-label class="input-slide-label">{{ field?.label }} </mat-label>}
+<!-- slide-toggle section begins -->
+<section
+  [formGroup]="form"
+  class="slide-toggle-container"
+  [ngClass]="{ 'slide-toggle-outline': field?.outline }"
+  [matTooltipPosition]="'above'"
+  matTooltip="{{ field?.tooltip }}"
+>
+  <div class="slide-toggle-header">
+    @if(field?.displayLabel){
+      <label class="field-label" [ngClass]="{ 'slide-toggle-outline-label': field?.outline }">
+        {{ field?.label }}
+        @if(field?.markerInLabel){ <span class="required">*</span> }
+      </label>
+    }
+    <span class="slide-toggle-status" [class.active]="value">
+      {{ value ? (field?.labelOn ?? 'ON') : (field?.labelOff ?? 'OFF') }}
+    </span>
+  </div>
+
+  <div class="slide-toggle-row">
     <mat-slide-toggle
       [color]="color"
-      [checked]="field.value"
+      [checked]="value"
+      [disabled]="field?.readonly"
       (change)="toggle($event, field.name); field?.OnChange ? field?.OnChange($event, field.name) : null"
-      >
+    >
     </mat-slide-toggle>
-  </section>
+  </div>
+
+  @if(field?.hint){
+    <mat-hint class="slide-toggle-hint">{{ field?.hint }}</mat-hint>
+  }
+</section>
+<!-- slide-toggle section ends -->

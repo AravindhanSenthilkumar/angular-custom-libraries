@@ -62,6 +62,24 @@ export interface Field {
   linkOnly?: boolean;
   validators?: FieldValidators;
   children?: Array<Field>;
+  countryCodes?: Array<ICountryCode | IOption | string>;
+  defaultCountryCode?: string;
+  timeZones?: Array<ITimeZone | IOption | string>;
+  defaultTimeZone?: string;
+  timeOptions?: Array<IOption | string>;
+  showSeconds?: boolean;
+}
+
+export interface ICountryCode {
+  code: string;
+  country?: string;
+  label?: string;
+}
+
+export interface ITimeZone {
+  code: string;
+  label?: string;
+  offset?: string;
 }
 
 export interface IOption {
