@@ -30,29 +30,80 @@ export class FormTest extends PopupBaseComponent{
   public formData: Form = {
     "controls": [
       {
-        "name": "Name",
+        "name": "fullName",
         "type": FieldType.text,
         "outline": true,
-        "label": "Name",
+        "label": "Full Name",
         "markerInLabel": true,
         "displayLabel": true,
         "floatLabel": FloatLabel.always,
         "value": "",
-        "placeholder": "Enter your name",
+        "placeholder": "Enter your full name",
         "readonly": false,
-        "tooltip": "",
-        "hint": "",
-        "prefixIcon": "",
-        "prefixText": "",
-        "suffixIcon": "",
-        "suffixText": "",
-        "numberOfColumns": 2,
+        "tooltip": "Enter first and last name",
+        "hint": "e.g. John Doe",
+        "prefixIcon": "person",
+        "numberOfColumns": 6,
         "visible": true,
         "validators": {
           "required": true,
           "minLength": 2,
-          "maxLength": 6,
-          "pattern": ""
+          "maxLength": 50
+        }
+      },
+      {
+        "name": "password",
+        "type": FieldType.password,
+        "outline": true,
+        "label": "Password",
+        "markerInLabel": true,
+        "displayLabel": true,
+        "floatLabel": FloatLabel.always,
+        "value": "",
+        "placeholder": "Enter secure password",
+        "readonly": false,
+        "prefixIcon": "lock",
+        "numberOfColumns": 6,
+        "visible": true,
+        "validators": {
+          "required": true,
+          "minLength": 6
+        }
+      },
+      {
+        "name": "email",
+        "type": FieldType.email,
+        "outline": true,
+        "label": "Email Address",
+        "markerInLabel": true,
+        "displayLabel": true,
+        "floatLabel": FloatLabel.always,
+        "value": "",
+        "placeholder": "john.doe@example.com",
+        "readonly": false,
+        "prefixIcon": "email",
+        "numberOfColumns": 6,
+        "visible": true,
+        "validators": {
+          "required": true,
+          "email": true
+        }
+      },
+      {
+        "name": "phone",
+        "type": FieldType.tel,
+        "outline": true,
+        "label": "Mobile Phone",
+        "markerInLabel": true,
+        "displayLabel": true,
+        "floatLabel": FloatLabel.always,
+        "value": "",
+        "placeholder": "+1 555-0199",
+        "prefixIcon": "phone",
+        "numberOfColumns": 6,
+        "visible": true,
+        "validators": {
+          "required": true
         }
       },
       {
@@ -63,43 +114,69 @@ export class FormTest extends PopupBaseComponent{
         "markerInLabel": true,
         "displayLabel": true,
         "floatLabel": FloatLabel.always,
+        "value": 25,
+        "placeholder": "Enter age",
+        "numberOfColumns": 4,
+        "visible": true,
+        "validators": {
+          "required": true,
+          "min": 18,
+          "max": 100
+        }
+      },
+      {
+        "name": "website",
+        "type": FieldType.url,
+        "outline": true,
+        "label": "Website URL",
+        "markerInLabel": false,
+        "displayLabel": true,
+        "floatLabel": FloatLabel.always,
         "value": "",
-        "placeholder": "Enter your age",
-        "readonly": false,
-        "tooltip": "",
-        "hint": "",
-        "prefixIcon": "",
-        "prefixText": "",
-        "suffixIcon": "",
-        "suffixText": "",
-        "numberOfColumns": 10,
+        "placeholder": "https://example.com",
+        "prefixIcon": "language",
+        "numberOfColumns": 4,
+        "visible": true
+      },
+      {
+        "name": "themeColor",
+        "type": FieldType.color,
+        "outline": true,
+        "label": "Preferred Color",
+        "markerInLabel": false,
+        "displayLabel": true,
+        "floatLabel": FloatLabel.always,
+        "value": "#3f51b5",
+        "numberOfColumns": 4,
+        "visible": true
+      },
+      {
+        "name": "birthDate",
+        "type": FieldType.date,
+        "outline": true,
+        "label": "Date of Birth",
+        "markerInLabel": true,
+        "displayLabel": true,
+        "floatLabel": FloatLabel.always,
+        "value": "",
+        "placeholder": "Select birth date",
+        "numberOfColumns": 6,
         "visible": true,
         "validators": {
           "required": true
         }
       },
       {
-        "name": "mobileNumber",
-        "type": FieldType.number,
+        "name": "preferredTime",
+        "type": FieldType.time,
         "outline": true,
-        "label": "Mobile number",
-        "markerInLabel": true,
+        "label": "Preferred Time",
+        "markerInLabel": false,
         "displayLabel": true,
         "floatLabel": FloatLabel.always,
-        "value": "",
-        "placeholder": "Enter your mobile number",
-        "readonly": false,
-        "tooltip": "",
-        "hint": "",
-        "prefixIcon": "",
-        "prefixText": "",
-        "suffixIcon": "",
-        "suffixText": "",
-        "numberOfColumns": 12,
-        "visible": true,
-        "validators": {
-          "required": true
-        }
+        "value": "10:30",
+        "numberOfColumns": 6,
+        "visible": true
       },
       {
         "name": "country",
@@ -111,126 +188,199 @@ export class FormTest extends PopupBaseComponent{
         "floatLabel": FloatLabel.always,
         "value": "",
         "placeholder": "Choose country",
-        "readonly": false,
-        "tooltip": "",
-        "hint": "",
-        "prefixIcon": "",
-        "prefixText": "",
-        "suffixIcon": "",
-        "suffixText": "",
-        "numberOfColumns": 12,
+        "numberOfColumns": 6,
         "multipleSelect": false,
-        "OnChange": undefined,
-        "options": [
-          {
-            "key": "IND",
-            "label": "India"
-          },
-          {
-            "key": "AUS",
-            "label": "Australia"
-          },
-          {
-            "key": "Eng",
-            "label": "England"
-          }
-        ],
         "autoComplete": true,
-        "visible": true,
-        "validators": {
-          "required": true
-        }
-      },
-      {
-        "type": FieldType.radio,
-        "name": "MaritalStatus",
-        "label": "Marital Status",
         "options": [
-          {
-            "key": "Married",
-            "label": "Married"
-          },
-          {
-            "key": "Single",
-            "label": "Single"
-          }
+          { "key": "IND", "label": "India" },
+          { "key": "USA", "label": "United States" },
+          { "key": "UK", "label": "United Kingdom" },
+          { "key": "AUS", "label": "Australia" }
         ],
-        "readonly": false,
-        "displayLabel": true,
-        "outline": true,
-        "markerInLabel": true,
-        "numberOfColumns": 12,
         "visible": true,
         "validators": {
           "required": true
         }
       },
       {
-        "type": FieldType.radio,
-        "name": "Gender",
-        "label": "Gender",
-        "options": [
-          {
-            "key": "Male",
-            "label": "Male"
-          },
-          {
-            "key": "Female",
-            "label": "Female"
-          },
-          {
-            "key": "Others",
-            "label": "Others"
-          }
-        ],
-        "readonly": false,
-        "displayLabel": true,
-        "outline": true,
-        "markerInLabel": true,
-        "numberOfColumns": 12,
-        "visible": true,
-        "validators": {
-          "required": true
-        }
-      },
-      {
-        "name": "Preferedlocation",
+        "name": "preferredLocations",
         "type": FieldType.dropdown,
         "outline": true,
-        "label": "Prefered Location",
+        "label": "Preferred Job Locations (Multi-Select)",
+        "markerInLabel": false,
+        "displayLabel": true,
+        "floatLabel": FloatLabel.always,
+        "value": [],
+        "placeholder": "Select multiple locations",
+        "numberOfColumns": 6,
+        "multipleSelect": true,
+        "autoComplete": true,
+        "options": [
+          { "key": "NY", "label": "New York" },
+          { "key": "SF", "label": "San Francisco" },
+          { "key": "LON", "label": "London" },
+          { "key": "BLR", "label": "Bangalore" }
+        ],
+        "visible": true
+      },
+      {
+        "name": "gender",
+        "type": FieldType.radio,
+        "outline": true,
+        "label": "Gender",
         "markerInLabel": true,
+        "displayLabel": true,
+        "numberOfColumns": 6,
+        "options": [
+          { "key": "Male", "label": "Male" },
+          { "key": "Female", "label": "Female" },
+          { "key": "Other", "label": "Other" }
+        ],
+        "visible": true,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "name": "maritalStatus",
+        "type": FieldType.radio,
+        "outline": true,
+        "label": "Marital Status",
+        "markerInLabel": false,
+        "displayLabel": true,
+        "numberOfColumns": 6,
+        "options": [
+          { "key": "Single", "label": "Single" },
+          { "key": "Married", "label": "Married" }
+        ],
+        "visible": true
+      },
+      {
+        "name": "experienceLevel",
+        "type": FieldType.range,
+        "outline": true,
+        "label": "Experience Level (Years)",
+        "displayLabel": true,
+        "rangeMinimum": 0,
+        "rangeMaximum": 20,
+        "rangeStepper": 1,
+        "value": 5,
+        "numberOfColumns": 6,
+        "visible": true
+      },
+      {
+        "name": "enableNotifications",
+        "type": FieldType.slideToggle,
+        "outline": true,
+        "label": "Enable Email Notifications",
+        "displayLabel": true,
+        "value": true,
+        "numberOfColumns": 6,
+        "visible": true
+      },
+      {
+        "name": "resume",
+        "type": FieldType.file,
+        "outline": true,
+        "label": "Upload Resume",
+        "displayLabel": true,
+        "numberOfColumns": 6,
+        "visible": true
+      },
+      {
+        "name": "acceptTerms",
+        "type": FieldType.checkbox,
+        "outline": true,
+        "label": "I accept terms & conditions",
+        "displayLabel": true,
+        "value": false,
+        "numberOfColumns": 6,
+        "visible": true,
+        "validators": {
+          "requiredTrue": true
+        }
+      },
+      {
+        "name": "bio",
+        "type": FieldType.textArea,
+        "outline": true,
+        "label": "Professional Bio",
+        "markerInLabel": false,
         "displayLabel": true,
         "floatLabel": FloatLabel.always,
         "value": "",
-        "placeholder": "Choose Location",
-        "readonly": false,
-        "tooltip": "",
-        "hint": "",
-        "prefixIcon": "",
-        "prefixText": "",
-        "suffixIcon": "",
-        "suffixText": "",
+        "placeholder": "Write a short summary about yourself...",
         "numberOfColumns": 12,
-        "multipleSelect": true,
-        "options": [
-          {
-            "key": "IND",
-            "label": "India"
-          },
-          {
-            "key": "AUS",
-            "label": "Australia"
-          },
-          {
-            "key": "Eng",
-            "label": "England"
-          }
-        ],
-        "autoComplete": true,
         "visible": true,
         "validators": {
-          "required": true
+          "maxLength": 500
         }
+      },
+      {
+        "name": "emergencyContact",
+        "type": FieldType.group,
+        "outline": true,
+        "label": "Emergency Contact (Form Group)",
+        "displayLabel": true,
+        "numberOfColumns": 12,
+        "visible": true,
+        "children": [
+          {
+            "name": "contactName",
+            "type": FieldType.text,
+            "outline": true,
+            "label": "Contact Person Name",
+            "displayLabel": true,
+            "value": "",
+            "placeholder": "Enter contact name",
+            "numberOfColumns": 6,
+            "visible": true
+          },
+          {
+            "name": "contactPhone",
+            "type": FieldType.tel,
+            "outline": true,
+            "label": "Contact Person Phone",
+            "displayLabel": true,
+            "value": "",
+            "placeholder": "Enter contact phone",
+            "numberOfColumns": 6,
+            "visible": true
+          }
+        ]
+      },
+      {
+        "name": "workHistory",
+        "type": FieldType.array,
+        "outline": true,
+        "label": "Work History (Form Array)",
+        "displayLabel": true,
+        "numberOfColumns": 12,
+        "visible": true,
+        "children": [
+          {
+            "name": "company",
+            "type": FieldType.text,
+            "outline": true,
+            "label": "Company Name",
+            "displayLabel": true,
+            "value": "",
+            "placeholder": "Enter company name",
+            "numberOfColumns": 6,
+            "visible": true
+          },
+          {
+            "name": "role",
+            "type": FieldType.text,
+            "outline": true,
+            "label": "Job Title / Role",
+            "displayLabel": true,
+            "value": "",
+            "placeholder": "Enter job title",
+            "numberOfColumns": 6,
+            "visible": true
+          }
+        ]
       }
     ],
     "buttons": {
@@ -247,7 +397,7 @@ export class FormTest extends PopupBaseComponent{
         "name": "reset"
       }
     },
-    "outline": false
+    "outline": true
   };
 
   public masterData: any =      {
