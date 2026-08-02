@@ -14,10 +14,10 @@ export class PopupBaseComponent {
    * Desc : emit output to popup
    */
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
-  @Output() public onPopupClose = new EventEmitter<boolean>();
+  @Output() public onPopupClose = new EventEmitter<any>();
   /**
    * Desc : emit output to popup
    */
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
-  @Output() public onPopupSubmit = new EventEmitter<boolean>();
+  @Output() public onPopupSubmit = new EventEmitter<any>();
 }

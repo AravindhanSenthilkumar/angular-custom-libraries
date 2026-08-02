@@ -4,12 +4,13 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { ModalService, IPopupDetails, PopupBaseComponent } from 'devlab-one-dynamic-modal';
 import { FormTest } from '../form-test/form-test';
+import { DummyModalContent } from '../dummy-modal-content/dummy-modal-content';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-export  enum Justify {
-    left = "left",
-    right = "right",
-    center = "center"
+export enum Justify {
+  left = "left",
+  right = "right",
+  center = "center"
 }
 
 @Component({
@@ -18,7 +19,7 @@ export  enum Justify {
   templateUrl: './modal-test.html',
   styleUrl: './modal-test.scss',
 })
-export class ModalTest{
+export class ModalTest {
 
   public jsonData: any;
 
@@ -30,7 +31,7 @@ export class ModalTest{
   public editorOptions: JsonEditorOptions;
 
   constructor(
-    private _cd: ChangeDetectorRef, 
+    private _cd: ChangeDetectorRef,
     private modelService: ModalService
   ) {
     this.editorOptions = new JsonEditorOptions()
@@ -70,20 +71,43 @@ export class ModalTest{
     this.jsonData = structuredClone(this.updatedJsonValue);
   }
 
-  public openModal(){
-    const model : IPopupDetails = {
-      width: 800,
-      component: FormTest ,
-      header:{
-        title:'Form test page',
-        justification: Justify.left
+  public openModal(position: 'center' | 'right' | 'left' | 'bottom' = 'center', width: number | string = 700, height?: number | string) {
+    const model: IPopupDetails = {
+      width: width,
+      height: height,
+      position: position,
+      borderRadius: 12,
+      component: DummyModalContent,
+      header: {
+        title: `Analytics Overview (${position.toUpperCase()})`,
+        justification: Justify.left,
       },
-      ContextData:{},
+      ContextData: {},
       autoClose: true,
-      onClose:()=>{},
-      onSubmit:()=>{}
-    }
+      onClose: () => {
+        console.log('Modal closed');
+      },
+      onSubmit: (data: any) => {
+        console.log('Modal submitted', data);
+      },
+    };
     this.modelService.openComponentAsPopup(model);
+  }
+
+  public openCenterModal() {
+    this.openModal('center', 700);
+  }
+
+  public openRightDrawer() {
+    this.openModal('right', 550);
+  }
+
+  public openLeftDrawer() {
+    this.openModal('left', 550);
+  }
+
+  public openBottomSheet() {
+    this.openModal('bottom', 650, 450);
   }
 
 }

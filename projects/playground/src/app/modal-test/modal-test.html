@@ -36,8 +36,11 @@
         <button mat-button color="primary" (click)="generateComponent()">Generate</button>
     </div>
   </div>
-  <div class="playground-content">
-       <button mat-button (click)="openModal()">Open Modal</button>
+  <div class="playground-content" style="display: flex; gap: 12px; flex-wrap: wrap; padding: 24px;">
+    <button mat-raised-button color="primary" (click)="openCenterModal()">Open Center (800px)</button>
+    <button mat-raised-button color="accent" (click)="openRightDrawer()">Open Right Drawer</button>
+    <button mat-raised-button color="warn" (click)="openLeftDrawer()">Open Left Drawer</button>
+    <button mat-raised-button (click)="openBottomSheet()">Open Bottom Sheet</button>
   </div>
 </div>
 </div>

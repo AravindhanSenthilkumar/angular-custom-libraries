@@ -1,44 +1,189 @@
-.model-header {
+lib-dynamic-modal {
   display: flex;
-  border-bottom: 1px solid #ccc;
-  align-items: center;
-  .model-title {
-    padding: 20px 25px;
-    color: var(--TEXT-DARK-COLOR);
-    font-weight: 500;
-    font-size: 20px;
-    width: 100%;
-    font-family: 'Roboto';
-  }
-  .text-left {
-    text-align: left;
-  }
-  .text-center {
-    text-align: center;
-  }
-  .text-right {
-    text-align: right;
-  }
-  .close-icon {
-    justify-content: center;
-    color: var(--TEXT-DARK-COLOR);
-    font-weight: 500;
-    mat-icon {
-      font-size: 22px;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.alert-modal-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .model-header {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    align-items: center;
+    flex-shrink: 0;
+
+    .model-title {
+      padding: 16px 24px;
+      color: var(--TEXT-DARK-COLOR, #333);
+      font-weight: 500;
+      font-size: 18px;
+      width: 100%;
+      font-family: 'Roboto', sans-serif;
     }
-    &:hover{
-      background: unset;
-      border-radius: unset;
+
+    .text-left {
+      text-align: left;
     }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .close-icon {
+      justify-content: center;
+      color: var(--TEXT-DARK-COLOR, #666);
+      font-weight: 500;
+      min-width: 48px;
+
+      mat-icon {
+        font-size: 22px;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.04);
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .mat-dialog-content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 20px;
+    margin: 0;
+    max-height: unset !important;
   }
 }
-.mat-dialog-content {
-  clear: both;
-}
+
 ::ng-deep .mat-dialog-content .manage-card-container {
   margin-top: unset !important;
   margin-bottom: unset !important;
   .form-input-form-container {
     margin-top: unset !important;
   }
+}
+
+/* Panel positioning & dynamic border-radius for overlay containers */
+.cdk-overlay-pane.dynamic-modal-panel {
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  box-sizing: border-box;
+}
+
+/* Right drawer position - NO border-radius on the right side */
+.cdk-overlay-pane.dynamic-modal-right {
+  margin: 0 !important;
+  animation: slideInRight 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  .mat-mdc-dialog-container,
+  .mat-dialog-container,
+  .mdc-dialog__surface {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: var(--modal-border-radius, 8px) !important;
+    border-bottom-left-radius: var(--modal-border-radius, 8px) !important;
+    border-radius: var(--modal-border-radius, 8px) 0 0 var(--modal-border-radius, 8px) !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+  }
+}
+
+/* Left drawer position - NO border-radius on the left side */
+.cdk-overlay-pane.dynamic-modal-left {
+  margin: 0 !important;
+  animation: slideInLeft 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  .mat-mdc-dialog-container,
+  .mat-dialog-container,
+  .mdc-dialog__surface {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: var(--modal-border-radius, 8px) !important;
+    border-bottom-right-radius: var(--modal-border-radius, 8px) !important;
+    border-radius: 0 var(--modal-border-radius, 8px) var(--modal-border-radius, 8px) 0 !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+  }
+}
+
+/* Bottom sheet position - top corners rounded with custom radius only */
+.cdk-overlay-pane.dynamic-modal-bottom {
+  margin: 0 !important;
+  animation: slideInBottom 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  .mat-mdc-dialog-container,
+  .mat-dialog-container,
+  .mdc-dialog__surface {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: var(--modal-border-radius, 8px) !important;
+    border-top-right-radius: var(--modal-border-radius, 8px) !important;
+    border-radius: var(--modal-border-radius, 8px) var(--modal-border-radius, 8px) 0 0 !important;
+  }
+}
+
+/* Top sheet position */
+.cdk-overlay-pane.dynamic-modal-top {
+  margin: 0 !important;
+  animation: slideInTop 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  .mat-mdc-dialog-container,
+  .mat-dialog-container,
+  .mdc-dialog__surface {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: var(--modal-border-radius, 8px) !important;
+    border-bottom-right-radius: var(--modal-border-radius, 8px) !important;
+    border-radius: 0 0 var(--modal-border-radius, 8px) var(--modal-border-radius, 8px) !important;
+  }
+}
+
+/* Center modal position - rounded all around with custom radius */
+.cdk-overlay-pane.dynamic-modal-center {
+  animation: fadeInCenter 0.2s ease-out;
+
+  .mat-mdc-dialog-container,
+  .mat-dialog-container,
+  .mdc-dialog__surface {
+    border-radius: var(--modal-border-radius, 8px) !important;
+    max-height: 85vh !important;
+  }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideInBottom {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes slideInTop {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes fadeInCenter {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
 }

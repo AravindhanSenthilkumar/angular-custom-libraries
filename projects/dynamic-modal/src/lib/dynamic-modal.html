@@ -1,7 +1,7 @@
 <section class="alert-modal-container">
     <div class="model-header">
       <div class="model-title text-{{ justification }}">{{ title }}</div>
-      <button mat-button class="close-icon" [mat-dialog-close]="true">
+      <button mat-button class="close-icon" (click)="onClose()">
         <mat-icon>close</mat-icon>
       </button>
     </div>

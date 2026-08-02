@@ -1,6 +1,7 @@
 import {
   Component,
-  Inject
+  Inject,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {
@@ -18,6 +19,7 @@ import {
 @Component({
   selector: 'lib-snackbar',
   standalone: true,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     CommonModule,
     MatIconModule

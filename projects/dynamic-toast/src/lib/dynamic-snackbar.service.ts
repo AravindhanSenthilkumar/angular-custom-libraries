@@ -31,7 +31,7 @@ export class SnackbarService {
       DynamicSnackbar,
       {
         duration:
-          config.duration ?? 50000000,
+          config.duration ?? 4000,
 
         horizontalPosition:
           config.horizontalPosition ??

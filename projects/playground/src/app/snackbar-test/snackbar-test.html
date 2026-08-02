@@ -36,8 +36,11 @@
         <button mat-button color="primary" (click)="generateComponent()">Generate</button>
     </div>
   </div>
-  <div class="playground-content">
-       <button mat-button (click)="openSnackBar(toastData?.toastType)">Open Snackbar</button>
+  <div class="playground-content" style="display: flex; gap: 12px; flex-wrap: wrap; padding: 24px;">
+    <button mat-raised-button color="primary" (click)="openSnackBar('success')">Success Toast</button>
+    <button mat-raised-button color="warn" (click)="openSnackBar('error')">Error Toast</button>
+    <button mat-raised-button color="accent" (click)="openSnackBar('warning')">Warning Toast</button>
+    <button mat-raised-button (click)="openSnackBar('info')">Info Toast</button>
   </div>
 </div>
 </div>
