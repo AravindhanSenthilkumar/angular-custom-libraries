@@ -1,11 +1,8 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
-import { ModalService, IPopupDetails, PopupBaseComponent } from 'devlab-one-dynamic-modal';
-import { FormTest } from '../form-test/form-test';
+import { ModalService, IPopupDetails } from 'devlab-one-dynamic-modal';
 import { DummyModalContent } from '../dummy-modal-content/dummy-modal-content';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { PlaygroundStateService } from '../services/playground-state.service';
 
 export enum Justify {
   left = "left",
@@ -15,60 +12,30 @@ export enum Justify {
 
 @Component({
   selector: 'app-modal-test',
-  imports: [MatButtonModule, NgxJsonViewerModule, JsonEditorComponent, RouterLink, RouterLinkActive],
+  standalone: true,
+  imports: [MatButtonModule],
   templateUrl: './modal-test.html',
   styleUrl: './modal-test.scss',
 })
-export class ModalTest {
+export class ModalTest implements OnInit {
 
-  public jsonData: any;
-
-  public updatedJsonValue: any;
-
-  @ViewChild(JsonEditorComponent, { static: false })
-  editor!: JsonEditorComponent;
-
-  public editorOptions: JsonEditorOptions;
+  public modalData: any = {
+    position: 'center',
+    width: 700,
+    title: 'Analytics Overview'
+  };
 
   constructor(
     private _cd: ChangeDetectorRef,
-    private modelService: ModalService
-  ) {
-    this.editorOptions = new JsonEditorOptions()
-    this.editorOptions.mode = 'code';
-    this.editorOptions.modes = ['code'];
-    // this.jsonData = this.formData;
-    // this.updatedJsonValue = this.jsonData;
-    // this.dynamicFormDetails = {
-    //   ...this.dynamicFormDetails,
-    //   formComponent: structuredClone(this.formData)
-    // };
-  }
+    private modelService: ModalService,
+    public playgroundState: PlaygroundStateService
+  ) {}
 
-  changeLog(event: any) {
-    if (event && !event.type) {
-      setTimeout(() => {
-        this.updatedJsonValue = event;
-        this._cd.detectChanges();
-      }, 500);
-    }
-  }
-
-  public resetJsonData() {
-    // this.dynamicFormDetails = {
-    //   ...this.dynamicFormDetails,
-    //   formComponent: structuredClone(this.formData)
-    // };
-    // this.jsonData = structuredClone(this.formData);
-    // this.updatedJsonValue = structuredClone(this.formData);
-  }
-
-  public generateComponent() {
-    // this.dynamicFormDetails = {
-    //   ...this.dynamicFormDetails,
-    //   formComponent: structuredClone(this.updatedJsonValue)
-    // };
-    this.jsonData = structuredClone(this.updatedJsonValue);
+  ngOnInit(): void {
+    this.playgroundState.setComponentData(this.modalData, (updatedData) => {
+      this.modalData = updatedData;
+      this._cd.detectChanges();
+    });
   }
 
   public openModal(position: 'center' | 'right' | 'left' | 'bottom' = 'center', width: number | string = 700, height?: number | string) {
@@ -79,7 +46,7 @@ export class ModalTest {
       borderRadius: 12,
       component: DummyModalContent,
       header: {
-        title: `Analytics Overview (${position.toUpperCase()})`,
+        title: this.modalData.title ? `${this.modalData.title} (${position.toUpperCase()})` : `Analytics Overview (${position.toUpperCase()})`,
         justification: Justify.left,
       },
       ContextData: {},
@@ -95,7 +62,7 @@ export class ModalTest {
   }
 
   public openCenterModal() {
-    this.openModal('center', 700);
+    this.openModal('center', this.modalData.width || 700);
   }
 
   public openRightDrawer() {
@@ -109,5 +76,4 @@ export class ModalTest {
   public openBottomSheet() {
     this.openModal('bottom', 650, 450);
   }
-
 }

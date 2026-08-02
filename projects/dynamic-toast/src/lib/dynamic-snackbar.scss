@@ -1,17 +1,56 @@
-/* Reset Material SnackBar overlay container surface */
+/* Reset Material SnackBar overlay container, pane, surface, and label wrappers */
 .cdk-overlay-container {
+  .cdk-global-overlay-wrapper:has(.ngx-snackbar) {
+    padding: 16px !important;
+    box-sizing: border-box !important;
+  }
+
   .mat-mdc-snack-bar-container.ngx-snackbar,
   .ngx-snackbar {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 16px !important;
+    border-radius: 0 !important;
+
+    &.ngx-snackbar-middle {
+      align-self: center !important;
+    }
+
     .mat-mdc-snackbar-surface,
     .mdc-snackbar__surface {
       min-width: 360px !important;
       max-width: 480px !important;
       padding: 0 !important;
+      margin: 0 !important;
       background: transparent !important;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
-      border-radius: 10px !important;
-      overflow: hidden !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      overflow: visible !important;
     }
+
+    .mat-mdc-snackbar-label,
+    .mdc-snackbar__label {
+      padding: 0 !important;
+      margin: 0 !important;
+      width: 100% !important;
+      display: block !important;
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+
+    lib-snackbar {
+      display: block !important;
+      width: 100% !important;
+    }
+  }
+
+  .cdk-global-overlay-wrapper:has(.ngx-snackbar-middle) {
+    align-items: center !important;
   }
 }
 
@@ -26,6 +65,7 @@
   box-sizing: border-box;
   width: 100%;
   border-left: 5px solid transparent;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
   transition: all 0.2s ease-in-out;
 
   .icon {

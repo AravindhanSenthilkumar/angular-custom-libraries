@@ -4,6 +4,17 @@ export type SnackbarType =
   | 'warning'
   | 'info';
 
+export type SnackbarPosition =
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'middle-left'
+  | 'middle-center'
+  | 'middle-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right';
+
 export interface SnackbarConfig {
 
   title?: string;
@@ -15,6 +26,8 @@ export interface SnackbarConfig {
   duration?: number;
 
   enableHtml?: boolean;
+
+  position?: SnackbarPosition;
 
   horizontalPosition?:
     | 'start'

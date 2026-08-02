@@ -1,26 +1,15 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DynamicForm, DynamicFormDetails, FieldType, FloatLabel, Form, Wizards } from 'devlab-one-dynamic-form';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { PlaygroundStateService } from '../services/playground-state.service';
 
 @Component({
   selector: 'app-wizard-test',
-  imports: [DynamicForm, NgxJsonViewerModule, JsonEditorComponent,MatButtonModule, RouterLink, RouterLinkActive],
+  standalone: true,
+  imports: [DynamicForm],
   templateUrl: './wizard-test.html',
   styleUrl: './wizard-test.scss',
 })
-export class WizardTest {
-
-  public jsonData: any;
-
-  public updatedJsonValue: any;
-
-  @ViewChild(JsonEditorComponent, { static: false })
-  editor!: JsonEditorComponent;
-
-  public editorOptions: JsonEditorOptions;
+export class WizardTest implements OnInit {
   /**
    * Desc : form controls initialization
    */
@@ -268,16 +257,24 @@ export class WizardTest {
     wizardComponent : this.wizardData
   }
 
-  constructor(private _cd: ChangeDetectorRef) {
-    this.editorOptions = new JsonEditorOptions()
-    this.editorOptions.mode = 'code';
-    this.editorOptions.modes = ['code'];
-    this.jsonData = this.wizardData;
-    this.updatedJsonValue = this.jsonData;
+  constructor(
+    private _cd: ChangeDetectorRef,
+    public playgroundState: PlaygroundStateService
+  ) {
     this.dynamicFormDetails = {
       ...this.dynamicFormDetails,
       wizardComponent: structuredClone(this.wizardData)
     };
+  }
+
+  ngOnInit(): void {
+    this.playgroundState.setComponentData(this.wizardData, (updatedData) => {
+      this.dynamicFormDetails = {
+        ...this.dynamicFormDetails,
+        wizardComponent: structuredClone(updatedData)
+      };
+      this._cd.detectChanges();
+    });
   }
 
   /**
@@ -293,32 +290,6 @@ export class WizardTest {
     if (value) {
       console.log(value);
     }
-  }
-
-  changeLog(event: any) {
-    if (event && !event.type) {
-      setTimeout(() => {
-        this.updatedJsonValue = event;
-        this._cd.detectChanges();
-      }, 500);
-    }
-  }
-
-  public resetJsonData() {
-    this.dynamicFormDetails = {
-      ...this.dynamicFormDetails,
-      wizardComponent: structuredClone(this.wizardData)
-    };
-    this.jsonData = structuredClone(this.wizardData);
-    this.updatedJsonValue = structuredClone(this.wizardData);
-  }
-
-  public generateComponent() {
-    this.dynamicFormDetails = {
-        ...this.dynamicFormDetails,
-        wizardComponent: structuredClone(this.updatedJsonValue)
-    };
-    this.jsonData = structuredClone(this.updatedJsonValue);
   }
 
   public ngOnDestroy(): void {

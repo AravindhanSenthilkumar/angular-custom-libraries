@@ -1,46 +1,6 @@
-<div class="app-container">
-
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">
-      Dynamic Components Playground
-    </div>
-
-    <nav class="nav-links">
-     <a routerLink="/form" routerLinkActive="active">Form</a>
-     <a routerLink="/wizard" routerLinkActive="active">Wizard</a>
-    <a routerLink="/table" routerLinkActive="active">Table</a>
-    <a routerLink="/modal" routerLinkActive="active">Modal</a>
-    <a routerLink="/alert" routerLinkActive="active">Alert</a>
-    <a routerLink="/snackbar" routerLinkActive="active">Toast</a>
-    <a routerLink="/config" routerLinkActive="active">Config</a>
-    <a
-      href="https://github.com/AravindhanSenthilkumar/Feedback/issues/1"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Report Issue
-    </a>
-    </nav>
-  </header>
-<div class="dashboard-container">
-  <div class="sidebar">
-    <json-editor
-        [options]="editorOptions"
-        [data]="jsonData" 
-        (change)="changeLog($event)" 
-        #editor
-    ></json-editor>
-    <div class="button-container">
-        <button class="reset-button" mat-button (click)="resetJsonData()">Reset</button>
-        <button mat-button color="primary" (click)="generateComponent()">Generate</button>
-    </div>
-  </div>
-  <div class="playground-content" style="display: flex; gap: 12px; flex-wrap: wrap; padding: 24px;">
-    <button mat-raised-button color="primary" (click)="openCenterModal()">Open Center (800px)</button>
-    <button mat-raised-button color="accent" (click)="openRightDrawer()">Open Right Drawer</button>
-    <button mat-raised-button color="warn" (click)="openLeftDrawer()">Open Left Drawer</button>
-    <button mat-raised-button (click)="openBottomSheet()">Open Bottom Sheet</button>
-  </div>
-</div>
+<div class="playground-content" style="display: flex; gap: 12px; flex-wrap: wrap; padding: 24px;">
+  <button mat-raised-button color="primary" (click)="openCenterModal()">Open Center (800px)</button>
+  <button mat-raised-button color="accent" (click)="openRightDrawer()">Open Right Drawer</button>
+  <button mat-raised-button color="warn" (click)="openLeftDrawer()">Open Left Drawer</button>
+  <button mat-raised-button (click)="openBottomSheet()">Open Bottom Sheet</button>
 </div>

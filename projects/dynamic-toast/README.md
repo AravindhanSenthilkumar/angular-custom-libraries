@@ -212,32 +212,35 @@ Duration is specified in milliseconds.
 
 ## Position Configuration
 
+You can configure positions using the unified `position` property or via helper methods:
+
+```typescript
+// Unified position property
+position: 'top-left' | 'top-center' | 'top-right' | 
+          'middle-left' | 'middle-center' | 'middle-right' | 
+          'bottom-left' | 'bottom-center' | 'bottom-right';
+
+// Example using show()
+this.snackbar.show({
+  title: 'Success',
+  message: 'Employee created successfully',
+  position: 'top-left'
+});
+
+// Example using helper methods
+this.snackbar.success('Employee created successfully', 'Success', 'middle-center');
+```
+
 ### Horizontal Position
 
 ```typescript id="3kfd2x"
-horizontalPosition: 'start'
-horizontalPosition: 'center'
-horizontalPosition: 'end'
-horizontalPosition: 'left'
-horizontalPosition: 'right'
+horizontalPosition: 'start' | 'center' | 'end' | 'left' | 'right'
 ```
 
 ### Vertical Position
 
 ```typescript id="n1c2ez"
-verticalPosition: 'top'
-verticalPosition: 'bottom'
-```
-
-### Example
-
-```typescript id="k4r7hd"
-this.snackbar.show({
-  title: 'Success',
-  message: 'Employee created successfully',
-  horizontalPosition: 'right',
-  verticalPosition: 'top'
-});
+verticalPosition: 'top' | 'bottom'
 ```
 
 

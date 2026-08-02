@@ -1,13 +1,10 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FieldType, FloatLabel } from 'devlab-one-dynamic-form';
 import { DynamicTable, SearchAt, SearchOn } from 'devlab-one-dynamic-table';
 import { AlertService } from 'devlab-one-dynamic-alert';
 import { SnackbarService } from 'devlab-one-dynamic-toast';
 import { DynamicDataTable, DataTable } from 'devlab-one-dynamic-data-table';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
-import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import { MatButtonModule } from '@angular/material/button';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { PlaygroundStateService } from '../services/playground-state.service';
 
 export enum Justify {
     left = "left",
@@ -17,21 +14,12 @@ export enum Justify {
 
 @Component({
   selector: 'app-config-test',
-  imports: [DynamicDataTable,  NgxJsonViewerModule, JsonEditorComponent, MatButtonModule, RouterLink, RouterLinkActive],
+  imports: [DynamicDataTable],
   standalone: true,
   templateUrl: './config-test.html',
   styleUrl: './config-test.scss',
 })
-export class ConfigTest {
-
-  public jsonDatas: any;
-
-  public updatedJsonValue: any;
-
-  @ViewChild(JsonEditorComponent, { static: false })
-  editor!: JsonEditorComponent;
-
-  public editorOptions: JsonEditorOptions;
+export class ConfigTest implements OnInit {
 
   public data: any =  [
     {
@@ -988,26 +976,70 @@ export class ConfigTest {
     }
   }
 
+  /**
+   * Master column definitions with original function references (cell callbacks).
+   * Kept separately so they survive JSON round-trips via the editor.
+   */
+  private readonly masterColumns: any[] = this.jsonData.tableConfig.columns.map(
+    (col: any) => ({ ...col })
+  );
+
   constructor(
     private alertService: AlertService,
     private snackBarService: SnackbarService,
-    private cdr: ChangeDetectorRef
-  ){
-      this.editorOptions = new JsonEditorOptions()
-      this.editorOptions.mode = 'code';
-      this.editorOptions.modes = ['code'];
-      this.jsonDatas = this.jsonData;
-      this.updatedJsonValue = this.jsonDatas;
-      this.jsonDatas = {
-        ...this.jsonData,
-        tableDataFields: this.jsonData.tableDataFields,
-        tableSearch:this.jsonData.tableSearch,
-        tableData:this.jsonData.tableData,
-        tableConfig:this.jsonData.tableConfig,
-        serverSidePagination:this.jsonData.serverSidePagination,
-        popupDetails:this.jsonData.popupDetails
+    private cdr: ChangeDetectorRef,
+    public playgroundState: PlaygroundStateService
+  ){}
+
+  ngOnInit(): void {
+    // `tableConfig.columns` contains `cell` arrow-functions which structuredClone()
+    // cannot handle (throws DataCloneError). We pass a serializable snapshot to the
+    // state service and re-attach the function callbacks in the generate callback.
+    const serializableData = this.toSerializable(this.jsonData);
+
+    this.playgroundState.setComponentData(serializableData, (updatedData) => {
+      this.jsonData = this.restoreFunctions(updatedData);
+      this.cdr.detectChanges();
+    });
+  }
+
+  /**
+   * Returns a copy of the DataTable with all `cell` functions stripped from
+   * tableConfig.columns so that structuredClone / JSON editor works safely.
+   */
+  private toSerializable(data: DataTable): any {
+    return {
+      ...data,
+      tableConfig: {
+        ...data.tableConfig,
+        columns: (data.tableConfig?.columns ?? []).map((col: any) => {
+          const { cell, ...rest } = col;
+          return rest;
+        })
       }
-    }
+    };
+  }
+
+  /**
+   * Re-attaches original `cell` function references from masterColumns into
+   * plain-JSON column data produced by the JSON editor or a spread operation.
+   */
+  private restoreFunctions(data: any): DataTable {
+    const columns = (data.tableConfig?.columns ?? []).map((col: any) => {
+      const master = this.masterColumns.find((m: any) => m.columnDef === col.columnDef);
+      if (master && typeof master.cell === 'function') {
+        return { ...col, cell: master.cell };
+      }
+      return col;
+    });
+    return {
+      ...data,
+      tableConfig: {
+        ...data.tableConfig,
+        columns
+      }
+    };
+  }
 
   public onTableAction(event: any) {
     switch (event.name) {
@@ -1015,54 +1047,50 @@ export class ConfigTest {
         event.value['id'] = Math.floor(Math.random() * 1000000);
         if (this.jsonData.tableData.data) {
            this.jsonData.tableData.data.push(event.value);
-            this.jsonData = {
+            this.jsonData = this.restoreFunctions({
               ...this.jsonData,
               tableData:{
                 ...this.jsonData.tableData,
                 data: this.jsonData.tableData.data,
                 totalRecords: this.jsonData.tableData.data.length
               }
-            }
+            });
             this.snackBarService.success('Added Successfully');
         }
 
         break;
       case 'edit':
-          const updatedData = this.jsonData.tableData.data.map(data =>
+          const updatedData = this.jsonData.tableData.data.map((data: any) =>
             data.id === event.value.id
               ? { ...data, ...event.value }
               : data
           );
-          this.jsonData = {
+          this.jsonData = this.restoreFunctions({
               ...this.jsonData,
               tableData:{
                 ...this.jsonData.tableData,
                 data: updatedData,
                 totalRecords: updatedData.length
-                
               }
-            }
+            });
             this.snackBarService.success('Edited Successfully');
         break;
       case 'delete':
           this.alertService.confirmationModel(`Are you sure to delete Employee "${event.value.name}"`, ()=>{
             const remainingData = this.jsonData.tableData.data.filter(
-            data => data.id !== event.value.id
+            (data: any) => data.id !== event.value.id
           );
-           this.jsonData = {
+           this.jsonData = this.restoreFunctions({
               ...this.jsonData,
               tableData:{
                 ...this.jsonData.tableData,
                 data: remainingData,
                 totalRecords: remainingData.length
-                
               }
-            }
+            });
             this.snackBarService.success('Deleted Successfully');
         },
-        ()=>{
-
-        }
+        ()=>{}
       )
        
         break;
@@ -1086,42 +1114,4 @@ export class ConfigTest {
         break;
     }
   }
-
-  changeLog(event: any) {
-    if (event && !event.type) {
-      setTimeout(() => {
-        this.updatedJsonValue = event;
-        this.cdr.detectChanges();
-      }, 500);
-    }
-  }
-
-
-  public resetJsonData() {
-    this.jsonDatas = {
-        ...this.jsonData,
-        tableDataFields: structuredClone(this.jsonData.tableDataFields),
-        tableSearch:structuredClone(this.jsonData.tableSearch),
-        tableData:structuredClone(this.jsonData.tableData),
-        tableConfig:structuredClone(this.jsonData.tableConfig),
-        serverSidePagination:structuredClone(this.jsonData.serverSidePagination),
-        popupDetails:structuredClone(this.jsonData.popupDetails)
-    }
-    this.jsonDatas = structuredClone(this.masterJsonData);
-    this.updatedJsonValue = structuredClone(this.masterJsonData);
-  }
-
-  public generateComponent() {
-    this.jsonDatas = {
-        ...this.jsonData,
-        tableDataFields: structuredClone(this.updatedJsonValue.tableDataFields),
-        tableSearch:structuredClone(this.updatedJsonValue.tableSearch),
-        tableData:structuredClone(this.updatedJsonValue.tableData),
-        tableConfig:structuredClone(this.updatedJsonValue.tableConfig),
-        serverSidePagination:structuredClone(this.updatedJsonValue.serverSidePagination),
-        popupDetails:structuredClone(this.updatedJsonValue.popupDetails)
-    }
-    this.jsonData = structuredClone(this.updatedJsonValue);
-  }
-
 }

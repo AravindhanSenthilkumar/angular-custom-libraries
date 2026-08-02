@@ -1,46 +1,27 @@
-<div class="app-container">
-
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">
-      Dynamic Components Playground
-    </div>
-
-    <nav class="nav-links">
-     <a routerLink="/form" routerLinkActive="active">Form</a>
-     <a routerLink="/wizard" routerLinkActive="active">Wizard</a>
-    <a routerLink="/table" routerLinkActive="active">Table</a>
-    <a routerLink="/modal" routerLinkActive="active">Modal</a>
-    <a routerLink="/alert" routerLinkActive="active">Alert</a>
-    <a routerLink="/snackbar" routerLinkActive="active">Toast</a>
-    <a routerLink="/config" routerLinkActive="active">Config</a>
-    <a
-      href="https://github.com/AravindhanSenthilkumar/Feedback/issues/1"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Report Issue
-    </a>
-    </nav>
-  </header>
-<div class="dashboard-container">
-  <div class="sidebar">
-    <json-editor
-        [options]="editorOptions"
-        [data]="jsonData" 
-        (change)="changeLog($event)" 
-        #editor
-    ></json-editor>
-    <div class="button-container">
-        <button class="reset-button" mat-button (click)="resetJsonData()">Reset</button>
-        <button mat-button color="primary" (click)="generateComponent()">Generate</button>
+<div class="playground-content" style="display: flex; flex-direction: column; gap: 24px; padding: 24px; width: 100%;">
+  <div class="section">
+    <h3 style="margin-bottom: 12px; font-weight: 600; color: #333;">Toast Types</h3>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <button mat-raised-button color="primary" (click)="openSnackBar('success')">Success Toast</button>
+      <button mat-raised-button color="warn" (click)="openSnackBar('error')">Error Toast</button>
+      <button mat-raised-button color="accent" (click)="openSnackBar('warning')">Warning Toast</button>
+      <button mat-raised-button (click)="openSnackBar('info')">Info Toast</button>
     </div>
   </div>
-  <div class="playground-content" style="display: flex; gap: 12px; flex-wrap: wrap; padding: 24px;">
-    <button mat-raised-button color="primary" (click)="openSnackBar('success')">Success Toast</button>
-    <button mat-raised-button color="warn" (click)="openSnackBar('error')">Error Toast</button>
-    <button mat-raised-button color="accent" (click)="openSnackBar('warning')">Warning Toast</button>
-    <button mat-raised-button (click)="openSnackBar('info')">Info Toast</button>
+
+  <div class="section">
+    <h3 style="margin-bottom: 12px; font-weight: 600; color: #333;">Test All 9 Positions</h3>
+    <p style="margin-bottom: 12px; color: #666; font-size: 14px;">Click any position button below to trigger a toast at that location with a 16px frame margin:</p>
+    <div class="position-grid">
+      @for (pos of positions; track pos) {
+        <button
+          mat-stroked-button
+          [class.active-pos]="toastData.position === pos"
+          (click)="triggerToastAt(pos)"
+        >
+          {{ pos }}
+        </button>
+      }
+    </div>
   </div>
-</div>
 </div>

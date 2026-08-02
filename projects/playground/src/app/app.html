@@ -1,1 +1,70 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+
+  <!-- Common Header -->
+  <header class="header">
+    <div class="logo-container">
+      <button
+        type="button"
+        class="sidebar-toggle-btn"
+        (click)="drawer.toggle()"
+        [attr.title]="drawer.opened ? 'Hide JSON Editor' : 'Show JSON Editor'"
+        [class.collapsed]="!drawer.opened"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="9" y1="3" x2="9" y2="21"></line>
+          @if (!drawer.opened) {
+            <path d="M14 9l3 3-3 3"></path>
+          } @else {
+            <path d="M16 15l-3-3 3-3"></path>
+          }
+        </svg>
+      </button>
+      <div class="logo">
+        Dynamic Components Playground
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a routerLink="/form" routerLinkActive="active">Form</a>
+      <a routerLink="/wizard" routerLinkActive="active">Wizard</a>
+      <a routerLink="/table" routerLinkActive="active">Table</a>
+      <a routerLink="/modal" routerLinkActive="active">Modal</a>
+      <a routerLink="/alert" routerLinkActive="active">Alert</a>
+      <a routerLink="/snackbar" routerLinkActive="active">Toast</a>
+      <a routerLink="/config" routerLinkActive="active">Config</a>
+      <a
+        href="https://github.com/AravindhanSenthilkumar/Feedback/issues/1"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Report Issue
+      </a>
+    </nav>
+  </header>
+
+  <!-- Common Angular Material Sidenav / Drawer Layout -->
+  <mat-drawer-container class="playground-drawer-container" [hasBackdrop]="false">
+    <mat-drawer #drawer mode="side" [opened]="true" class="playground-drawer">
+      <div class="sidebar-content">
+        @if (playgroundState.jsonData()) {
+          <json-editor
+            [options]="editorOptions"
+            [data]="playgroundState.jsonData()"
+            (change)="changeLog($event)"
+            #editor
+          ></json-editor>
+        }
+        <div class="button-container">
+          <button class="reset-button" mat-button (click)="resetJsonData()">Reset</button>
+          <button mat-button color="primary" (click)="generateComponent()">Generate</button>
+        </div>
+      </div>
+    </mat-drawer>
+
+    <mat-drawer-content class="playground-drawer-content">
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+
+</div>

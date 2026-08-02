@@ -1,0 +1,18 @@
+.position-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 520px;
+
+  button {
+    text-transform: capitalize;
+    font-weight: 500;
+    padding: 8px 12px;
+    
+    &.active-pos {
+      background-color: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+    }
+  }
+}
