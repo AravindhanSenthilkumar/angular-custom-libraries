@@ -30,7 +30,11 @@ export class SnackbarTest implements OnInit {
     duration: 4000,
     action: '',
     enableHtml: false,
-    panelClass: []
+    panelClass: [],
+    theme: {
+      name: 'material',
+      type: 'light'
+    }
   };
 
   public toastData: any = {
@@ -41,7 +45,11 @@ export class SnackbarTest implements OnInit {
     duration: 4000,
     action: '',
     enableHtml: false,
-    panelClass: []
+    panelClass: [],
+    theme: {
+      name: 'material',
+      type: 'light'
+    }
   };
 
   public positions = [
@@ -60,24 +68,18 @@ export class SnackbarTest implements OnInit {
     this.playgroundState.setComponentData(this.toastData, (updatedData) => {
       this.toastData = updatedData;
       this._cd.detectChanges();
+      this.openFromJson();
     });
   }
 
   /**
    * Opens toast using the exact SnackbarConfig from the left JSON editor.
-   * Every field maps 1-to-1 with what snackbar.show() receives.
+   * Every field from the JSON object maps 1-to-1 with what snackbar.show() receives.
    */
   public openFromJson() {
-    const d = this.toastData;
+    if (!this.toastData) return;
     this.snackbar.show({
-      type:        d.type       ?? 'success',
-      title:       d.title,
-      message:     d.message    ?? '',
-      position:    d.position   ?? 'top-right',
-      duration:    d.duration   ?? 4000,
-      action:      d.action     || undefined,
-      enableHtml:  d.enableHtml ?? false,
-      panelClass:  d.panelClass ?? []
+      ...this.toastData
     });
   }
 

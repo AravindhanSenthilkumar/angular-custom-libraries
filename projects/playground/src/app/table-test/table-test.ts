@@ -360,7 +360,11 @@ export class TableTest implements OnInit {
     selectRequired: true,
     tableButtons: { add: true, delete: true, edit: true, view: true, export: true },
     columns: this.columnDetails(),
-  }
+    theme: {
+      name: 'material',
+      type: 'light'
+    }
+  } as any;
   
   public columnDetails() {
     return [
@@ -448,7 +452,11 @@ export class TableTest implements OnInit {
     selectRequired: true,
     tableButtons: { add: true, delete: true, edit: true, view: true, export: true },
     columns: this.columnDetails(),
-  }
+    theme: {
+      name: 'material',
+      type: 'light'
+    }
+  } as any;
 
   constructor(
     private _cd: ChangeDetectorRef,

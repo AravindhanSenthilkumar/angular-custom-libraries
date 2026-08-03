@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Input, OnChanges, Output, EventEmitter, AfterViewInit,Renderer2, ElementRef, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, OnChanges, Output, EventEmitter, AfterViewInit, Renderer2, ElementRef, SimpleChange, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -27,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { DynamicForm, DynamicFormDetails } from 'devlab-one-dynamic-form';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { OrderBy, SearchRequest } from './model/table.model';
+import { applyLibraryTheme } from './utils/library-theme-engine';
 
 /********************************************************************** 
   Page : Table component
@@ -39,6 +40,7 @@ import { OrderBy, SearchRequest } from './model/table.model';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     DynamicForm,
@@ -193,6 +195,9 @@ export class DynamicTable implements OnChanges, OnInit, OnDestroy, AfterViewInit
    * Desc : execute when component is initalized
    */
   public ngOnInit(): void {
+    if (this.tableDetails?.theme) {
+      applyLibraryTheme(this.tableDetails.theme);
+    }
     this.selectionSubscription = this.selection.changed.subscribe((change) => {
       this.addActionForSelectedRows();
     });
@@ -201,6 +206,9 @@ export class DynamicTable implements OnChanges, OnInit, OnDestroy, AfterViewInit
    * Desc : execute when component has any changes
    */
   public ngOnChanges(changes: SimpleChanges): void {
+    if (this.tableDetails?.theme) {
+      applyLibraryTheme(this.tableDetails.theme);
+    }
     if(changes['dataset'] || changes['search'] || changes['tableDetails']){
       this.displayedColumns = [];
     }

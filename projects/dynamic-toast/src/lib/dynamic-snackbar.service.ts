@@ -16,6 +16,8 @@ import {
   SnackbarType
 } from './dynamic-snackbar.modal';
 
+import { applyLibraryTheme } from './utils/library-theme-engine';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +30,9 @@ export class SnackbarService {
   public show(
     config: SnackbarConfig
   ): void {
+    if (config.theme) {
+      applyLibraryTheme(config.theme);
+    }
 
     let horizontalPos: 'start' | 'center' | 'end' | 'left' | 'right' =
       config.horizontalPosition ?? 'right';

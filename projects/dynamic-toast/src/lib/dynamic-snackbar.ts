@@ -1,5 +1,6 @@
 import {
   Component,
+  ChangeDetectionStrategy,
   Inject,
   ViewEncapsulation
 } from '@angular/core';
@@ -19,6 +20,7 @@ import {
 @Component({
   selector: 'lib-snackbar',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [
     CommonModule,

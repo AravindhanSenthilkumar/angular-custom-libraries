@@ -5,3 +5,4 @@ export * from './lib/dynamic-form';
 export * from './lib/model/dynamic-form.model';
 export * from './lib/enum/field-type.enum';
 export * from './lib/enum/float-label.enum';
+export * from './lib/utils/library-theme-engine';

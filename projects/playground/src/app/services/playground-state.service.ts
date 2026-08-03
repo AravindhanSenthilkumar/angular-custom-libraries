@@ -1,9 +1,12 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
+import { ThemeService } from './theme.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaygroundStateService {
+  private themeService = inject(ThemeService);
+
   public readonly jsonData = signal<any>(null);
   
   private updatedJsonValue: any = null;
@@ -16,6 +19,10 @@ export class PlaygroundStateService {
     this.updatedJsonValue = clone;
     this.jsonData.set(clone);
     this.onGenerateCallback = onGenerate ?? null;
+
+    if (clone?.theme) {
+      this.themeService.applyTheme(clone.theme);
+    }
   }
 
   /** Updates only the JSON viewer display + internal editor value, without resetting masterData or the callback. */
@@ -23,10 +30,18 @@ export class PlaygroundStateService {
     const clone = structuredClone(data);
     this.updatedJsonValue = clone;
     this.jsonData.set(clone);
+
+    if (clone?.theme) {
+      this.themeService.applyTheme(clone.theme);
+    }
   }
 
   public updateFromEditor(event: any) {
-    if (event && !event.type) {
+    if (event !== null && event !== undefined) {
+      // Ignore standard DOM Event objects emitted by change events
+      if (event instanceof Event || (typeof event === 'object' && 'target' in event && 'type' in event)) {
+        return;
+      }
       this.updatedJsonValue = event;
     }
   }
@@ -36,6 +51,11 @@ export class PlaygroundStateService {
       const resetValue = structuredClone(this.masterData);
       this.updatedJsonValue = structuredClone(resetValue);
       this.jsonData.set(resetValue);
+
+      if (resetValue?.theme) {
+        this.themeService.applyTheme(resetValue.theme);
+      }
+
       if (this.onGenerateCallback) {
         this.onGenerateCallback(resetValue);
       }
@@ -46,6 +66,11 @@ export class PlaygroundStateService {
     if (this.updatedJsonValue !== null) {
       const generatedValue = structuredClone(this.updatedJsonValue);
       this.jsonData.set(generatedValue);
+
+      if (generatedValue?.theme) {
+        this.themeService.applyTheme(generatedValue.theme);
+      }
+
       if (this.onGenerateCallback) {
         this.onGenerateCallback(generatedValue);
       }

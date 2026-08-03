@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DialogPosition, MatDialog } from '@angular/material/dialog';
 import { IPopupDetails, PopupPosition, PopupPositionType } from '../interfaces/idialog';
 import { DynamicModal } from '../dynamic-modal';
+import { applyLibraryTheme } from '../utils/library-theme-engine';
 
 /********************************************************************** 
   Page : Notification alert service page
@@ -31,6 +32,9 @@ export class ModalService {
    * @param inputData : popup configuration details including component, width, height, position, etc.
    */
   public openComponentAsPopup(inputData: IPopupDetails): void {
+    if (inputData.theme) {
+      applyLibraryTheme(inputData.theme);
+    }
     const disableCloseOnEventOutsideOfPopup = true;
     const positionKey = inputData.position || PopupPosition.CENTER;
     const pos = String(positionKey);

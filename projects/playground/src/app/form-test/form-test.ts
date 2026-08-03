@@ -427,8 +427,12 @@ export class FormTest extends PopupBaseComponent implements OnInit {
         "name": "reset"
       }
     },
-    "outline": true
-  };
+    "outline": true,
+    "theme": {
+      "name": "material",
+      "type": "light"
+    }
+  } as any;
 
 
 

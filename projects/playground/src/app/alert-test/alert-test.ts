@@ -25,6 +25,10 @@ export class AlertTest extends PopupBaseComponent implements OnInit {
       ok: "[message shown after 'OK' is clicked]",
       yes: "[message shown after 'Yes' is clicked (confirm type)]",
       no: "[message shown after 'No' is clicked (confirm type)]"
+    },
+    theme: {
+      name: 'material',
+      type: 'light'
     }
   };
 
@@ -35,6 +39,10 @@ export class AlertTest extends PopupBaseComponent implements OnInit {
       ok: "[message shown after 'OK' is clicked]",
       yes: "[message shown after 'Yes' is clicked (confirm type)]",
       no: "[message shown after 'No' is clicked (confirm type)]"
+    },
+    theme: {
+      name: 'material',
+      type: 'light'
     }
   };
 

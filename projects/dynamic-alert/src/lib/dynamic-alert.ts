@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { IDialogData } from './interfaces/idialog';
 
+import { applyLibraryTheme } from './utils/library-theme-engine';
+
 @Component({
   selector: 'lib-dynamic-alert',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     MatDialogModule,
@@ -27,7 +30,11 @@ export class DynamicAlert {
   constructor(
     public dialogRef: MatDialogRef<DynamicAlert>,
     @Inject(MAT_DIALOG_DATA) public data: IDialogData,
-  ) {}
+  ) {
+    if (data?.theme) {
+      applyLibraryTheme(data.theme);
+    }
+  }
   /**
    * Desc : executes while click on yes button
    */

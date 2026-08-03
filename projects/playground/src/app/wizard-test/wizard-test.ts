@@ -235,7 +235,7 @@ export class WizardTest implements OnInit {
     "outline": false
   };
 
-  public wizardData: Wizards = {
+  public wizardData: any = {
     wizards: [
       {
         form: this.formData,
@@ -250,7 +250,11 @@ export class WizardTest implements OnInit {
         wizardName: 'thirdform'
       }
     ],
-    outline: true
+    outline: true,
+    theme: {
+      name: 'material',
+      type: 'light'
+    }
   }
 
   public dynamicFormDetails: DynamicFormDetails = {

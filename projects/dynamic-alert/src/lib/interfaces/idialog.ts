@@ -1,11 +1,13 @@
 import { ComponentType } from '@angular/cdk/overlay';
 import { DynamicAlert } from '../dynamic-alert';
+import { ITheme } from '../utils/library-theme-engine';
 
 export interface IDialogData {
   message: string;
   title: string;
   type: string;
   alertType: AlertType;
+  theme?: ITheme;
 }
 
 export enum MessageType {

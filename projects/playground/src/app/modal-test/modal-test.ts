@@ -37,6 +37,10 @@ export class ModalTest implements OnInit {
     header: {
       title: 'Analytics Overview',
       justification: 'left'
+    },
+    theme: {
+      name: 'material',
+      type: 'light'
     }
   };
 
@@ -77,6 +81,7 @@ export class ModalTest implements OnInit {
       ...(d.maxWidth != null  ? { maxWidth: d.maxWidth }   : {}),
       ...(d.maxHeight != null ? { maxHeight: d.maxHeight } : {}),
       ContextData: {},
+      theme: d.theme,
       onClose:  () => { console.log('Modal closed'); },
       onSubmit: (data: any) => { console.log('Modal submitted', data); },
     };

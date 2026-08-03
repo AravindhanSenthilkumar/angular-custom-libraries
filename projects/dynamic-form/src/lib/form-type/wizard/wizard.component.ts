@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { FormTypeIndex } from '../form-type-index';
 import { FormGroup } from '@angular/forms';
 import { AppLiteralConsts } from '../../constant/consts';
@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-wizard',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, FormTypeIndex, MatStepperModule,MatButtonModule, MatIconModule],
   templateUrl: './wizard.component.html',
   styleUrl: './wizard.component.scss',

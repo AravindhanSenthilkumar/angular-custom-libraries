@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ChangeDetectionStrategy, ElementRef, HostBinding, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Justify } from './interfaces/idialog';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -11,6 +11,7 @@ import { DynamicLoaderComponent } from './dynamic-loader';
   templateUrl: './dynamic-modal.html',
   styleUrls: ['./dynamic-modal.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,

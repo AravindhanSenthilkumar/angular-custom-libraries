@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { DynamicFormDetails } from './model/dynamic-form.model';
 import { WizardComponent } from './form-type/wizard/wizard.component';
 import { FormTypeIndex } from './form-type/form-type-index';
-import { PopupBaseComponent } from 'devlab-one-dynamic-modal'
+import { PopupBaseComponent } from 'devlab-one-dynamic-modal';
+import { applyLibraryTheme } from './utils/library-theme-engine';
 
 @Component({
   selector: 'lib-dynamic-form',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -21,11 +23,31 @@ import { PopupBaseComponent } from 'devlab-one-dynamic-modal'
   templateUrl: './dynamic-form.html',
   styleUrl: './dynamic-form.scss',
 })
-export class DynamicForm extends PopupBaseComponent {
+export class DynamicForm extends PopupBaseComponent implements OnInit, OnChanges {
   /**
    * Desc : input form data from consumer component
    */
   @Input() public dynamicFormDetails: DynamicFormDetails = {};
+
+  ngOnInit(): void {
+    this.checkAndApplyTheme();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dynamicFormDetails']) {
+      this.checkAndApplyTheme();
+    }
+  }
+
+  private checkAndApplyTheme(): void {
+    const theme = this.dynamicFormDetails?.theme ||
+                  this.dynamicFormDetails?.formComponent?.theme ||
+                  this.dynamicFormDetails?.wizardComponent?.theme;
+    if (theme) {
+      applyLibraryTheme(theme);
+    }
+  }
+
   /**
    * Desc : declaring output to emitting values to parent component
    */

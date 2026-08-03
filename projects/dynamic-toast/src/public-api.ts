@@ -5,3 +5,4 @@
 export * from './lib/dynamic-snackbar';
 export * from './lib/dynamic-snackbar.service';
 export * from './lib/dynamic-snackbar.modal';
+export * from './lib/utils/library-theme-engine';

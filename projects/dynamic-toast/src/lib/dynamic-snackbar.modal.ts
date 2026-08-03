@@ -15,6 +15,8 @@ export type SnackbarPosition =
   | 'bottom-center'
   | 'bottom-right';
 
+import { ITheme } from './utils/library-theme-engine';
+
 export interface SnackbarConfig {
 
   title?: string;
@@ -43,4 +45,6 @@ export interface SnackbarConfig {
   panelClass?: string[];
 
   action?: string;
+
+  theme?: ITheme;
 }

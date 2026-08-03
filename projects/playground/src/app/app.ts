@@ -35,7 +35,15 @@ export class App {
   }
 
   public changeLog(event: any) {
-    this.playgroundState.updateFromEditor(event);
+    try {
+      if (this.editor && typeof (this.editor as any).get === 'function') {
+        const updatedJson = (this.editor as any).get();
+        this.playgroundState.updateFromEditor(updatedJson);
+        return;
+      }
+    } catch (e) {
+      // Ignore syntax errors while user is mid-typing in code editor
+    }
   }
 
   public resetJsonData() {
@@ -44,6 +52,14 @@ export class App {
   }
 
   public generateComponent() {
+    try {
+      if (this.editor && typeof (this.editor as any).get === 'function') {
+        const updatedJson = (this.editor as any).get();
+        this.playgroundState.updateFromEditor(updatedJson);
+      }
+    } catch (e) {
+      console.error('Invalid JSON in editor:', e);
+    }
     this.playgroundState.generateComponent();
     this._cd.detectChanges();
   }

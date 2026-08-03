@@ -11,6 +11,8 @@ export enum PopupPosition {
   TOP = 'top',
 }
 
+import { ITheme } from '../utils/library-theme-engine';
+
 export interface IPopupDetails {
   component: ComponentType<PopupBaseComponent>;
   header: IPopupHeader;
@@ -30,6 +32,7 @@ export interface IPopupDetails {
   borderRadius?: number | string;
   position?: PopupPosition | PopupPositionType;
   panelClass?: string | string[];
+  theme?: ITheme;
 }
 
 

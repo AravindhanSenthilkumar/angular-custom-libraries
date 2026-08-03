@@ -1,5 +1,6 @@
 import { FloatLabel } from '../enum/float-label.enum';
 import { FieldType } from '../enum/field-type.enum';
+import { ITheme } from '../utils/library-theme-engine';
 
 export interface FieldValidators {
   min?: number;
@@ -19,6 +20,7 @@ export interface Form {
   controls: Array<Field>;
   buttons?: IFormButton;
   outline: boolean;
+  theme?: ITheme;
 }
 
 export interface IFormButton {
@@ -95,9 +97,12 @@ export interface WizardForm {
 export interface Wizards {
   wizards?: Array<WizardForm>;
   outline?: boolean;
+  theme?: ITheme;
 }
 
 export interface DynamicFormDetails {
   formComponent?: Form;
   wizardComponent?: Wizards;
+  theme?: ITheme;
 }
+

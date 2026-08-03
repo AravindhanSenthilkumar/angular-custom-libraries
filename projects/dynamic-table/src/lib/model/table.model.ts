@@ -43,11 +43,14 @@ export interface BasicColumn {
 }
 
 
+import { ITheme } from '../utils/library-theme-engine';
+
 export interface TableDetails {
   selectRequired: boolean;
   columns: Array<TableColumn>;
   tableButtons: TableButtons;
   paging: Paging;
+  theme?: ITheme;
 }
 
 

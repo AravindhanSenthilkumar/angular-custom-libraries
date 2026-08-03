@@ -6,20 +6,23 @@
   box-sizing: border-box;
 }
 
-::placeholder,
-input::placeholder,
-textarea::placeholder,
-.mat-mdc-input-element::placeholder {
-  color: #757575 !important;
-  opacity: 0.6 !important;
-  font-weight: 400 !important;
-}
-
 html,
 body {
   margin: 0;
   height: 100%;
   overflow: hidden;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #ffffff;
+  color: #212121;
+}
+
+::placeholder,
+input::placeholder,
+textarea::placeholder,
+.mat-mdc-input-element::placeholder {
+  color: #757575 !important;
+  opacity: 0.7 !important;
+  font-weight: 400 !important;
 }
 
 .app-container {
@@ -27,17 +30,18 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: #ffffff;
 }
 
-/* ===========================
-   HEADER
-=========================== */
+/* ==========================================================================
+   FIXED HEADER & NAVIGATION (NOT AFFECTED BY COMPONENT THEMES)
+   ========================================================================== */
 
 .header {
   flex: 0 0 auto;
   min-height: 64px;
-  background: #1976d2;
-  color: white;
+  background: #1976d2 !important;
+  color: #ffffff !important;
 
   display: flex;
   align-items: center;
@@ -46,6 +50,7 @@ body {
   padding: 12px 24px;
   gap: 16px;
   flex-wrap: wrap;
+  border-bottom: 1px solid #1565c0;
 }
 
 .logo-container {
@@ -57,7 +62,7 @@ body {
 .sidebar-toggle-btn {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
+  color: #ffffff;
   width: 36px;
   height: 36px;
   border-radius: 6px;
@@ -93,6 +98,7 @@ body {
   font-weight: 600;
   font-family: Roboto, sans-serif;
   letter-spacing: 0.6px;
+  color: #ffffff !important;
 }
 
 .nav-links {
@@ -102,12 +108,13 @@ body {
 }
 
 .nav-links a {
-  color: white;
+  color: #ffffff !important;
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
   white-space: nowrap;
-  font-family: 'Roboto';
+  font-family: Roboto, sans-serif;
+  transition: background 0.2s ease;
 }
 
 .nav-links a:hover {
@@ -119,9 +126,9 @@ body {
   font-weight: 600;
 }
 
-/* ===========================
-   ANGULAR MATERIAL DRAWER LAYOUT
-=========================== */
+/* ==========================================================================
+   FIXED SIDEBAR & JSON EDITOR (NOT AFFECTED BY COMPONENT THEMES)
+   ========================================================================== */
 
 .playground-drawer-container {
   flex: 1;
@@ -149,15 +156,8 @@ body {
     padding: 16px;
     box-sizing: border-box;
     overflow: hidden;
+    background: #fafafa !important;
   }
-}
-
-.playground-drawer-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: auto;
-  background: #ffffff;
 }
 
 json-editor {
@@ -172,33 +172,224 @@ json-editor {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  border: 1px solid #1976d2;
-  border-radius: 4px;
+  border: 1px solid #1976d2 !important;
+  border-radius: 4px !important;
   margin-top: 12px;
   overflow: hidden;
+  background: #ffffff !important;
 }
 
 .button-container button {
   flex: 1;
   border-radius: 0;
+  color: #1976d2 !important;
 }
 
 .reset-button {
   border-right: 1px solid #1976d2 !important;
 }
 
-.button-container button {
-  flex: 1;
+/* ==========================================================================
+   DYNAMIC COMPONENT DISPLAY AREA THEME TOKENS
+   (Applies ONLY to .playground-drawer-content and .cdk-overlay-container)
+   ========================================================================== */
+
+/* --- MATERIAL LIGHT (Default) --- */
+[data-theme-name="material"][data-theme-type="light"],
+[data-theme-name="material"]:not([data-theme-type="dark"]) {
+  --comp-bg: #ffffff;
+  --comp-card-bg: #ffffff;
+  --comp-border: #e0e0e0;
+  --comp-text: #212121;
+  --comp-muted: #757575;
+  --comp-primary: #1976d2;
+  --comp-font: Roboto, "Helvetica Neue", sans-serif;
+  --comp-radius: 4px;
 }
 
-.reset-button{
-    border-right: 1px solid blue!important;
-    border-radius: 0!important;
+/* --- MATERIAL DARK --- */
+[data-theme-name="material"][data-theme-type="dark"] {
+  --comp-bg: #121212;
+  --comp-card-bg: #1e1e1e;
+  --comp-border: #333333;
+  --comp-text: #e0e0e0;
+  --comp-muted: #a0a0a0;
+  --comp-primary: #90caf9;
+  --comp-font: Roboto, "Helvetica Neue", sans-serif;
+  --comp-radius: 4px;
 }
 
-/* ===========================
-   TABLET
-=========================== */
+/* --- TAILWIND LIGHT --- */
+[data-theme-name="tailwind"][data-theme-type="light"] {
+  --comp-bg: #f8fafc;
+  --comp-card-bg: #ffffff;
+  --comp-border: #e2e8f0;
+  --comp-text: #0f172a;
+  --comp-muted: #64748b;
+  --comp-primary: #2563eb;
+  --comp-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --comp-radius: 12px;
+}
+
+/* --- TAILWIND DARK --- */
+[data-theme-name="tailwind"][data-theme-type="dark"] {
+  --comp-bg: #0f172a;
+  --comp-card-bg: #1e293b;
+  --comp-border: #334155;
+  --comp-text: #f8fafc;
+  --comp-muted: #94a3b8;
+  --comp-primary: #38bdf8;
+  --comp-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --comp-radius: 12px;
+}
+
+/* --- BOOTSTRAP LIGHT --- */
+[data-theme-name="bootstrap"][data-theme-type="light"] {
+  --comp-bg: #f8f9fa;
+  --comp-card-bg: #ffffff;
+  --comp-border: #dee2e6;
+  --comp-text: #212529;
+  --comp-muted: #6c757d;
+  --comp-primary: #0d6efd;
+  --comp-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --comp-radius: 6px;
+}
+
+/* --- BOOTSTRAP DARK --- */
+[data-theme-name="bootstrap"][data-theme-type="dark"] {
+  --comp-bg: #212529;
+  --comp-card-bg: #2c3034;
+  --comp-border: #495057;
+  --comp-text: #f8f9fa;
+  --comp-muted: #adb5bd;
+  --comp-primary: #0d6efd;
+  --comp-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --comp-radius: 6px;
+}
+
+/* ==========================================================================
+   COMPONENT AREA & OVERLAY CONTAINER STYLING
+   ========================================================================== */
+
+.playground-drawer-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+  background-color: var(--comp-bg, #ffffff);
+  color: var(--comp-text, #212121);
+  font-family: var(--comp-font, Roboto, sans-serif);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.playground-content {
+  padding: 24px;
+  background-color: var(--comp-bg, #ffffff);
+  color: var(--comp-text, #212121);
+}
+
+/* Dark mode overrides scoped to Component Area & Overlay Containers */
+.playground-drawer-content.dark-theme,
+.cdk-overlay-container.dark-theme,
+[data-theme-type="dark"] .playground-drawer-content,
+[data-theme-type="dark"].cdk-overlay-container {
+  .mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+    .mdc-text-field__input,
+    .mat-mdc-select-value-text,
+    .mat-mdc-select-arrow {
+      color: #f8fafc !important;
+    }
+    .mdc-floating-label {
+      color: #94a3b8 !important;
+    }
+  }
+
+  .mat-mdc-card,
+  .mat-card,
+  .mat-dialog-container,
+  .mat-mdc-dialog-container .mdc-dialog__surface,
+  .alert-modal-container,
+  .popup-container,
+  .modal-container {
+    background-color: var(--comp-card-bg, #1e1e1e) !important;
+    color: var(--comp-text, #e0e0e0) !important;
+    border-color: var(--comp-border, #333333) !important;
+  }
+
+  .mat-mdc-table,
+  .mat-table {
+    background-color: var(--comp-card-bg, #1e1e1e) !important;
+    color: var(--comp-text, #e0e0e0) !important;
+
+    .mat-mdc-header-cell,
+    .mat-header-cell {
+      background-color: rgba(255, 255, 255, 0.03) !important;
+      color: var(--comp-text, #e0e0e0) !important;
+      border-bottom-color: var(--comp-border, #333333) !important;
+    }
+
+    .mat-mdc-cell,
+    .mat-cell,
+    .mat-mdc-row,
+    .mat-row {
+      color: var(--comp-text, #e0e0e0) !important;
+      border-bottom-color: var(--comp-border, #333333) !important;
+    }
+  }
+
+  .mat-mdc-paginator,
+  .mat-paginator {
+    background-color: var(--comp-card-bg, #1e1e1e) !important;
+    color: var(--comp-text, #e0e0e0) !important;
+  }
+
+  .mat-dialog-title,
+  .mat-mdc-dialog-title,
+  .alert-content-text,
+  .alert-heading-text {
+    color: var(--comp-text, #e0e0e0) !important;
+  }
+}
+
+/* Tailwind Specific Overrides */
+[data-theme-name="tailwind"] .playground-drawer-content,
+[data-theme-name="tailwind"].cdk-overlay-container {
+  .mat-mdc-button,
+  .mat-mdc-raised-button,
+  .mat-mdc-flat-button,
+  .mat-mdc-outlined-button {
+    border-radius: 8px !important;
+  }
+
+  .mat-mdc-card,
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 16px !important;
+  }
+}
+
+/* Bootstrap Specific Overrides */
+[data-theme-name="bootstrap"] .playground-drawer-content,
+[data-theme-name="bootstrap"].cdk-overlay-container {
+  .mat-mdc-button,
+  .mat-mdc-raised-button,
+  .mat-mdc-flat-button,
+  .mat-mdc-outlined-button {
+    border-radius: 6px !important;
+  }
+
+  .mat-mdc-card,
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 6px !important;
+    border: 1px solid var(--comp-border, #dee2e6) !important;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
 
 @media (max-width: 1024px) {
   .sidebar {
@@ -207,12 +398,7 @@ json-editor {
   }
 }
 
-/* ===========================
-   MOBILE
-=========================== */
-
 @media (max-width: 768px) {
-
   html,
   body {
     overflow: auto;
@@ -241,10 +427,6 @@ json-editor {
     padding-bottom: 8px;
   }
 
-  .nav-links::-webkit-scrollbar {
-    height: 4px;
-  }
-
   .dashboard-container {
     flex-direction: column;
     height: auto;
@@ -256,7 +438,7 @@ json-editor {
     width: 100%;
     height: auto;
     border-right: none;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e0e0e0;
     overflow: visible;
   }
 
@@ -273,12 +455,7 @@ json-editor {
   }
 }
 
-/* ===========================
-   SMALL MOBILE
-=========================== */
-
 @media (max-width: 480px) {
-
   .logo {
     font-size: 16px;
   }
