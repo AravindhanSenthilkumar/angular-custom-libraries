@@ -13,23 +13,28 @@ import { PlaygroundStateService } from '../services/playground-state.service';
 })
 export class AlertTest extends PopupBaseComponent implements OnInit {
 
+  /**
+   * Full input JSON for the Alert component.
+   * alertType options: "success" | "warning" | "error" | "info" | "confirm"
+   * actionMessage keys are used as button labels / follow-up messages.
+   */
   public masterAlertData: any = {
     alertType: 'success',
-    message: "message to be showed here",
+    message: 'message to be showed here',
     actionMessage: {
-      "yes": "[after click 'yes' clicked message]",
-      "ok": "[after clicked 'okay' message]",
-      "no": "[after clicked 'no' message]"
+      ok: "[message shown after 'OK' is clicked]",
+      yes: "[message shown after 'Yes' is clicked (confirm type)]",
+      no: "[message shown after 'No' is clicked (confirm type)]"
     }
   };
 
   public alertData: any = {
     alertType: 'success',
-    message: "message to be showed here",
+    message: 'message to be showed here',
     actionMessage: {
-      "yes": "[after click 'yes' clicked message]",
-      "ok": "[after clicked 'okay' message]",
-      "no": "[after clicked 'no' message]"
+      ok: "[message shown after 'OK' is clicked]",
+      yes: "[message shown after 'Yes' is clicked (confirm type)]",
+      no: "[message shown after 'No' is clicked (confirm type)]"
     }
   };
 
@@ -51,6 +56,11 @@ export class AlertTest extends PopupBaseComponent implements OnInit {
       };
       this._cd.detectChanges();
     });
+  }
+
+  /** Opens alert using all fields from the JSON editor */
+  public openFromJson() {
+    this.openAlert(this.alertData?.alertType);
   }
 
   public openAlert(type: string) {

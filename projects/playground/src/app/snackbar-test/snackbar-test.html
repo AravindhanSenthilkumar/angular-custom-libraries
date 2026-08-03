@@ -1,4 +1,17 @@
 <div class="playground-content" style="display: flex; flex-direction: column; gap: 24px; padding: 24px; width: 100%;">
+
+  <!-- Primary trigger: reads ALL fields from the left JSON editor -->
+  <div style="display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; box-shadow: 0 4px 15px rgba(79,172,254,0.35);">
+    <div style="flex: 1;">
+      <div style="color: #fff; font-weight: 700; font-size: 15px; margin-bottom: 4px;">Open Toast from JSON</div>
+      <div style="color: rgba(255,255,255,0.8); font-size: 13px;">Set type, message, position, duration &amp; more in the left panel, then click</div>
+    </div>
+    <button mat-raised-button (click)="openFromJson()" style="background:#fff; color:#0891b2; font-weight:700; border-radius:8px; min-width:140px;">
+      ▶ Open Toast
+    </button>
+  </div>
+
+  <!-- Type shortcut buttons -->
   <div class="section">
     <h3 style="margin-bottom: 12px; font-weight: 600; color: #333;">Toast Types</h3>
     <div style="display: flex; gap: 12px; flex-wrap: wrap;">
@@ -9,9 +22,10 @@
     </div>
   </div>
 
+  <!-- Position shortcut buttons -->
   <div class="section">
     <h3 style="margin-bottom: 12px; font-weight: 600; color: #333;">Test All 9 Positions</h3>
-    <p style="margin-bottom: 12px; color: #666; font-size: 14px;">Click any position button below to trigger a toast at that location with a 16px frame margin:</p>
+    <p style="margin-bottom: 12px; color: #666; font-size: 14px;">Click any position button to trigger a toast at that location:</p>
     <div class="position-grid">
       @for (pos of positions; track pos) {
         <button
@@ -24,4 +38,5 @@
       }
     </div>
   </div>
+
 </div>

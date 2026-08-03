@@ -19,10 +19,25 @@ export enum Justify {
 })
 export class ModalTest implements OnInit {
 
+  /**
+   * Exact fields passed to openComponentAsPopup().
+   * component / ContextData / onClose / onSubmit are hardcoded — not shown here.
+   * Optional size fields (height, minWidth, minHeight, maxWidth, maxHeight)
+   * are omitted by default — add them manually in the editor if needed.
+   *
+   * position options : "center" | "left" | "right" | "bottom" | "top"
+   * justification    : "left"   | "center" | "right"
+   */
   public modalData: any = {
     position: 'center',
     width: 700,
-    title: 'Analytics Overview'
+    borderRadius: 12,
+    autoClose: true,
+    panelClass: [],
+    header: {
+      title: 'Analytics Overview',
+      justification: 'left'
+    }
   };
 
   constructor(
@@ -38,42 +53,58 @@ export class ModalTest implements OnInit {
     });
   }
 
-  public openModal(position: 'center' | 'right' | 'left' | 'bottom' = 'center', width: number | string = 700, height?: number | string) {
+  /**
+   * Passes the JSON data from the left editor directly to openComponentAsPopup().
+   * Only defined (non-null) optional size fields are included.
+   */
+  public openFromJson() {
+    const d = this.modalData;
     const model: IPopupDetails = {
-      width: width,
-      height: height,
-      position: position,
-      borderRadius: 12,
       component: DummyModalContent,
+      position: d.position ?? 'center',
+      width: d.width ?? 700,
+      borderRadius: d.borderRadius ?? 12,
+      autoClose: d.autoClose ?? true,
+      panelClass: d.panelClass ?? [],
       header: {
-        title: this.modalData.title ? `${this.modalData.title} (${position.toUpperCase()})` : `Analytics Overview (${position.toUpperCase()})`,
-        justification: Justify.left,
+        title: d.header?.title ?? 'Analytics Overview',
+        justification: d.header?.justification ?? Justify.left,
       },
+      // Optional size overrides — only forwarded when the user sets them in the editor
+      ...(d.height != null    ? { height: d.height }       : {}),
+      ...(d.minWidth != null  ? { minWidth: d.minWidth }   : {}),
+      ...(d.minHeight != null ? { minHeight: d.minHeight } : {}),
+      ...(d.maxWidth != null  ? { maxWidth: d.maxWidth }   : {}),
+      ...(d.maxHeight != null ? { maxHeight: d.maxHeight } : {}),
       ContextData: {},
-      autoClose: true,
-      onClose: () => {
-        console.log('Modal closed');
-      },
-      onSubmit: (data: any) => {
-        console.log('Modal submitted', data);
-      },
+      onClose:  () => { console.log('Modal closed'); },
+      onSubmit: (data: any) => { console.log('Modal submitted', data); },
     };
     this.modelService.openComponentAsPopup(model);
   }
 
   public openCenterModal() {
-    this.openModal('center', this.modalData.width || 700);
+    this.modalData = { ...this.modalData, position: 'center', width: 700 };
+    this.playgroundState.updateJsonViewer(this.modalData);
+    this.openFromJson();
   }
 
   public openRightDrawer() {
-    this.openModal('right', 550);
+    this.modalData = { ...this.modalData, position: 'right', width: 550 };
+    this.playgroundState.updateJsonViewer(this.modalData);
+    this.openFromJson();
   }
 
   public openLeftDrawer() {
-    this.openModal('left', 550);
+    this.modalData = { ...this.modalData, position: 'left', width: 550 };
+    this.playgroundState.updateJsonViewer(this.modalData);
+    this.openFromJson();
   }
 
   public openBottomSheet() {
-    this.openModal('bottom', 650, 450);
+    this.modalData = { ...this.modalData, position: 'bottom', width: 650, height: 450 };
+    this.playgroundState.updateJsonViewer(this.modalData);
+    this.openFromJson();
   }
 }
+

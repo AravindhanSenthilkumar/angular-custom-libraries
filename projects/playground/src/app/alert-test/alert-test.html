@@ -1,3 +1,24 @@
-<div class="playground-content" style="padding: 24px;">
-  <button mat-raised-button color="primary" (click)="openAlert(alertData?.alertType)">Open Alert</button>
+<div class="playground-content" style="display: flex; flex-direction: column; gap: 20px; padding: 24px;">
+
+  <!-- Primary trigger: reads ALL fields from the left JSON editor -->
+  <div style="display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; box-shadow: 0 4px 15px rgba(245,87,108,0.35);">
+    <div style="flex: 1;">
+      <div style="color: #fff; font-weight: 700; font-size: 15px; margin-bottom: 4px;">Open Alert from JSON</div>
+      <div style="color: rgba(255,255,255,0.75); font-size: 13px;">Set alertType in the left panel (success / warning / error / info / confirm), then click</div>
+    </div>
+    <button mat-raised-button (click)="openFromJson()" style="background:#fff; color:#f5576c; font-weight:700; border-radius:8px; min-width:140px;">
+      ▶ Open Alert
+    </button>
+  </div>
+
+  <!-- Alert type shortcut buttons -->
+  <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+    <span style="font-size: 13px; color: #888; font-weight: 500; white-space: nowrap;">Type shortcuts:</span>
+    <button mat-stroked-button color="primary" (click)="openAlert('success')">Success</button>
+    <button mat-stroked-button color="warn" (click)="openAlert('error')">Error</button>
+    <button mat-stroked-button color="accent" (click)="openAlert('warning')">Warning</button>
+    <button mat-stroked-button (click)="openAlert('info')">Info</button>
+    <button mat-stroked-button (click)="openAlert('confirm')">Confirm</button>
+  </div>
+
 </div>

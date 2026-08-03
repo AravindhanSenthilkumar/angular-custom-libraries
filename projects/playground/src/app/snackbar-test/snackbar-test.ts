@@ -12,18 +12,36 @@ import { PlaygroundStateService } from '../services/playground-state.service';
 })
 export class SnackbarTest implements OnInit {
 
+  /**
+   * Exact SnackbarConfig passed to snackbar.show().
+   *
+   * type     : "success" | "error" | "warning" | "info"
+   * position : "top-left" | "top-center" | "top-right"
+   *          | "middle-left" | "middle-center" | "middle-right"
+   *          | "bottom-left" | "bottom-center" | "bottom-right"
+   * duration : milliseconds (default 4000)
+   * action   : optional action button label string
+   */
   public masterToastData: any = {
-    toastType: 'success',
-    messageTitle: "Title Success",
-    message: "message to be showed here",
-    position: "top-right"
+    type: 'success',
+    title: 'Title Success',
+    message: 'message to be showed here',
+    position: 'top-right',
+    duration: 4000,
+    action: '',
+    enableHtml: false,
+    panelClass: []
   };
 
   public toastData: any = {
-    toastType: 'success',
-    messageTitle: "Title Success",
-    message: "message to be showed here",
-    position: "top-right"
+    type: 'success',
+    title: 'Title Success',
+    message: 'message to be showed here',
+    position: 'top-right',
+    duration: 4000,
+    action: '',
+    enableHtml: false,
+    panelClass: []
   };
 
   public positions = [
@@ -33,7 +51,7 @@ export class SnackbarTest implements OnInit {
   ];
 
   constructor(
-    private _cd: ChangeDetectorRef, 
+    private _cd: ChangeDetectorRef,
     private snackbar: SnackbarService,
     public playgroundState: PlaygroundStateService
   ) {}
@@ -45,32 +63,41 @@ export class SnackbarTest implements OnInit {
     });
   }
 
-  public triggerToastAt(pos: string) {
-    this.toastData.position = pos;
-    this.playgroundState.setComponentData(this.toastData, (updatedData) => {
-      this.toastData = updatedData;
-      this._cd.detectChanges();
+  /**
+   * Opens toast using the exact SnackbarConfig from the left JSON editor.
+   * Every field maps 1-to-1 with what snackbar.show() receives.
+   */
+  public openFromJson() {
+    const d = this.toastData;
+    this.snackbar.show({
+      type:        d.type       ?? 'success',
+      title:       d.title,
+      message:     d.message    ?? '',
+      position:    d.position   ?? 'top-right',
+      duration:    d.duration   ?? 4000,
+      action:      d.action     || undefined,
+      enableHtml:  d.enableHtml ?? false,
+      panelClass:  d.panelClass ?? []
     });
-    this.openSnackBar(this.toastData.toastType || 'success', pos);
   }
 
-  public openSnackBar(type: string, position?: any) {
-    const pos = position ?? this.toastData.position ?? 'top-right';
-    switch (type) {
-      case 'success':
-        this.snackbar.success(this.toastData.message, this.toastData.messageTitle, pos);
-        break;
-      case 'error':
-        this.snackbar.error(this.toastData.message, this.toastData.messageTitle, pos);
-        break;
-      case 'warning':
-        this.snackbar.warning(this.toastData.message, this.toastData.messageTitle, pos);
-        break;
-      case 'info':
-        this.snackbar.info(this.toastData.message, this.toastData.messageTitle, pos);
-        break;
-      default:
-        break;
-    }
+  /**
+   * Position-grid shortcut: updates position in JSON viewer then fires.
+   */
+  public triggerToastAt(pos: string) {
+    this.toastData = { ...this.toastData, position: pos };
+    this.playgroundState.updateJsonViewer(this.toastData);
+    this._cd.detectChanges();
+    this.openFromJson();
+  }
+
+  /**
+   * Type-shortcut buttons: updates type in JSON viewer then fires.
+   */
+  public openSnackBar(type: string) {
+    this.toastData = { ...this.toastData, type };
+    this.playgroundState.updateJsonViewer(this.toastData);
+    this._cd.detectChanges();
+    this.openFromJson();
   }
 }

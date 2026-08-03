@@ -18,6 +18,13 @@ export class PlaygroundStateService {
     this.onGenerateCallback = onGenerate ?? null;
   }
 
+  /** Updates only the JSON viewer display + internal editor value, without resetting masterData or the callback. */
+  public updateJsonViewer(data: any) {
+    const clone = structuredClone(data);
+    this.updatedJsonValue = clone;
+    this.jsonData.set(clone);
+  }
+
   public updateFromEditor(event: any) {
     if (event && !event.type) {
       this.updatedJsonValue = event;
