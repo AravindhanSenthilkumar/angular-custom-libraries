@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/azure-blue.css';
-@import "jsoneditor/dist/jsoneditor.min.css";
 
 * {
   box-sizing: border-box;
@@ -39,91 +38,95 @@ textarea::placeholder,
 
 .header {
   flex: 0 0 auto;
-  min-height: 64px;
-  background: #1976d2 !important;
-  color: #ffffff !important;
+  min-height: 60px;
+  background: #0f172a !important;
+  color: #f8fafc !important;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 12px 24px;
+  padding: 0 20px;
   gap: 16px;
   flex-wrap: wrap;
-  border-bottom: 1px solid #1565c0;
+  border-bottom: 1px solid #1e293b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .sidebar-toggle-btn {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
   color: #ffffff;
   width: 36px;
   height: 36px;
-  border-radius: 6px;
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   padding: 0;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background 0.2s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  svg {
-    transition: transform 0.3s ease;
-  }
-
-  &.collapsed {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: white;
+    background: rgba(255, 255, 255, 0.2);
   }
 }
 
 .logo {
-  font-size: 20px;
-  font-weight: 600;
-  font-family: Roboto, sans-serif;
-  letter-spacing: 0.6px;
-  color: #ffffff !important;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: Inter, Roboto, sans-serif;
+  letter-spacing: -0.01em;
+  color: #f8fafc !important;
 }
 
 .nav-links {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .nav-links a {
-  color: #ffffff !important;
+  color: #94a3b8 !important;
   text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  white-space: nowrap;
-  font-family: Roboto, sans-serif;
-  transition: background 0.2s ease;
-}
-
-.nav-links a:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.nav-links a.active {
-  background: rgba(255, 255, 255, 0.25);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.875rem;
   font-weight: 600;
+  white-space: nowrap;
+  font-family: Inter, Roboto, sans-serif;
+  transition: all 0.15s ease;
+
+  &:hover {
+    color: #f1f5f9 !important;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &.active {
+    color: #ffffff !important;
+    background: #3b82f6 !important;
+  }
+}
+
+.nav-links a.nav-link-external {
+  color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.1) !important;
+  margin-left: 12px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+
+  &:hover {
+    background: rgba(56, 189, 248, 0.2) !important;
+  }
 }
 
 /* ==========================================================================
@@ -142,51 +145,72 @@ textarea::placeholder,
   }
 }
 
-.playground-drawer {
-  width: 380px;
-  max-width: 80vw;
-  background: #fafafa !important;
-  border-right: 1px solid #e0e0e0 !important;
+mat-drawer.playground-drawer {
+  width: 420px !important;
+  min-width: 420px !important;
+  max-width: 80vw !important;
+  background: #1e1e1e !important;
+  border-right: 1px solid #333333 !important;
   box-shadow: none !important;
+
+  .mat-drawer-inner-container {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
 
   .sidebar-content {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    width: 100%;
     height: 100%;
-    padding: 16px;
+    min-height: 0;
+    padding: 0;
     box-sizing: border-box;
     overflow: hidden;
-    background: #fafafa !important;
+    background: #1e1e1e !important;
   }
 }
 
-json-editor {
-  flex: 1;
-  min-height: 0;
-  height: 100%;
-  overflow: hidden;
+app-monaco-json-editor {
+  display: block !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  border-radius: 0 !important;
 }
 
-.button-container {
+.sidebar-buttons {
   flex: 0 0 auto;
+  padding: 12px 16px;
+  background: #0f172a;
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  border: 1px solid #1976d2 !important;
-  border-radius: 4px !important;
-  margin-top: 12px;
-  overflow: hidden;
-  background: #ffffff !important;
+  gap: 8px;
+  border-top: 1px solid #334155;
 }
 
-.button-container button {
+.btn-sidebar {
   flex: 1;
-  border-radius: 0;
-  color: #1976d2 !important;
-}
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #f8fafc;
+  transition: all 0.15s ease;
 
-.reset-button {
-  border-right: 1px solid #1976d2 !important;
+  &:hover {
+    background: #1e293b;
+    border-color: #475569;
+  }
 }
 
 /* ==========================================================================
@@ -272,6 +296,8 @@ json-editor {
    ========================================================================== */
 
 .playground-drawer-content {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   height: 100%;

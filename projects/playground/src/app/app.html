@@ -34,9 +34,10 @@
       <a routerLink="/snackbar" routerLinkActive="active">Toast</a>
       <a routerLink="/config" routerLinkActive="active">Config</a>
       <a
-        href="https://github.com/AravindhanSenthilkumar/Feedback/issues/1"
+        href="https://github.com/AravindhanSenthilkumar/DevLabOne"
         target="_blank"
         rel="noopener noreferrer"
+        class="nav-link-external"
       >
         Report Issue
       </a>
@@ -48,16 +49,13 @@
     <mat-drawer #drawer mode="side" [opened]="true" class="playground-drawer">
       <div class="sidebar-content">
         @if (playgroundState.jsonData()) {
-          <json-editor
-            [options]="editorOptions"
+          <app-monaco-json-editor
             [data]="playgroundState.jsonData()"
-            (change)="changeLog($event)"
-            #editor
-          ></json-editor>
+            (jsonChange)="changeLog($event)"
+          ></app-monaco-json-editor>
         }
-        <div class="button-container">
-          <button class="reset-button" mat-button (click)="resetJsonData()">Reset</button>
-          <button mat-button color="primary" (click)="generateComponent()">Generate</button>
+        <div class="sidebar-buttons">
+          <button type="button" class="btn-sidebar btn-reset" (click)="resetJsonData()">Reset JSON</button>
         </div>
       </div>
     </mat-drawer>

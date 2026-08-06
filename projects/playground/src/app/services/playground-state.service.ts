@@ -42,7 +42,16 @@ export class PlaygroundStateService {
       if (event instanceof Event || (typeof event === 'object' && 'target' in event && 'type' in event)) {
         return;
       }
-      this.updatedJsonValue = event;
+      const clone = structuredClone(event);
+      this.updatedJsonValue = clone;
+
+      if (clone?.theme) {
+        this.themeService.applyTheme(clone.theme);
+      }
+
+      if (this.onGenerateCallback) {
+        this.onGenerateCallback(clone);
+      }
     }
   }
 
