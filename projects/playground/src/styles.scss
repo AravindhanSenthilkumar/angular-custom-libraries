@@ -152,6 +152,9 @@ mat-drawer.playground-drawer {
   background: #1e1e1e !important;
   border-right: 1px solid #333333 !important;
   box-shadow: none !important;
+  border-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 
   .mat-drawer-inner-container {
     width: 100% !important;
@@ -159,6 +162,9 @@ mat-drawer.playground-drawer {
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
+    border-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
 
   .sidebar-content {
@@ -172,6 +178,9 @@ mat-drawer.playground-drawer {
     box-sizing: border-box;
     overflow: hidden;
     background: #1e1e1e !important;
+    border-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
 }
 
@@ -309,7 +318,7 @@ app-monaco-json-editor {
 }
 
 .playground-content {
-  padding: 24px;
+  padding: 18px;
   background-color: var(--comp-bg, #ffffff);
   color: var(--comp-text, #212121);
 }

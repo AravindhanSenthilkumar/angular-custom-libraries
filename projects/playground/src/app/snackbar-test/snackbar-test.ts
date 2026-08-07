@@ -68,7 +68,6 @@ export class SnackbarTest implements OnInit {
     this.playgroundState.setComponentData(this.toastData, (updatedData) => {
       this.toastData = updatedData;
       this._cd.detectChanges();
-      this.openFromJson();
     });
   }
 

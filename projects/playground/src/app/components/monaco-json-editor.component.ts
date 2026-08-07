@@ -43,7 +43,7 @@ export class MonacoJsonEditorComponent implements OnInit, OnChanges, OnDestroy {
   @Output() jsonChange = new EventEmitter<any>();
 
   private editor: any = null;
-  private isInternalChange = false;
+  private isProgrammaticUpdate = false;
 
   async ngOnInit() {
     await this.initMonaco();
@@ -51,10 +51,6 @@ export class MonacoJsonEditorComponent implements OnInit, OnChanges, OnDestroy {
 
   async ngOnChanges(changes: SimpleChanges) {
     if (changes['data'] && !changes['data'].firstChange) {
-      if (this.isInternalChange) {
-        this.isInternalChange = false;
-        return;
-      }
       this.updateEditorValue(this.data);
     }
   }
@@ -86,10 +82,10 @@ export class MonacoJsonEditorComponent implements OnInit, OnChanges, OnDestroy {
       }, 100);
 
       this.editor.onDidChangeModelContent(() => {
+        if (this.isProgrammaticUpdate) return;
         const val = this.editor.getValue();
         try {
           const parsed = JSON.parse(val);
-          this.isInternalChange = true;
           this.jsonChange.emit(parsed);
         } catch {
           // Ignore mid-typing syntax errors
@@ -107,7 +103,6 @@ export class MonacoJsonEditorComponent implements OnInit, OnChanges, OnDestroy {
       textarea.addEventListener('input', () => {
         try {
           const parsed = JSON.parse(textarea.value);
-          this.isInternalChange = true;
           this.jsonChange.emit(parsed);
         } catch {}
       });
@@ -121,7 +116,9 @@ export class MonacoJsonEditorComponent implements OnInit, OnChanges, OnDestroy {
     if (this.editor) {
       const currentVal = this.editor.getValue();
       if (currentVal !== formatted) {
+        this.isProgrammaticUpdate = true;
         this.editor.setValue(formatted);
+        this.isProgrammaticUpdate = false;
       }
     } else {
       const textarea = this.editorContainer.nativeElement.querySelector('textarea');
