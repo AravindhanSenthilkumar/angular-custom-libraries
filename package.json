@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm run build:libs && ng serve",
     "build:libs": "ng build dynamic-form && ng build dynamic-table && ng build dynamic-modal && ng build dynamic-alert && ng build dynamic-toast && ng build dynamic-data-table",
     "build": "npm run build:libs && ng build playground",
     "watch": "ng build dynamic-form --watch",
@@ -13,12 +13,6 @@
   "private": true,
   "packageManager": "npm@11.11.0",
   "dependencies": {
-    "devlab-one-dynamic-form": "file:dist/dynamic-form",
-    "devlab-one-dynamic-table": "file:dist/dynamic-table",
-    "devlab-one-dynamic-modal": "file:dist/dynamic-modal",
-    "devlab-one-dynamic-data-table": "file:dist/dynamic-data-table",
-    "devlab-one-dynamic-alert": "file:dist/dynamic-alert",
-    "devlab-one-dynamic-toast": "file:dist/dynamic-toast",
     "@angular/animations": "^22.0.1",
     "@angular/cdk": "^22.0.1",
     "@angular/common": "^22.0.1",
@@ -31,9 +25,16 @@
     "@angular/platform-server": "^22.0.1",
     "@angular/router": "^22.0.1",
     "@angular/ssr": "^22.0.1",
+    "@monaco-editor/loader": "^1.7.0",
     "@ngxmc/datetime-picker": "^20.1.0",
     "ang-jsoneditor": "^6.0.0",
     "bootstrap": "^5.3.8",
+    "devlab-one-dynamic-alert": "file:dist/dynamic-alert",
+    "devlab-one-dynamic-data-table": "file:dist/dynamic-data-table",
+    "devlab-one-dynamic-form": "file:dist/dynamic-form",
+    "devlab-one-dynamic-modal": "file:dist/dynamic-modal",
+    "devlab-one-dynamic-table": "file:dist/dynamic-table",
+    "devlab-one-dynamic-toast": "file:dist/dynamic-toast",
     "jsoneditor": "^10.4.3",
     "ng-dynamic-component": "^10.8.2",
     "ngx-json-viewer": "^3.2.1",
@@ -48,11 +49,11 @@
     "@angular/cli": "^21.2.7",
     "@angular/compiler-cli": "^22.0.1",
     "@types/jsoneditor": "^9.9.6",
+    "angular-cli-ghpages": "^3.1.0",
     "jsdom": "^28.0.0",
     "ng-packagr": "^21.2.0",
     "prettier": "^3.8.1",
     "typescript": "^6.0.3",
-    "vitest": "^4.0.8",
-    "angular-cli-ghpages": "^3.1.0"
+    "vitest": "^4.0.8"
   }
 }
