@@ -1,12 +1,12 @@
 {
   "name": "devlab-one-dynamic-data-table",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0",
-    "devlab-one-dynamic-form": "^1.0.4",
-    "devlab-one-dynamic-table": "^1.0.5",
-    "devlab-one-dynamic-modal": "^1.0.4"
+    "devlab-one-dynamic-form": "^2.0.0",
+    "devlab-one-dynamic-table": "^2.0.0",
+    "devlab-one-dynamic-modal": "^2.0.0"
   },
   "keywords": [
     "devlab-one-dynamic-data-table",
